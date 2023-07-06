@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "question_user" %}
+{% if request.user.is_authenticated %}
+{% include "templates_objects/authorized_user_item.html" %}
+{% else %}
+{% include "templates_objects/unauthorized_user_item.html" %}
+{% endif %}
+{% endblock "question_user" %}
+
+{% block "question_one-question" %}
+{% include "templates_objects/question_question_item.html" %}
+{% endblock "question_one-question" %}
+
+{% block "question_answers-list" %}
+{% for answer in answers %}
+{% include "templates_objects/question_answer_item.html" %}
+{% endfor %}
+{% endblock "question_answers-list" %}
+
+{% block "question_user_answer" %}
+<form id="question_form" action="/question/{{ question.id }}/" method="post">
+    {% csrf_token %}
+    <div class="row question_user-answer">
+        {{ form.content }}
+        <div class="row btn__answer">
+            <button class="btn-field__answer" type="submit">Answer</button>
+        </div>
+    </div>
+</form>
+{% endblock "question_user_answer" %}
+
+{% block "question_questions-pagination" %}
+{% with page=answers %}
+{% include "templates_objects/pagination_item.html" %}
+{% endwith %}
+{% endblock "question_questions-pagination" %}
+
+{% block "ask_forum.js" %}
+<script src="{% static '/js/ask_forum.js' %}"></script>
+<script src="{% static '/js/add_answer.js' %}"></script>
+<script>
+    const centrifuge = new Centrifuge('ws://{{ server_address }}/connection/websocket');
+
+    centrifuge.setToken('{{ secret_token }}');
+
+    centrifuge.subscribe('{{ cent_channel }}', function(message) {
+        add_answer(message);
+    });
+
+    centrifuge.connect();
+
+</script>
+{% endblock "ask_forum.js" %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "settings_user" %}
+{% include "templates_objects/authorized_user_item.html" %}
+{% endblock "settings_user" %}
+
+{% block "settings_parameters" %}
+<div class="row settings_before-question-header">
+    <p class="settings_settings">Settings:<span class="settings_username">{{ request.user.profile.nickname }}</span></p>
+</div>
+<div class="row settings_mistake-message">
+    <p>{{ form.email.errors.0 }}</p>
+    <p>{{ form.nickname.errors.0 }}</p>
+
+</div>
+<form enctype="multipart/form-data" id="settings_form" action="/profile/edit/" method="post">
+    {% csrf_token %}
+    <div class="settings_settings-email form-inline">
+        <label for="settings_email_id">Email</label>
+        {{ form.email }}
+    </div>
+    <div class="settings_settings-nickname form-inline">
+        <label for="settings_nickname_id">Nickname</label>
+        {{ form.nickname }}
+    </div>
+    <div class="settings_upload-avatar form-inline">
+        <label for="settings_chosen_avatar">Upload avatar</label>
+        <img id="settings_chosen_avatar" src="{{ request.user.profile.avatar_path.url }}" alt="your image">
+        {{ form.avatar }}
+        <div class="btn__save">
+            <button class="btn-field__save" type="submit" form="settings_form">Save</button>
+        </div>
+    </div>
+</form>
+{% endblock "settings_parameters" %}
+
+{% block "settings.js" %}
+<script src="{% static '/js/settings.js' %}"></script>
+{% endblock "settings.js" %}

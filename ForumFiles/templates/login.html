@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "login_user" %}
+{% include "templates_objects/unauthorized_user_item.html" %}
+{% endblock "login_user" %}
+
+{% block "login_input" %}
+<div class="row login_before-question-header">
+    <p class="login_login-message">Log In</p>
+</div>
+<div class="login_mistake-message">
+    <p>{{ form.non_field_errors.0 }} </p>
+</div>
+<form id="login_form" action="/login/" method="post">
+    {% csrf_token %}
+    <div class="login_login-input form-inline">
+        <label for="login_login_id">Login</label>
+        {{ form.username }}
+    </div>
+    <div class="login_password-input form-inline">
+        <label for="login_password_id">Password</label>
+        {{ form.password }}
+
+        <div class="btn__login form-inline">
+            <button class="btn-field__login" type="submit" form="login_form">Log in!</button>
+            <div class="login_create-new-account">
+                <a class="new-account" type="text" href="{% url 'signup' %}">create new account</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock "login_input" %}
+
+{% block "ask_forum.js" %}
+<script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static '/js/ask_forum.js' %}"></script>
+{% endblock "ask_forum.js" %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "index_user" %}
+{% if request.user.is_authenticated %}
+{% include "templates_objects/authorized_user_item.html" %}
+{% else %}
+{% include "templates_objects/unauthorized_user_item.html" %}
+{% endif %}
+{% endblock "index_user" %}
+
+{% block "index_questions-list" %}
+{% include "templates_objects/questions_header_item.html" %}
+{% for question in questions %}
+{% include "templates_objects/index_question_item.html" %}
+{% endfor %}
+{% endblock "index_questions-list" %}
+
+{% block "index_questions-pagination" %}
+{% with page=questions %}
+{% include "templates_objects/pagination_item.html" %}
+{% endwith %}
+{% endblock "index_questions-pagination" %}
+
+{% block "ask_forum.js" %}
+<script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static '/js/ask_forum.js' %}"></script>
+{% endblock "ask_forum.js" %}
+

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "signup_user" %}
+{% include "templates_objects/unauthorized_user_item.html" %}
+{% endblock "signup_user" %}
+
+{% block "signup_registration" %}
+<div class="row signup_before-question-header">
+    <p class="signup_registration-message">Registration</p>
+</div>
+<div class="row signup_mistake-message">
+    <p>{{ form.username.errors.0 }}</p>
+    <p>{{ form.password.errors.0 }}</p>
+    <p>{{ form.email.errors.0 }}</p>
+</div>
+<form enctype="multipart/form-data" id="signup_form" action="/signup/" method="post">
+    {% csrf_token %}
+    <div class="signup_signup-login form-inline">
+        <label for="signup_login_id">Login</label>
+        {{ form.username }}
+    </div>
+    <div class="signup_signup-email form-inline">
+        <label for="signup_email_id">Email</label>
+        {{ form.email }}
+    </div>
+    <div class="signup_signup-nickname form-inline">
+        <label for="signup_nickname_id">NickName</label>
+        {{ form.nickname }}
+    </div>
+    <div class="signup_signup-password form-inline">
+        <label for="signup_password_id">Password</label>
+        {{ form.password }}
+    </div>
+    <div class="signup_signup-repeat-password form-inline">
+        <label for="signup_repeat-password_id">Repeat password</label>
+        {{ form.repeated_password }}
+    </div>
+    <div class="signup_upload-avatar form-inline">
+        <label for="signup_chosen_avatar">Upload avatar</label>
+        <img id="signup_chosen_avatar" src="{% static '/img/img_main.jpg' %}" alt="your image">
+        {{ form.avatar }}
+        <div class="btn__register">
+            <button class="btn-field__register" type="submit" form="signup_form">Register!</button>
+        </div>
+    </div>
+</form>
+{% endblock "signup_registration" %}
+
+{% block "signup.js" %}
+<script src="{% static '/js/signup.js' %}"></script>
+{% endblock "signup.js" %}

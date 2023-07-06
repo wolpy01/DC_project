@@ -1,0 +1,11 @@
+{% if title == "New questions" %}
+<p class="index_questions">New questions</p>
+<a class="index_questions" type="text" href="{% url 'hot' %}">Hot questions</a>
+
+{% elif title == "Hot questions" %}
+<p class="index_questions">Hot questions</p>
+
+{% else %}
+<p class="index_questions">Tag: {{ tag }}</p>
+
+{% endif %}

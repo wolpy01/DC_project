@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block "title" %}
+<title>{{ title }}</title>
+{% endblock "title" %}
+
+{% block "ask_user" %}
+{% include "templates_objects/authorized_user_item.html" %}
+{% endblock "ask_user" %}
+
+{% block "ask_page" %}
+<div class="row ask_before-question-header">
+    <p class="ask_questions">New question</p>
+</div>
+<div class="row ask_mistake-message">
+    <p>{{ form.tags.errors.0 }}</p>
+</div>
+<form id="ask_form" action="/ask/" method="post">
+    {% csrf_token %}
+    <div class="ask_question-title form-inline">
+        <label for="ask_title-text_id">Title</label>
+        {{ form.title }}
+    </div>
+    <div class="ask_question-text form-inline">
+        <label for="ask_text-text_id">Text</label>
+        {{ form.content }}
+    </div>
+    <div class="ask_question-tags form-inline">
+        <label for="ask_tags-text_id">Tags</label>
+        {{ form.tags }}
+        <div class="btn__send">
+            <button class="btn-field__send" type="submit" form="ask_form">Ask!</button>
+        </div>
+    </div>
+</form>
+{% endblock "ask_page" %}
+
