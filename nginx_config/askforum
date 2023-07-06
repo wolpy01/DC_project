@@ -14,11 +14,11 @@ server {
     }
 
     location /uploads {
-    	root /home/vfomenko/Programming/Technopark/WebTechnologies/Askme_Fomenko/forum_files;
+    	root /home/vfomenko/Programming/DC_project/askheroes/ForumFiles;
     }
 
     location /static {
-    	root /home/vfomenko/Programming/Technopark/WebTechnologies/Askme_Fomenko/forum_files;
+    	root /home/vfomenko/Programming/DC_project/askheroes/ForumFiles;
     }
 
     location / {
