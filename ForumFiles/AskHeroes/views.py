@@ -14,7 +14,7 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.forms import model_to_dict
 
-from . import models, forms, UserFunctions
+from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
@@ -27,7 +27,7 @@ def index(request):
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 models.Question.objects.get_new_questions(), request, per_page=5
             ),
             "title": "New questions",
@@ -40,7 +40,7 @@ def hot(request):
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 models.Question.objects.get_hot_questions(), request, per_page=5
             ),
             "title": "Hot questions",
@@ -53,7 +53,7 @@ def tag(request, tag_name):
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 get_object_or_404(
                     models.Tag.objects, tag_name=tag_name
                 ).get_related_questions(),
@@ -94,7 +94,7 @@ def question(request, question_id):
         {
             "form": answer_form,
             "question": question,
-            "answers": UserFunctions.paginate(answers, request, per_page=5),
+            "answers": helpFunctions.paginate(answers, request, per_page=5),
             "title": f"Question №{question_id}",
             "server_address": CENTRIFUGO_ADDRESS,
             "cent_channel": channel_id,
@@ -270,12 +270,12 @@ def vote_up(request):
     question_id = request.POST.get("question_id", None)
     answer_id = request.POST.get("answer_id", None)
     if question_id is not None:
-        new_rating, question_vote = UserFunctions.get_new_question_rating(
+        new_rating, question_vote = helpFunctions.get_new_question_rating(
             question_id, request, vote=1
         )
         return JsonResponse({"new_rating": new_rating, "vote": question_vote})
     elif answer_id is not None:
-        new_rating, answer_vote = UserFunctions.get_new_answer_rating(
+        new_rating, answer_vote = helpFunctions.get_new_answer_rating(
             answer_id, request, vote=1
         )
         return JsonResponse({"new_rating": new_rating, "vote": answer_vote})
@@ -288,12 +288,12 @@ def vote_down(request):
     question_id = request.POST.get("question_id", None)
     answer_id = request.POST.get("answer_id", None)
     if question_id is not None:
-        new_rating, question_vote = UserFunctions.get_new_question_rating(
+        new_rating, question_vote = helpFunctions.get_new_question_rating(
             question_id, request, vote=-1
         )
         return JsonResponse({"new_rating": new_rating, "vote": question_vote})
     elif answer_id is not None:
-        new_rating, answer_vote = UserFunctions.get_new_answer_rating(
+        new_rating, answer_vote = helpFunctions.get_new_answer_rating(
             answer_id, request, vote=-1
         )
         return JsonResponse({"new_rating": new_rating, "vote": answer_vote})

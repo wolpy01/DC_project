@@ -4,6 +4,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Oblivion';
     src: url('../ttf/oblivion-font.ttf') format('truetype');
@@ -34,7 +35,9 @@
     cursor: url("../cur/Heroes_V_cursor_default.cur") 0 0, default;
 }
 
-a, input, button{
+a,
+input,
+button {
     cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer !important;
 }
 
@@ -95,7 +98,8 @@ body {
     vertical-align: middle;
     display: inline;
 }
-.site-name__icon > a {
+
+.site-name__icon>a {
     color: #000000;
     min-width: 5%;
     font-size: 2.2vw;
@@ -174,7 +178,7 @@ body {
     margin-top: 3.5rem;
 }
 
-.search_hints > li {
+.search_hints>li {
     margin-top: 0rem;
     font-size: 24px;
     background-color: #FFE4B5;
@@ -191,8 +195,7 @@ body {
     overflow: hidden;
 }
 
-
-.avatar-image{
+.avatar-image {
     height: 100%;
     width: 100%;
     padding: 0;
@@ -201,7 +204,7 @@ body {
     object-fit: cover;
 }
 
-.non-authorized_user-menu{
+.non-authorized_user-menu {
     padding: 0px;
     display: flex;
     font-weight: bold;
@@ -217,24 +220,24 @@ body {
     font-size: 36px;
 }
 
-ul.justify-content-end{
+ul.justify-content-end {
     margin: auto;
     padding: 0;
     font-size: 1.2vw;
 }
 
-ul.justify-content-end > li{
+ul.justify-content-end>li {
     color: #0d6efd;
     text-decoration: underline #0d6efd;
     display: inline-block;
     padding-right: 20px;
 }
 
-ul.justify-content-end > li > a {
+ul.justify-content-end>li>a {
     font-family: Oblivion;
 }
 
-.underline{
+.underline {
     padding: 0px;
     margin-top: 1rem;
     margin-bottom: 0;
@@ -248,10 +251,11 @@ ul.justify-content-end > li > a {
     background-image: -o-linear-gradient(left, #fff, #B8860B, #fff);
 }
 
-/*CSS-settings for index.html
-_________________________________*/
+/* _________________________________ */
+/* CSS-settings for index.html */
+/* _________________________________ */
 
-p.index_questions{
+p.index_questions {
     font-size: 36px;
     padding-left: 10%;
     padding-top: 1rem;
@@ -260,7 +264,7 @@ p.index_questions{
     display: inline-block;
 }
 
-a.index_questions{
+a.index_questions {
     padding-left: 1rem;
     font-size: 24px;
     font-family: Oblivion;
@@ -276,10 +280,8 @@ a.index_questions{
     width: 70%;
     min-height: 11%;
     max-height: 35%;
-    box-shadow: 5px 5px 5px 5px  #A52A2A;
+    box-shadow: 5px 5px 5px 5px #A52A2A;
 }
-
-
 
 .index_question-icon {
     height: 144px;
@@ -315,7 +317,7 @@ a.index_user-question {
     overflow: scroll;
 }
 
-.index_user-text > p {
+.index_user-text>p {
     min-height: 8rem;
     max-height: 14rem;
     text-align: justify;
@@ -334,15 +336,16 @@ a.index_user-question {
     padding: 0;
 }
 
-.index_answers > a {
+.index_answers>a {
     font-size: 18px;
     font-family: Oblivion;
 }
+
 @media only screen and (max-width: 1280px) {
-.index_answers > a {
-    font-size: 12px;
-    font-family: Oblivion;
-}
+    .index_answers>a {
+        font-size: 12px;
+        font-family: Oblivion;
+    }
 }
 
 .index_tags {
@@ -350,35 +353,35 @@ a.index_user-question {
     margin: 0 0 0 2rem;
 }
 
-.index_tags > span {
+.index_tags>span {
     font-size: 18px;
     font-family: Oblivion;
 }
 
 @media only screen and (max-width: 1280px) {
-.index_tags > span {
-    font-size: 12px;
-    font-family: Oblivion;
-}
+    .index_tags>span {
+        font-size: 12px;
+        font-family: Oblivion;
+    }
 }
 
 .index_tags-links {
     padding: 0;
 }
 
-.index_tags-links > ul {
+.index_tags-links>ul {
     margin: 0;
     list-style-image: url("../svg/caret-right.svg")
 }
 
 @media only screen and (max-width: 1280px) {
-.index_tags-links > ul {
-    margin: 0 0 0 1rem;
-    list-style-image: url("../svg/caret-right.svg")
-}
+    .index_tags-links>ul {
+        margin: 0 0 0 1rem;
+        list-style-image: url("../svg/caret-right.svg")
+    }
 }
 
-.index_tags-links > ul > li > a{
+.index_tags-links>ul>li>a {
     font-size: 18px;
     font-family: Oblivion;
     padding-left: 0.5rem;
@@ -386,12 +389,12 @@ a.index_user-question {
 }
 
 @media only screen and (max-width: 1280px) {
-.index_tags-links > ul > li > a{
-    font-size: 12px;
-    font-family: Oblivion;
-    padding-left: 0.5rem;
-    display: block;
-}
+    .index_tags-links>ul>li>a {
+        font-size: 12px;
+        font-family: Oblivion;
+        padding-left: 0.5rem;
+        display: block;
+    }
 }
 
 .index_tags-links {
@@ -427,13 +430,17 @@ a.index_user-question {
     flex-direction: column;
 }
 
-.btn-like-question, .btn-dislike-question, .btn-like-answer, .btn-dislike-answer {
+.btn-like-question,
+.btn-dislike-question,
+.btn-like-answer,
+.btn-dislike-answer {
     width: 20px;
     height: 22px;
     background: #FFFFFF;
 }
 
-.btn-like-question,.btn-like-answer {
+.btn-like-question,
+.btn-like-answer {
     border: 2px solid #000000;
     border-radius: 0 5px 0 0;
     background-image: url('../svg/hand-thumbs-up-fill.svg');
@@ -441,7 +448,8 @@ a.index_user-question {
     background-position: center;
 }
 
-.btn-dislike-question,.btn-dislike-answer {
+.btn-dislike-question,
+.btn-dislike-answer {
     border: 2px solid #000000;
     border-radius: 0 0 5px 0;
     background-image: url('../svg/hand-thumbs-down-fill.svg');
@@ -449,18 +457,23 @@ a.index_user-question {
     background-position: center;
 }
 
-.btn-like-question:hover, .btn-dislike-question:hover, .btn-like-answer:hover, .btn-dislike-answer:hover{
+.btn-like-question:hover,
+.btn-dislike-question:hover,
+.btn-like-answer:hover,
+.btn-dislike-answer:hover {
     background-color: #B0C4DE;
 }
 
-.btn-like-question:active, .btn-dislike-question:active, .btn-like-answer:active, .btn-dislike-answer:active{
+.btn-like-question:active,
+.btn-dislike-question:active,
+.btn-like-answer:active,
+.btn-dislike-answer:active {
     transform: scale(0.90);
 }
 
-/*_________________________________*/
-
-/*CSS-settings for question.html
-_________________________________*/
+/* _________________________________ */
+/* CSS-settings for QUESTION.html */
+/* _________________________________ */
 
 .question_question {
     margin-left: 10%;
@@ -471,7 +484,7 @@ _________________________________*/
     width: 80%;
     min-height: 13.6%;
     max-height: 36%;
-    box-shadow: 5px 5px 5px 5px  #A52A2A;
+    box-shadow: 5px 5px 5px 5px #A52A2A;
 }
 
 
@@ -508,7 +521,7 @@ p.question_user-question {
     overflow: scroll;
 }
 
-.question_user-text > p{
+.question_user-text>p {
     min-height: 10rem;
     max-height: 14rem;
     text-align: justify;
@@ -528,7 +541,7 @@ p.question_user-question {
     padding: 0;
 }
 
-.question_tags > span {
+.question_tags>span {
     font-size: 18px;
     font-family: Oblivion;
 }
@@ -537,12 +550,12 @@ p.question_user-question {
     padding: 0;
 }
 
-.question_tags-links > ul {
+.question_tags-links>ul {
     margin: 0 0 0 1.5rem;
     list-style-image: url("../svg/caret-right.svg")
 }
 
-.question_tags-links > ul > li > a{
+.question_tags-links>ul>li>a {
     font-size: 18px;
     font-family: Oblivion;
     padding-left: 0.5rem;
@@ -557,7 +570,7 @@ p.question_user-question {
     border-radius: 20px;
     width: 70%;
     max-height: 35%;
-    box-shadow: 5px 5px 5px 5px  #008000;
+    box-shadow: 5px 5px 5px 5px #008000;
 }
 
 .question_answer-icon {
@@ -587,7 +600,7 @@ p.question_user-question {
     overflow: scroll;
 }
 
-.question_answer-user-text > p{
+.question_answer-user-text>p {
     min-height: 9rem;
     max-height: 12rem;
     text-align: justify;
@@ -608,7 +621,7 @@ p.question_user-question {
     cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer;
 }
 
-.checkbox-correct-answer > div > label {
+.checkbox-correct-answer>div>label {
     padding-left: 1rem;
     font-size: 24px;
     font-family: Oblivion;
@@ -621,7 +634,7 @@ p.question_user-question {
     width: 70%;
 }
 
-.question_user-answer > textarea {
+.question_user-answer>textarea {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -630,7 +643,7 @@ p.question_user-question {
     height: 10rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -665,11 +678,9 @@ p.question_user-question {
     transform: scale(0.90);
 }
 
-
 /*_________________________________*/
-
-/*CSS-settings for ask.html
------------------------------------*/
+/* CSS-settings for ask.html */
+/*_________________________________*/
 
 .ask_before-question-header {
     padding-left: 10%;
@@ -679,7 +690,7 @@ p.question_user-question {
     padding-left: 10%;
 }
 
-.ask_mistake-message > p{
+.ask_mistake-message>p {
     color: #DC143C;
     font-size: 32px;
     font-family: Rubik;
@@ -687,7 +698,7 @@ p.question_user-question {
     display: inline-block;
 }
 
-p.ask_questions{
+p.ask_questions {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -695,18 +706,24 @@ p.ask_questions{
     display: inline-block;
 }
 
-.ask_question-title, .ask_question-text, .ask_question-tags {
+.ask_question-title,
+.ask_question-text,
+.ask_question-tags {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.ask_question-title > label, .ask_question-text > label, .ask_question-tags > label {
+.ask_question-title>label,
+.ask_question-text>label,
+.ask_question-tags>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 10rem;
 }
 
-.ask_title-text, .ask_text-text, .ask_tags-text {
+.ask_title-text,
+.ask_text-text,
+.ask_tags-text {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -715,7 +732,7 @@ p.ask_questions{
     height: 3rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -734,9 +751,9 @@ p.ask_questions{
 }
 
 @media only screen and (max-width: 1280px) {
-.btn__send {
-    margin-left: calc(8rem + 3px);
-}
+    .btn__send {
+        margin-left: calc(8rem + 3px);
+    }
 }
 
 .btn-field__send {
@@ -763,16 +780,15 @@ p.ask_questions{
     transform: scale(0.90);
 }
 
-/*_________________________________*/
-
-/*CSS-settings for login.html
------------------------------------*/
+/* _________________________________ */
+/* CSS-settings for login.html */
+/* _________________________________ */
 
 .login_before-question-header {
     padding-left: 10%;
 }
 
-p.login_login-message{
+p.login_login-message {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -784,7 +800,7 @@ p.login_login-message{
     padding-left: 10%;
 }
 
-.login_mistake-message > p{
+.login_mistake-message>p {
     color: #DC143C;
     font-size: 32px;
     font-family: Rubik;
@@ -792,26 +808,31 @@ p.login_login-message{
     display: inline-block;
 }
 
-.login_login-input, .login_password-input, .login_create-new-account {
+.login_login-input,
+.login_password-input,
+.login_create-new-account {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.login_login-input > label, .login_password-input > label {
+.login_login-input>label,
+.login_password-input>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
-
 @media only screen and (max-width: 1280px) {
-.login_login-input > label, .login_password-input > label {
-    font-size: 24px;
-    width: 15rem;
-}
+
+    .login_login-input>label,
+    .login_password-input>label {
+        font-size: 24px;
+        width: 15rem;
+    }
 }
 
-.login_login, .login_password {
+.login_login,
+.login_password {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -820,7 +841,7 @@ p.login_login-message{
     height: 3rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -833,9 +854,9 @@ p.login_login-message{
 }
 
 @media only screen and (max-width: 1280px) {
-.btn__login {
-    margin-left: calc(15rem + 3px);
-}
+    .btn__login {
+        margin-left: calc(15rem + 3px);
+    }
 }
 
 .btn-field__login {
@@ -868,7 +889,7 @@ p.login_login-message{
     font-size: 24px;
 }
 
-.login_create-new-account > label {
+.login_create-new-account>label {
     width: 10rem;
 }
 
@@ -885,7 +906,7 @@ p.login_login-message{
     padding-left: 10%;
 }
 
-.settings_mistake-message > p{
+.settings_mistake-message>p {
     color: #DC143C;
     margin: 0;
     font-size: 24px;
@@ -894,7 +915,7 @@ p.login_login-message{
     display: inline-block;
 }
 
-p.settings_settings{
+p.settings_settings {
     margin-left: 10%;
     font-size: 36px;
     padding-top: 1rem;
@@ -908,25 +929,34 @@ p.settings_settings{
     font-weight: bold;
 }
 
-.settings_settings-email, .settings_settings-nickname, .settings_upload-avatar {
+.settings_settings-email,
+.settings_settings-nickname,
+.settings_upload-avatar {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.settings_settings-email > label, .settings_settings-nickname > label, .settings_upload-avatar > label {
+.settings_settings-email>label,
+.settings_settings-nickname>label,
+.settings_upload-avatar>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
 @media only screen and (max-width: 1280px) {
-.settings_settings-email > label, .settings_settings-nickname > label, .settings_upload-avatar > label {
-    font-size: 24px;
-    width: 15rem;
-}
+
+    .settings_settings-email>label,
+    .settings_settings-nickname>label,
+    .settings_upload-avatar>label {
+        font-size: 24px;
+        width: 15rem;
+    }
 }
 
-.settings_email, .settings_nickname, settings_upload-avatar {
+.settings_email,
+.settings_nickname,
+settings_upload-avatar {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -935,7 +965,7 @@ p.settings_settings{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -966,15 +996,15 @@ p.settings_settings{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
 
 @media only screen and (max-width: 1280px) {
-#settings_imgInput {
-    margin-left: calc(15rem + 3px);
-}
+    #settings_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
 }
 
 .btn__save {
@@ -985,9 +1015,9 @@ p.settings_settings{
 }
 
 @media only screen and (max-width: 1280px) {
-.btn__save {
-    margin-left: 15rem;
-}
+    .btn__save {
+        margin-left: 15rem;
+    }
 }
 
 .btn-field__save {
@@ -1016,15 +1046,14 @@ p.settings_settings{
 }
 
 /*_________________________________*/
-
-/*CSS-settings for signup.html
------------------------------------*/
+/* CSS-settings for signup.html */
+/*_________________________________*/
 
 .signup_before-question-header {
     padding-left: 10%;
 }
 
-p.signup_registration-message{
+p.signup_registration-message {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -1036,7 +1065,7 @@ p.signup_registration-message{
     padding-left: 10%;
 }
 
-.signup_mistake-message > p{
+.signup_mistake-message>p {
     color: #DC143C;
     margin: 0;
     font-size: 24px;
@@ -1045,28 +1074,46 @@ p.signup_registration-message{
     display: inline-block;
 }
 
-.signup_signup-login, .signup_signup-email, .signup_signup-nickname, .signup_signup-password,
- .signup_signup-repeat-password, .signup_upload-avatar {
+.signup_signup-login,
+.signup_signup-email,
+.signup_signup-nickname,
+.signup_signup-password,
+.signup_signup-repeat-password,
+.signup_upload-avatar {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.signup_signup-login > label, .signup_signup-email > label, .signup_signup-nickname > label,
-.signup_signup-password > label, .signup_signup-repeat-password > label, .signup_upload-avatar > label {
+.signup_signup-login>label,
+.signup_signup-email>label,
+.signup_signup-nickname>label,
+.signup_signup-password>label,
+.signup_signup-repeat-password>label,
+.signup_upload-avatar>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
 @media only screen and (max-width: 1280px) {
-.signup_signup-login > label, .signup_signup-email > label, .signup_signup-nickname > label,
-.signup_signup-password > label, .signup_signup-repeat-password > label, .signup_upload-avatar > label {
-    font-size: 24px;
-    width: 15rem;
-}
+
+    .signup_signup-login>label,
+    .signup_signup-email>label,
+    .signup_signup-nickname>label,
+    .signup_signup-password>label,
+    .signup_signup-repeat-password>label,
+    .signup_upload-avatar>label {
+        font-size: 24px;
+        width: 15rem;
+    }
 }
 
-.signup_login, .signup_email, .signup_nickname, .signup_password, .signup_repeat-password, signup_upload-avatar {
+.signup_login,
+.signup_email,
+.signup_nickname,
+.signup_password,
+.signup_repeat-password,
+signup_upload-avatar {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -1075,7 +1122,7 @@ p.signup_registration-message{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -1106,15 +1153,15 @@ p.signup_registration-message{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
 
 @media only screen and (max-width: 1280px) {
-#signup_imgInput {
-    margin-left: calc(15rem + 3px);
-}
+    #signup_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
 }
 
 .btn__register {
@@ -1125,9 +1172,9 @@ p.signup_registration-message{
 }
 
 @media only screen and (max-width: 1280px) {
-.btn__register {
-    margin-left: 15rem;
-}
+    .btn__register {
+        margin-left: 15rem;
+    }
 }
 
 .btn-field__register {
@@ -1157,7 +1204,7 @@ p.signup_registration-message{
 
 /*_________________________________*/
 
-.popular-tags > p {
+.popular-tags>p {
     font-size: 36px;
     padding-top: 5rem;
     font-family: Oblivion;
@@ -1165,7 +1212,7 @@ p.signup_registration-message{
     text-align: left;
 }
 
-.popular-tags > ul > li {
+.popular-tags>ul>li {
     display: inline;
     padding-right: 5rem;
     font-size: 32px;
@@ -1173,11 +1220,11 @@ p.signup_registration-message{
     color: #0d6efd;
 }
 
-.popular-tags > ul > li > a{
+.popular-tags>ul>li>a {
     font-family: Oblivion;
 }
 
-.best-members > p {
+.best-members>p {
     font-size: 36px;
     padding-top: 3rem;
     font-family: Oblivion;
@@ -1185,13 +1232,13 @@ p.signup_registration-message{
     text-align: left;
 }
 
-.best-members > ul {
+.best-members>ul {
     font-size: 32px;
     text-decoration: 2px underline;
     list-style-type: none;
 }
 
-.best-members > ul > li {
+.best-members>ul>li {
     margin-bottom: 1rem;
     font-family: Oblivion;
 }
@@ -1202,7 +1249,7 @@ p.signup_registration-message{
     margin-bottom: auto;
 }
 
-.pagination-main > ul > li > a{
+.pagination-main>ul>li>a {
     border: 2px solid #B8860B;
     color: #800000 !important;
     font-family: Rubik;
@@ -1210,7 +1257,8 @@ p.signup_registration-message{
     margin-right: 0.5rem;
 }
 
-.pagination-main > ul > li > a:hover, .pagination-main > ul > li > a:active{
+.pagination-main>ul>li>a:hover,
+.pagination-main>ul>li>a:active {
     color: #800000;
     background-color: #FFE4B5;
     border: 2px solid #B8860B;

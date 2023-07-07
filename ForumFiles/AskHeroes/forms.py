@@ -73,7 +73,6 @@ class AskForm(forms.ModelForm):
             self.add_error(
                 "tags", "The question need at least one tag, but no more than three."
             )
-            print(tag_objects)
             return None
         return tag_objects
 
