@@ -82,7 +82,6 @@ def question(request, question_id):
         answer = answer_form.create_answer(
             models.Profile.objects.get(user=request.user), question
         )
-
         if answer:
             # client.publish(channel_id, {'answer': model_to_dict(answer, exclude=['publish_date', 'author']),
             #                             'answer_url': answer.author.avatar_path.url})
@@ -188,9 +187,7 @@ def signup(request):
             request.POST, files=request.FILES, initial={"avatar": "img_main.jpg"}
         )
         if user_form.is_valid():
-            if not user_form.compare_passwords():
-                user_form.add_error("password", "Passwords do not match.")
-            else:
+            if user_form.compare_passwords():
                 profile = user_form.save()
                 if profile:
                     auth.login(request, profile.user)

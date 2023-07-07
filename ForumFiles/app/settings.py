@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-q^-0u@b^p*wz_yut*&mtg82obk2tlf%phtv!c*@6cwbi++hrs4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,23 +72,23 @@ ALLOWED_HOSTS = [
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "AskHeroes",
-        "USER": "vfomenko",
-        "PASSWORD": "password",
-        "HOST": "localhost",
-        "PORT": "3306",
-    }
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "DEFAULT": {
+#         "ENGINE": "DJANGO.DB.BACKENDS.MYSQL",
+#         "NAME": "ASKHEROES",
+#         "USER": "VFOMENKO",
+#         "PASSWORD": "PASSWORD",
+#         "HOST": "LOCALHOST",
+#         "PORT": "3306",
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -134,6 +134,7 @@ class UserForm(forms.ModelForm):
 
     def compare_passwords(self):
         if self.cleaned_data["password"] != self.cleaned_data["repeated_password"]:
+            self.add_error("password", "Passwords do not match.")
             return False
         return True
 
