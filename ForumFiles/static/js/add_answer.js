@@ -5,7 +5,7 @@ function add_answer(data) {
     var answer_url = data['data']['answer_url'];
     console.log(answer, answer_url);
 
-    var asnwer_template = $.parseHTML('<div class="row question_answer">' +
+    var asnwer_template = $('<div class="row question_answer">' +
       '<div class="col-md-2 question_answer-icon">' +
       '<div class="row question_answer-avatar">' +
       '<img class="avatar-image" src="" alt="" />' +
@@ -31,18 +31,17 @@ function add_answer(data) {
       '</div>' +
       '</div>');
 
-    var $new_answer = $('.question_answer').first().clone();
-    $new_answer.find('.avatar-image').attr('src', answer_url);
-    $new_answer.find('.likes').text(answer['answer_rating']);
-    $new_answer.find('.btn-like-answer').attr('data-id', answer['id']);
-    $new_answer.find('.btn-dislike-answer').attr('data-id', answer['id']);
-    $new_answer.find('.question_answer-user-text').find('p').text(answer['content']);
-    $new_answer.find('.form-check-input').checked = answer['correct_answer'];
+    asnwer_template.find('.avatar-image').attr('src', answer_url);
+    asnwer_template.find('.likes').text(answer['answer_rating']);
+    asnwer_template.find('.btn-like-answer').attr('data-id', answer['id']);
+    asnwer_template.find('.btn-dislike-answer').attr('data-id', answer['id']);
+    asnwer_template.find('.question_answer-user-text').find('p').text(answer['content']);
+    asnwer_template.find('.form-check-input').checked = answer['correct_answer'];
 
 
-    $new_answer.insertAfter('.question_question');
+    asnwer_template.insertAfter('.question_question');
 
-    $('.main').css('height', ($('.main').height() / $('body').height() + $new_answer.height() / $('.textcols-item-questions').height()) * 100 + '%');
-    $('.textcols-item-questions').css('height', ($('.textcols-item-questions').height() / $('.main').height() + $new_answer.height() / $('.textcols-item-questions').height()) * 100 + '%');
+    $('.main').css('height', ($('.main').height() / $('body').height() + asnwer_template.height() / $('.textcols-item-questions').height()) * 100 + '%');
+    $('.textcols-item-questions').css('height', ($('.textcols-item-questions').height() / $('.main').height() + asnwer_template.height() / $('.textcols-item-questions').height()) * 100 + '%');
   }
 }

@@ -5,7 +5,7 @@
   "admin_secret": "128cfdc3-65ac-451c-8bca-cbd3fa69946f",
   "api_key": "e2ca4f3d-ad03-4382-89c0-89aeb57d8075",
   "allowed_origins": [
-    "http://localhost:8000"
+    "*"
   ],
   "port": "8001"
 }

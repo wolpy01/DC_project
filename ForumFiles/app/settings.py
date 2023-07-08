@@ -73,13 +73,13 @@ ALLOWED_HOSTS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # DATABASES = {
-#     "DEFAULT": {
-#         "ENGINE": "DJANGO.DB.BACKENDS.MYSQL",
-#         "NAME": "ASKHEROES",
-#         "USER": "VFOMENKO",
-#         "PASSWORD": "PASSWORD",
-#         "HOST": "LOCALHOST",
-#         "PORT": "3306",
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'askeroes',
+#         'USER': 'askheroes_admin',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
 

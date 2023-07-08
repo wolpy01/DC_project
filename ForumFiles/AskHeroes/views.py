@@ -18,8 +18,9 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
-# client = Client(f'http://{CENTRIFUGO_ADDRESS}/api',
-#                 api_key=CENTRIFUGO_API_KEY, timeout=1)
+client = Client(
+    f"http://{CENTRIFUGO_ADDRESS}/api", api_key=CENTRIFUGO_API_KEY, timeout=1
+)
 
 
 def index(request):
@@ -83,8 +84,13 @@ def question(request, question_id):
             models.Profile.objects.get(user=request.user), question
         )
         if answer:
-            # client.publish(channel_id, {'answer': model_to_dict(answer, exclude=['publish_date', 'author']),
-            #                             'answer_url': answer.author.avatar_path.url})
+            client.publish(
+                channel_id,
+                {
+                    "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
+                    "answer_url": answer.author.avatar_path.url,
+                },
+            )
             return redirect(reverse("question", args=[question.id]))
 
     return render(
