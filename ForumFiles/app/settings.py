@@ -84,9 +84,9 @@ ALLOWED_HOSTS = [
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -140,9 +140,9 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CENTRIFUGO_API_KEY = "api_key"
+CENTRIFUGO_API_KEY = "e2ca4f3d-ad03-4382-89c0-89aeb57d8075"
 
-CENTRIFUGO_SECRET_KEY = "token_hmac_secret_key"
+CENTRIFUGO_SECRET_KEY = "d3decd59-16dd-45fa-98b3-641a9e2d228b"
 
 CENTRIFUGO_ADDRESS = "localhost:8001"
 
