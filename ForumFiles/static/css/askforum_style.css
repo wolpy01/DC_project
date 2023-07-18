@@ -38,11 +38,11 @@
 a,
 input,
 button {
-    cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer !important;
+    cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer;
 }
 
 body {
-    min-width: 920px;
+    min-width: 768px;
     min-height: 1280px;
     height: auto;
     width: auto;
@@ -91,6 +91,7 @@ body {
 }
 
 .name__icon {
+    pointer-events: none;
     height: auto;
     max-width: 28%;
     min-width: 10%;
@@ -147,7 +148,7 @@ body {
 
 }
 
-.search-field__icon::before {
+.search-field__input::before {
     content: '';
     position: absolute;
     display: flex;
@@ -251,6 +252,25 @@ ul.justify-content-end>li>a {
     background-image: -o-linear-gradient(left, #fff, #B8860B, #fff);
 }
 
+@media only screen and (max-width: 1080px) {
+    .site-name {
+        display: none;
+    }
+
+    .search-field__input {
+        display: none;
+    }
+
+    .btn-field__ask {
+        margin-left: 50%;
+        margin-right: 50%;
+    }
+
+    ul.justify-content-end {
+        font-size: 14px;
+    }
+}
+
 /* _________________________________ */
 /* CSS-settings for index.html */
 /* _________________________________ */
@@ -307,7 +327,7 @@ a.index_questions {
 a.index_user-question {
     font-size: 24px;
     font-family: Oblivion;
-    padding: 0 0 0.5rem 0;
+    padding: 0 0 0.5rem 0.5rem;
     display: block;
 }
 
@@ -322,7 +342,7 @@ a.index_user-question {
     max-height: 14rem;
     text-align: justify;
     height: fit-content;
-    padding-right: 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
 }
@@ -330,6 +350,7 @@ a.index_user-question {
 .index_question-tags {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    padding: 0 0 0 0.5rem;
 }
 
 .index_answers {
@@ -339,13 +360,6 @@ a.index_user-question {
 .index_answers>a {
     font-size: 18px;
     font-family: Oblivion;
-}
-
-@media only screen and (max-width: 1280px) {
-    .index_answers>a {
-        font-size: 12px;
-        font-family: Oblivion;
-    }
 }
 
 .index_tags {
@@ -358,13 +372,6 @@ a.index_user-question {
     font-family: Oblivion;
 }
 
-@media only screen and (max-width: 1280px) {
-    .index_tags>span {
-        font-size: 12px;
-        font-family: Oblivion;
-    }
-}
-
 .index_tags-links {
     padding: 0;
 }
@@ -374,27 +381,11 @@ a.index_user-question {
     list-style-image: url("../svg/caret-right.svg")
 }
 
-@media only screen and (max-width: 1280px) {
-    .index_tags-links>ul {
-        margin: 0 0 0 1rem;
-        list-style-image: url("../svg/caret-right.svg")
-    }
-}
-
 .index_tags-links>ul>li>a {
     font-size: 18px;
     font-family: Oblivion;
     padding-left: 0.5rem;
     display: block;
-}
-
-@media only screen and (max-width: 1280px) {
-    .index_tags-links>ul>li>a {
-        font-size: 12px;
-        font-family: Oblivion;
-        padding-left: 0.5rem;
-        display: block;
-    }
 }
 
 .index_tags-links {
@@ -469,6 +460,37 @@ a.index_user-question {
 .btn-like-answer:active,
 .btn-dislike-answer:active {
     transform: scale(0.90);
+}
+
+
+@media only screen and (max-width: 1080px) {
+    .index_question-icon {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .index_answers>a {
+        font-size: 14px;
+        font-family: Oblivion;
+    }
+
+    .index_tags>span {
+        font-size: 14px;
+        font-family: Oblivion;
+    }
+
+    .index_tags-links>ul {
+        margin: 0 0 0 1rem;
+        list-style-image: url("../svg/caret-right.svg")
+    }
+
+    .index_tags-links>ul>li>a {
+        font-size: 14px;
+        font-family: Oblivion;
+        padding-left: 0.5rem;
+        display: block;
+    }
 }
 
 /* _________________________________ */
@@ -1234,7 +1256,7 @@ signup_upload-avatar {
 
 .best-members>ul {
     font-size: 32px;
-    text-decoration: 2px underline;
+    text-decoration: 2px;
     list-style-type: none;
 }
 
@@ -1263,4 +1285,45 @@ signup_upload-avatar {
     background-color: #FFE4B5;
     border: 2px solid #B8860B;
     box-shadow: upset 5px 5px 5px 5px #FFB6C1;
+}
+
+@media only screen and (max-width: 1080px) {
+    .popular-tags>p {
+        font-size: 24px;
+        padding-top: 5rem;
+        font-family: Oblivion;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .popular-tags>ul>li {
+        display: inline;
+        padding-right: 5rem;
+        font-size: 20px;
+        font-weight: bold;
+        color: #0d6efd;
+    }
+
+    .popular-tags>ul>li>a {
+        font-family: Oblivion;
+    }
+
+    .best-members>p {
+        font-size: 24px;
+        padding-top: 3rem;
+        font-family: Oblivion;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .best-members>ul {
+        font-size: 20px;
+        text-decoration: 2px;
+        list-style-type: none;
+    }
+
+    .best-members>ul>li {
+        margin-bottom: 1rem;
+        font-family: Oblivion;
+    }
 }
