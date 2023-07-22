@@ -38,11 +38,11 @@
 a,
 input,
 button {
-    cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer;
+    cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer !important;
 }
 
 body {
-    min-width: 770px;
+    min-width: 768px;
     min-height: 1280px;
     height: auto;
     width: auto;
@@ -76,7 +76,7 @@ body {
     height: 5rem;
 }
 
-.site-name { 
+.site-name {
     margin: auto;
     text-align: center;
     min-width: 18rem;
@@ -99,7 +99,6 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: #000000;
-
 }
 
 .site-name::before {
@@ -125,6 +124,7 @@ body {
     padding: 0.5rem 0 0.5rem 0;
     text-align: center;
 }
+
 .btn-field__ask {
     color: #FFFFFF;
     width: 80px;
@@ -149,21 +149,42 @@ body {
     transform: scale(0.90);
 }
 
-.search-field {
+.site-search {
     margin: auto;
-    padding: 0.5rem 0 0.5rem 0;
-    display: grid;
 }
 
-.search-field__input {
-    font-size: 22px;
-    padding-top: 2px;
-    padding-right: 8px;
-    padding-bottom: 2px;
-    padding-left: 8px;
-    background-color: #FFFFFF;
+.search-field {
     border: 3px solid #000000;
     border-radius: 16px;
+    overflow: hidden;
+}
+
+.search__icon {
+    height: 50px;
+    width: 50px;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    padding: 0;
+    background-color: #FFFFFF;
+    display: flex;
+}
+
+.search__icon:active {
+    transform: scale(0.90);
+}
+
+
+.search-field__input {
+    height: 50px;
+    width: calc(100% - 50px);
+    font-size: 24px;
+    font-family: Rubik;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 0;
+    background-color: #FFFFFF;
+    outline: none;
 }
 
 .search_hints {
@@ -215,14 +236,14 @@ body {
 ul.justify-content-end {
     margin: auto;
     padding: 0;
-    font-size: 1.2vw;
+    font-size: 18px;
 }
 
 ul.justify-content-end>li {
     color: #0d6efd;
     text-decoration: underline #0d6efd;
-    display: inline-block;
     padding-right: 20px;
+    display: block;
 }
 
 ul.justify-content-end>li>a {
@@ -244,11 +265,7 @@ ul.justify-content-end>li>a {
 }
 
 @media only screen and (max-width: 1080px) {
-    /* .site-name__icon {
-        display: none;
-    } */
-
-    .search-field {
+    .site-search {
         display: none;
     }
 

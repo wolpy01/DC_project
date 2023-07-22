@@ -267,8 +267,13 @@ function unsetCheckbox(response_json) {
     }
 }
 
+function unsetSearchField()
+{
+    $('.search-field__input').prop('disabled', true);
+}
+
 var ifAuthenticatedFunctions = [voteRequest, likesAndDislikesVotes];
-var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes];
+var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes,  unsetSearchField];
 
 if (window.location.pathname.indexOf('/question/') != -1) {
     ifAuthenticatedFunctions.push(activateCheckboxes);

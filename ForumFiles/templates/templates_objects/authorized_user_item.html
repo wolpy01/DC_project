@@ -1,9 +1,9 @@
 {% load static %}
 
 <div class="col-md-2 main-avatar">
-    <img class="avatar-image" src="{{ request.user.profile.avatar_path.url }}" alt=""/>
+    <img class="avatar-image" src="{{ request.user.profile.avatar_path.url }}" alt="" />
 </div>
-<div class="col-md-3 user-menu">
+<div class="col-md-2 user-menu">
     <span id="username">{{ request.user.profile.nickname }}</span>
     <ul class="justify-content-end">
         <li class="item"><a class="nav-link active" aria-current="page" href="{% url 'settings' %}">settings</a></li>

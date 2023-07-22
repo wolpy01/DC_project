@@ -50,7 +50,7 @@
 
     centrifuge.setToken('{{ secret_token }}');
 
-    centrifuge.subscribe('{{ cent_channel }}', function(message) {
+    centrifuge.subscribe('{{ cent_channel }}', function (message) {
         add_answer(message);
     });
 
