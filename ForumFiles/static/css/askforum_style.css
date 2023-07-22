@@ -162,7 +162,7 @@ body {
     overflow: hidden;
 }
 
-.search__icon {
+.search__button {
     height: 50px;
     width: 50px;
     background-repeat: no-repeat;
@@ -172,7 +172,7 @@ body {
     display: flex;
 }
 
-.search__icon:active {
+.search__button:active {
     transform: scale(0.90);
 }
 

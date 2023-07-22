@@ -267,13 +267,16 @@ function unsetCheckbox(response_json) {
     }
 }
 
-function unsetSearchField()
-{
+function unsetSearchField() {
     $('.search-field__input').prop('disabled', true);
+
+    var btnSearch = document.querySelector('.search__button');
+    btnSearch.disabled = true;
+    btnSearch.setAttribute('style', 'transform: scale(1)');
 }
 
 var ifAuthenticatedFunctions = [voteRequest, likesAndDislikesVotes];
-var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes,  unsetSearchField];
+var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes, unsetSearchField];
 
 if (window.location.pathname.indexOf('/question/') != -1) {
     ifAuthenticatedFunctions.push(activateCheckboxes);
