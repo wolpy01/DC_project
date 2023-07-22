@@ -1046,7 +1046,6 @@ settings_upload-avatar {
     resize: none;
     float: none;
     overflow: hidden;
-    outline: none;
 }
 
 @media only screen and (max-width: 1280px) {
