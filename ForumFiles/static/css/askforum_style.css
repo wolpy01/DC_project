@@ -7,14 +7,14 @@
 
 @font-face {
     font-family: 'Oblivion';
-    src: url('../ttf/oblivion-font.ttf') format('truetype');
+    src: url('../ttf/oblivion.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Rubik';
-    src: url('../ttf/Rubik-VariableFont_wght.ttf') format('truetype');
+    src: url('../ttf/rubik-variable.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -42,7 +42,7 @@ button {
 }
 
 body {
-    min-width: 768px;
+    min-width: 770px;
     min-height: 1280px;
     height: auto;
     width: auto;
@@ -76,34 +76,40 @@ body {
     height: 5rem;
 }
 
-.site-name {
+.site-name { 
     margin: auto;
+    text-align: center;
+    min-width: 18rem;
 }
 
-.site-name__icon {
-    border-width: 15px;
-    border-style: none none double none;
-    border-color: #B8860B;
-    margin-left: 20%;
-    margin-right: 20%;
-    border-radius: 30%;
-    align-items: center;
-}
-
-.name__icon {
+.logo__icon>img {
     pointer-events: none;
     height: auto;
-    max-width: 28%;
-    min-width: 10%;
+    max-width: 3rem;
+    min-width: 3rem;
     object-fit: cover;
     vertical-align: middle;
     display: inline;
 }
 
+.site-name>a {
+    border-radius: 15px;
+    font-family: 'abaddon';
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+
+}
+
+.site-name::before {
+    background: url('../img/img_main.jpg');
+}
+
 .site-name__icon>a {
     color: #000000;
     min-width: 5%;
-    font-size: 2.2vw;
+    font-size: 2rem;
     font-family: abaddon;
     font-weight: bold;
     text-decoration: none;
@@ -113,9 +119,14 @@ body {
     display: inline;
 }
 
+
+.ask-button {
+    margin: auto;
+    padding: 0.5rem 0 0.5rem 0;
+    text-align: center;
+}
 .btn-field__ask {
     color: #FFFFFF;
-    margin-left: 10%;
     width: 80px;
     height: auto;
     background-color: #800000;
@@ -141,34 +152,15 @@ body {
 .search-field {
     margin: auto;
     padding: 0.5rem 0 0.5rem 0;
-}
-
-.search-field__icon {
-    position: relative;
-
-}
-
-.search-field__input::before {
-    content: '';
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 0;
-    bottom: 0;
-    left: 12px;
-    top: 0;
-    width: 1.5rem;
-    background-image: url("../svg/search.svg");
-    background-repeat: no-repeat;
-    background-position: left;
+    display: grid;
 }
 
 .search-field__input {
     font-size: 22px;
     padding-top: 2px;
-    padding-right: 2px;
+    padding-right: 8px;
     padding-bottom: 2px;
-    padding-left: 38px;
+    padding-left: 8px;
     background-color: #FFFFFF;
     border: 3px solid #000000;
     border-radius: 16px;
@@ -188,8 +180,7 @@ body {
 }
 
 .main-avatar {
-    height: 7vw;
-    min-height: 80px;
+    height: 100px;
     width: auto;
     padding: 0;
     margin: 0.5rem 0 0 0;
@@ -253,17 +244,12 @@ ul.justify-content-end>li>a {
 }
 
 @media only screen and (max-width: 1080px) {
-    .site-name {
+    /* .site-name__icon {
         display: none;
-    }
+    } */
 
-    .search-field__input {
+    .search-field {
         display: none;
-    }
-
-    .btn-field__ask {
-        margin-left: 50%;
-        margin-right: 50%;
     }
 
     ul.justify-content-end {
@@ -462,6 +448,25 @@ a.index_user-question {
     transform: scale(0.90);
 }
 
+
+@media only screen and (max-width: 1080px) {
+    p.index_questions {
+        font-size: 36px;
+        padding-left: 10%;
+        margin-bottom: 0;
+        padding-top: 1rem;
+        font-family: Oblivion;
+        font-weight: bold;
+        display: block;
+    }
+
+    a.index_questions {
+        padding-left: 10%;
+        font-size: 24px;
+        font-family: Oblivion;
+        font-weight: bold;
+    }
+}
 
 @media only screen and (max-width: 1080px) {
     .index_question-icon {
@@ -1325,5 +1330,11 @@ signup_upload-avatar {
     .best-members>ul>li {
         margin-bottom: 1rem;
         font-family: Oblivion;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .textcols-item-sidebar {
+        display: none;
     }
 }

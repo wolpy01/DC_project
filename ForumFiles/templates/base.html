@@ -16,19 +16,16 @@
 <body>
 <div class="row header">
     <div class="col-md-3 site-name">
-        <div class="site-name__icon">
-            <a href="{% url 'home' %}"><img class="col-2 name__icon" src="{% static '/img/img_main.jpg' %}" alt=""></a>
-            <a href="{% url 'home' %}">AskHeroes</a>
-        </div>
+        <a class="logo__icon" href="{% url 'home' %}"><img src="{% static '/img/img_logo.jpg' %}" alt=""></a>
+        <a href="{% url 'home' %}">AskHeroes</a>
     </div>
     <div class="col-md search-field">
         <ul class="search_hints">
         </ul>
-        <div class="search-field__icon">
-            <input class="search-field__input" type="text" placeholder="Search">
-            <a class="btn-field__ask" type="button" href="{% url 'ask' %}">Ask!</a>
-        </div>
-        
+        <input class="search-field__input" type="text" placeholder="Search">
+    </div>
+    <div class="col-md ask-button">
+        <a class="btn-field__ask" type="button" href="{% url 'ask' %}">Ask!</a> 
     </div>
     {% block "index_user" %}{% endblock "index_user" %}
     {% block "question_user" %}{% endblock "question_user" %}
@@ -82,7 +79,6 @@
 </div>
 </body>
 <script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
-<script src="{% static '/js/centrifuge.min.js' %}"></script>
 {% block "ask_forum.js" %}{% endblock "ask_forum.js" %}
-<script src="{% static '/js/set_tags_and_users.js' %}"></script>
+<script src="{% static '/js/tags_and_users.js' %}"></script>
 </html>

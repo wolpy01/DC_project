@@ -42,7 +42,8 @@
 {% endblock "question_questions-pagination" %}
 
 {% block "ask_forum.js" %}
-<script src="{% static '/js/ask_forum.js' %}"></script>
+<script src="{% static '/js/user_rating.js' %}"></script>
+<script src="{% static '/js/centrifuge.min.js' %}"></script>
 <script src="{% static '/js/add_answer.js' %}"></script>
 <script>
     const centrifuge = new Centrifuge('ws://{{ server_address }}/connection/websocket');
