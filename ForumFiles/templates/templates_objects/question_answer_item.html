@@ -1,17 +1,17 @@
 <div class="row question_answer">
-  <div class="col-md-2 question_answer-icon">
+  <div class="col-2 question_answer-icon">
     <div class="row question_answer-avatar">
       <img class="avatar-image" src="{{ answer.author.avatar_path.url }}" alt="" />
     </div>
     <div class="row likes-counter">
-      <div class="col-md likes">{{ answer.rating }}</div>
-      <div class="col-md-1 counter">
+      <div class="col likes">{{ answer.rating }}</div>
+      <div class="col-1 counter">
         <input class="btn-like-answer" type="button" data-type="like" style="background-color: #FFFFFF" data-id="{{ answer.id }}" aria-label="Like!" />
         <input class="btn-dislike-answer" type="button" data-type="dislike" style="background-color: #FFFFFF" data-id="{{ answer.id }}" aria-label="Dislike!" />
       </div>
     </div>
   </div>
-  <div class="col-md question_answer-text">
+  <div class="col question_answer-text">
     <div class="row question_answer-user-text">
       <p>{{ answer.content }}</p>
     </div>

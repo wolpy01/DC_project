@@ -17,11 +17,11 @@
 
 <body>
     <div class="row header">
-        <div class="col-md-3 site-name">
+        <div class="col-3 site-name">
             <a class="logo__icon" href="{% url 'home' %}"><img src="{% static '/img/img_logo.jpg' %}" alt=""></a>
             <a href="{% url 'home' %}">AskHeroes</a>
         </div>
-        <div class="col-md site-search">
+        <div class="col site-search">
             <form id="search-form" action="" method="get" role="search"></form>
             <div class="row search-field">
                 <button class="search__icon"><img src="{% static '/img/search.png' %}" alt=""></button>
@@ -31,7 +31,7 @@
             </div>
             </form>
         </div>
-        <div class="col-md ask-button">
+        <div class="col ask-button">
             <a class="btn-field__ask" type="button" href="{% url 'ask' %}">Ask!</a>
         </div>
         {% block "index_user" %}{% endblock "index_user" %}
@@ -43,7 +43,7 @@
         <div class="row underline"></div>
     </div>
     <div class="row main">
-        <div class="col md-8 textcols-item-questions">
+        <div class="col-8 textcols-item-questions">
             {% block "index_questions-list" %}{% endblock "index_questions-list" %}
             {% block "question_one-question" %}{% endblock "question_one-question" %}
             {% block "question_answers-list" %}{% endblock "question_answers-list" %}
@@ -53,7 +53,7 @@
             {% block "login_input" %}{% endblock "login_input" %}
             {% block "signup_registration" %}{% endblock "signup_registration" %}
         </div>
-        <div class="col-md-4 textcols-item-sidebar">
+        <div class="col-4 textcols-item-sidebar">
             <div class="popular-tags">
                 <p>Popular tags</p>
                 <ul class="tag-links">

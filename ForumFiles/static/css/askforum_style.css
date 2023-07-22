@@ -42,7 +42,7 @@ button {
 }
 
 body {
-    min-width: 768px;
+    min-width: 600px;
     min-height: 1280px;
     height: auto;
     width: auto;
@@ -80,6 +80,7 @@ body {
     margin: auto;
     text-align: center;
     min-width: 18rem;
+    display: inline-block;
 }
 
 .logo__icon>img {
@@ -123,6 +124,7 @@ body {
     margin: auto;
     padding: 0.5rem 0 0.5rem 0;
     text-align: center;
+    display: inline-block;
 }
 
 .btn-field__ask {
@@ -151,6 +153,7 @@ body {
 
 .site-search {
     margin: auto;
+    display: inline-block;
 }
 
 .search-field {
@@ -1351,6 +1354,10 @@ signup_upload-avatar {
 }
 
 @media only screen and (max-width: 768px) {
+    .textcols-item-questions {
+        width: 100%;
+    }        
+
     .textcols-item-sidebar {
         display: none;
     }
