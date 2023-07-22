@@ -227,7 +227,7 @@ body {
 }
 
 .user-menu {
-    padding-top: 10px;
+    padding-top: 5px;
     font-weight: bold;
 }
 
@@ -246,7 +246,7 @@ ul.justify-content-end>li {
     color: #0d6efd;
     text-decoration: underline #0d6efd;
     padding-right: 20px;
-    display: block;
+    display: inline-block;
 }
 
 ul.justify-content-end>li>a {
@@ -267,7 +267,7 @@ ul.justify-content-end>li>a {
     background-image: -o-linear-gradient(left, #fff, #B8860B, #fff);
 }
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 800px) {
     .site-search {
         display: none;
     }
@@ -1046,6 +1046,7 @@ settings_upload-avatar {
     resize: none;
     float: none;
     overflow: hidden;
+    outline: none;
 }
 
 @media only screen and (max-width: 1280px) {

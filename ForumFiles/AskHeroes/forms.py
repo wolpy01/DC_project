@@ -119,7 +119,11 @@ class UserForm(forms.ModelForm):
     avatar = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(
-            attrs={"placeholder": "No file chosen", "id": "signup_imgInput"}
+            attrs={
+                "placeholder": "No file chosen",
+                "id": "signup_imgInput",
+                "outline": "none",
+            }
         ),
         initial="img_main.jpg",
     )
@@ -185,7 +189,11 @@ class SettingsForm(forms.ModelForm):
     avatar = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(
-            attrs={"placeholder": "No file chosen", "id": "settings_imgInput"}
+            attrs={
+                "placeholder": "No file chosen",
+                "id": "settings_imgInput",
+                "outline": "none",
+            }
         ),
     )
 
