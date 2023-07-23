@@ -24,7 +24,7 @@
 {% endblock "question_answers-list" %}
 
 {% block "question_user_answer" %}
-<form id="question_form" action="/question/{{ question.id }}/" method="post">
+<form id="question_form" action="/question/{{ question.id }}/?page=1" method="post">
     {% csrf_token %}
     <div class="row question_user-answer">
         {{ form.content }}
@@ -52,6 +52,7 @@
 
     centrifuge.subscribe('{{ cent_channel }}', function (message) {
         add_answer(message);
+        calculateRating();
     });
 
     centrifuge.connect();

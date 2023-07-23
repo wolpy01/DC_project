@@ -275,13 +275,17 @@ function unsetSearchField() {
     btnSearch.setAttribute('style', 'transform: scale(1)');
 }
 
-var ifAuthenticatedFunctions = [voteRequest, likesAndDislikesVotes];
-var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes, unsetSearchField];
+function calculateRating() {
+    var ifAuthenticatedFunctions = [voteRequest, likesAndDislikesVotes];
+    var ifNotAuthenticatedFunctions = [deactivateLikesAndDislikes, unsetSearchField];
 
-if (window.location.pathname.indexOf('/question/') != -1) {
-    ifAuthenticatedFunctions.push(activateCheckboxes);
-    ifNotAuthenticatedFunctions.push(deactivateCheckboxes);
-    chooseAnswerRequest();
+    if (window.location.pathname.indexOf('/question/') != -1) {
+        ifAuthenticatedFunctions.push(activateCheckboxes);
+        ifNotAuthenticatedFunctions.push(deactivateCheckboxes);
+        chooseAnswerRequest();
+    }
+
+    IsAuthenticated(ifAuthenticatedFunctions, ifNotAuthenticatedFunctions);
 }
 
-IsAuthenticated(ifAuthenticatedFunctions, ifNotAuthenticatedFunctions);
+calculateRating();

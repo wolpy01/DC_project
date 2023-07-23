@@ -18,7 +18,7 @@
             <a class="index_user-question" type="text" href="{% url 'question' question.id %}?page=1">{{ question.title }}</a>
         </div>
         <div class="row index_user-text">
-            <p>{{ question.content | truncatechars:200 }}</p>
+            <p>{{ question.content | truncatechars:255 }}</p>
         </div>
         <div class="row index_question-tags">
             <div class="col-3 index_answers">

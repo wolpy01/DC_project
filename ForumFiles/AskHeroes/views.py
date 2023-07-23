@@ -1,4 +1,3 @@
-import re
 import jwt
 import time
 import uuid
@@ -17,10 +16,6 @@ from django.forms import model_to_dict
 from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
-
-client = Client(
-    f"http://{CENTRIFUGO_ADDRESS}/api", api_key=CENTRIFUGO_API_KEY, timeout=1
-)
 
 
 def index(request):
@@ -70,6 +65,10 @@ def tag(request, tag_name):
 @csrf_protect
 @require_http_methods(["GET", "POST"])
 def question(request, question_id):
+    client = Client(
+        f"http://{CENTRIFUGO_ADDRESS}/api", api_key=CENTRIFUGO_API_KEY, timeout=1
+    )
+
     question = get_object_or_404(models.Question.objects, id=question_id)
     answers = question.answers.get_new_answers()
     channel_id = f"question_{question_id}"
@@ -87,11 +86,13 @@ def question(request, question_id):
             client.publish(
                 channel_id,
                 {
+                    "is_authenticated": request.user.is_authenticated,
+                    "is_author": request.user.profile == question.author,
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
             )
-            return redirect(reverse("question", args=[question.id]))
+            return redirect(reverse("question", args=[question.id]) + "?page=1")
 
     return render(
         request,

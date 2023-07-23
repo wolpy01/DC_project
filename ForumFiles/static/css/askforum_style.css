@@ -35,6 +35,22 @@
     cursor: url("../cur/Heroes_V_cursor_default.cur") 0 0, default;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+    background-color: #f9f9fd;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: linear-gradient(45deg, #00c6fb, #ea9000);
+}
+
 a,
 input,
 button {
@@ -42,12 +58,12 @@ button {
 }
 
 body {
+    overflow-x: hidden;
     min-width: 600px;
     min-height: 1280px;
     height: auto;
     width: auto;
     border: 5px solid #B8860B;
-    border-radius: 40px;
 }
 
 .header {
@@ -303,7 +319,7 @@ a.index_questions {
     margin-bottom: 2rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 70%;
+    width: 85%;
     min-height: 11%;
     max-height: 35%;
     box-shadow: 5px 5px 5px 5px #A52A2A;
@@ -320,7 +336,7 @@ a.index_questions {
 
 .index_question-avatar {
     height: 100%;
-    width: auto;
+    width: 100%;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
@@ -340,12 +356,11 @@ a.index_user-question {
 .index_user-text {
     max-height: 100%;
     height: fit-content;
-    overflow: scroll;
 }
 
 .index_user-text>p {
     min-height: 8rem;
-    max-height: 14rem;
+    max-height: 20rem;
     text-align: justify;
     height: fit-content;
     padding: 0 0.5rem 0 0.5rem;
@@ -468,8 +483,27 @@ a.index_user-question {
     transform: scale(0.90);
 }
 
-
 @media only screen and (max-width: 1080px) {
+    .index_question-icon {
+        height: 96px;
+        width: 96px;
+        padding: 0;
+        margin: 8px;
+    }
+
+    .likes-counter {
+        margin-top: 1rem;
+        margin-left: 0;
+        width: 5.5rem;
+    }
+
+    a.index_user-question {
+        font-size: 20px;
+        font-family: Oblivion;
+        padding: 0 0 0.5rem 0.5rem;
+        display: block;
+    }
+
     p.index_questions {
         font-size: 36px;
         padding-left: 10%;
@@ -488,12 +522,6 @@ a.index_user-question {
     }
 }
 
-@media only screen and (max-width: 1080px) {
-    .index_question-icon {
-        display: none;
-    }
-}
-
 @media only screen and (max-width: 1280px) {
     .index_answers>a {
         font-size: 14px;
@@ -504,6 +532,7 @@ a.index_user-question {
         font-size: 14px;
         font-family: Oblivion;
     }
+
 
     .index_tags-links>ul {
         margin: 0 0 0 1rem;
@@ -1261,8 +1290,8 @@ signup_upload-avatar {
 
 .popular-tags>ul>li {
     display: inline;
-    padding-right: 5rem;
-    font-size: 32px;
+    padding-right: 3rem;
+    font-size: 28px;
     font-weight: bold;
     color: #0d6efd;
 }
@@ -1280,7 +1309,7 @@ signup_upload-avatar {
 }
 
 .best-members>ul {
-    font-size: 32px;
+    font-size: 28px;
     text-decoration: 2px;
     list-style-type: none;
 }
