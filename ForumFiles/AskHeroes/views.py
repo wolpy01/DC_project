@@ -17,7 +17,7 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
-
+@csrf_protect
 def index(request):
     return render(
         request,
@@ -30,7 +30,7 @@ def index(request):
         },
     )
 
-
+@csrf_protect
 def hot(request):
     return render(
         request,
@@ -43,7 +43,7 @@ def hot(request):
         },
     )
 
-
+@csrf_protect
 def tag(request, tag_name):
     return render(
         request,
@@ -153,7 +153,7 @@ def settings(request):
         request, "settings.html", {"form": settings_form, "title": "User settings"}
     )
 
-
+@csrf_protect
 @login_required
 def logout(request):
     if not request.user.is_authenticated:
@@ -202,7 +202,7 @@ def signup(request):
 
     return render(request, "signup.html", {"form": user_form, "title": "Sign up page"})
 
-
+@csrf_protect
 @require_POST
 def popular_tags_and_top_users(request):
     return JsonResponse(
