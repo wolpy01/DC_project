@@ -36,7 +36,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 12px;
     height: 2px;
 }
 
@@ -47,7 +47,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
     background: linear-gradient(45deg, #00c6fb, #ea9000);
 }
 
