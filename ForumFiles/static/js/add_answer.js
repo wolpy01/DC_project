@@ -13,7 +13,7 @@ function add_answer(data) {
             '<div class="row question_answer-avatar">' +
             '<img class="avatar-image" src="' + answer_url + '" alt="" />' +
             '</div>' +
-            '<div class="row user_nickname">' + author_nickname +'</div>' +
+            '<div class="row user_nickname">' + author_nickname + '</div>' +
             '<div class="row likes-counter">' +
             '<div class="col likes">' + answer['rating'] + '</div>' +
             '<div class="col-1 counter">' +
@@ -31,7 +31,7 @@ function add_answer(data) {
             '<input class="form-check-input" type="checkbox" data-id="' + answer['id'] + '" id="flexCheckIndeterminate" />' +
             '<label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>' +
             '</div>' +
-            '<div class="col-3 publish_date">' + publish_date + '</div>' +
+            '<div class="col-3 publish_date">' + publish_date + ' UTC+0' + '</div>' +
             '</div>' +
             '</div>' +
             '</div>');
