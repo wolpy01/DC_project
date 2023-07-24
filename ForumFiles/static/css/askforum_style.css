@@ -32,7 +32,7 @@
     border: 0px;
     font-family: Satisfy;
     font-weight: bold;
-    cursor: url("../cur/Heroes_V_cursor_default.cur") 0 0, default;
+    cursor: url("../cur/Heroes_V_cursor_default.cur") 5 5, default;
 }
 
 ::-webkit-scrollbar {
