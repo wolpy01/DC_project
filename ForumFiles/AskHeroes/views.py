@@ -1,6 +1,7 @@
 import jwt
 import time
 import uuid
+import json
 
 import django.contrib.auth as auth
 from django.shortcuts import render, redirect, get_object_or_404
@@ -86,6 +87,7 @@ def question(request, question_id):
             client.publish(
                 channel_id,
                 {   "author_nickname": answer.author.nickname,
+                    "publish_date":  answer.publish_date.strftime('%B %d, %Y, %I:%M %p').replace("PM", "p.m."),
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },

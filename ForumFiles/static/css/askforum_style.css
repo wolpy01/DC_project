@@ -392,7 +392,7 @@ a.index_user-question {
 
 .index_tags {
     padding: 0;
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 1.5rem;
 }
 
 .index_tags>span {
@@ -418,6 +418,16 @@ a.index_user-question {
 
 .index_tags-links {
     padding-left: 0;
+}
+
+.publish_date {
+    padding-left: 0;
+    padding-right: 0.25rem;
+    height: auto;
+    width: auto;
+    text-align: right;
+    display: flex;
+    align-items: flex-end;
 }
 
 .user_nickname {
@@ -531,7 +541,7 @@ a.index_user-question {
     }
 }
 
-@media screen and (min-width: 1080px) and (max-width: 1280px){
+@media screen and (min-width: 1080px) and (max-width: 1280px) {
     .user_nickname {
         font-size: 18px;
     }
@@ -653,7 +663,7 @@ p.question_user-question {
     margin-bottom: 2rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 75%;
+    width: 80%;
     min-height: 10%;
     box-shadow: 5px 5px 5px 5px #008000;
 }
@@ -701,14 +711,26 @@ p.question_user-question {
     vertical-align: middle;
 }
 
+.form-check {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
 .form-check-input {
     height: 1.5rem !important;
     width: 1.5rem;
+    margin: 0;
     cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer;
 }
 
+.form-check-label {
+    vertical-align: middle;
+}
+
 .checkbox-correct-answer>div>label {
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     font-size: 24px;
     font-family: Oblivion;
 }
@@ -789,6 +811,10 @@ p.question_user-question {
 
     .question_answer-icon {
         width: 96px;
+    }
+
+    .form-check-label {
+        font-size: 16px !important;
     }
 
 }
@@ -1413,7 +1439,7 @@ signup_upload-avatar {
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
     .textcols-item-questions {
         width: 100%;
     }

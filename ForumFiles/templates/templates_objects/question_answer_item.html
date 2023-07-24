@@ -18,11 +18,12 @@
         <div class="row question_answer-user-text">
             <p>{{ answer.content }}</p>
         </div>
-        <div class="checkbox-correct-answer">
-            <div class="form-check">
+        <div class="row checkbox-correct-answer">
+            <div class="col form-check">
                 <input class="form-check-input" type="checkbox" data-id="{{ answer.id }}" id="flexCheckIndeterminate" />
                 <label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>
             </div>
+            <div class="col-3 publish_date">{{answer.publish_date}}</div>
         </div>
     </div>
 </div>

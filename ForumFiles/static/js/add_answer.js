@@ -4,6 +4,7 @@ function add_answer(data) {
 
     if (pageParam == '1' || pageParam == null) {
         const author_nickname = data['data']['author_nickname'];
+        const publish_date = data['data']['publish_date'];
         const answer = data['data']['answer'];
         const answer_url = data['data']['answer_url'];
 
@@ -30,6 +31,7 @@ function add_answer(data) {
             '<input class="form-check-input" type="checkbox" data-id="' + answer['id'] + '" id="flexCheckIndeterminate" />' +
             '<label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>' +
             '</div>' +
+            '<div class="col-3 publish_date">' + publish_date + '</div>' +
             '</div>' +
             '</div>' +
             '</div>');
