@@ -3,6 +3,7 @@ function add_answer(data) {
     const pageParam = urlParams.get('page');
 
     if (pageParam == '1' || pageParam == null) {
+        const author_nickname = data['data']['author_nickname'];
         const answer = data['data']['answer'];
         const answer_url = data['data']['answer_url'];
 
@@ -11,6 +12,7 @@ function add_answer(data) {
             '<div class="row question_answer-avatar">' +
             '<img class="avatar-image" src="' + answer_url + '" alt="" />' +
             '</div>' +
+            '<div class="row user_nickname">' + author_nickname +'</div>' +
             '<div class="row likes-counter">' +
             '<div class="col likes">' + answer['rating'] + '</div>' +
             '<div class="col-1 counter">' +
@@ -33,8 +35,5 @@ function add_answer(data) {
             '</div>');
 
         answer_template.insertAfter('.question_question');
-
-        $('.main').css('height', ($('.main').height() / $('body').height() + answer_template.height() / $('.textcols-item-questions').height()) * 100 + '%');
-        $('.textcols-item-questions').css('height', ($('.textcols-item-questions').height() / $('.main').height() + answer_template.height() / $('.textcols-item-questions').height()) * 100 + '%');
     }
 }

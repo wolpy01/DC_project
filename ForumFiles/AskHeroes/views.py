@@ -85,9 +85,7 @@ def question(request, question_id):
         if answer:
             client.publish(
                 channel_id,
-                {
-                    "is_authenticated": request.user.is_authenticated,
-                    "is_author": request.user.profile == question.author,
+                {   "author_nickname": answer.author.nickname,
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
