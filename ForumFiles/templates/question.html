@@ -24,7 +24,7 @@
 {% endblock "question_answers-list" %}
 
 {% block "question_user_answer" %}
-<form id="question_form" action="/question/{{ question.id }}/" method="post">
+<form id="question_form" action="/question/{{ question.id }}/?page=1" method="post">
     {% csrf_token %}
     <div class="row question_user-answer">
         {{ form.content }}
@@ -42,15 +42,19 @@
 {% endblock "question_questions-pagination" %}
 
 {% block "ask_forum.js" %}
-<script src="{% static '/js/ask_forum.js' %}"></script>
+<script src="{% static '/js/user_rating.js' %}"></script>
+<script src="{% static '/js/centrifuge.min.js' %}"></script>
 <script src="{% static '/js/add_answer.js' %}"></script>
+<script src="{% static '/js/set_locale_time.js' %}"></script>
 <script>
     const centrifuge = new Centrifuge('ws://{{ server_address }}/connection/websocket');
 
     centrifuge.setToken('{{ secret_token }}');
 
-    centrifuge.subscribe('{{ cent_channel }}', function(message) {
+    centrifuge.subscribe('{{ cent_channel }}', function (message) {
         add_answer(message);
+        calculateRating();
+        setLocaleTime(1, 2);
     });
 
     centrifuge.connect();

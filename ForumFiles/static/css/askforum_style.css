@@ -4,16 +4,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Oblivion';
-    src: url('../ttf/oblivion-font.ttf') format('truetype');
+    src: url('../ttf/oblivion.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Rubik';
-    src: url('../ttf/Rubik-VariableFont_wght.ttf') format('truetype');
+    src: url('../ttf/rubik-variable.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -31,20 +32,37 @@
     border: 0px;
     font-family: Satisfy;
     font-weight: bold;
-    cursor: url("../cur/Heroes_V_cursor_default.cur") 0 0, default;
+    cursor: url("../cur/Heroes_V_cursor_default.cur") 5 5, default;
 }
 
-a, input, button{
+::-webkit-scrollbar {
+    width: 12px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+    background-color: #f9f9fd;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00c6fb, #ea9000);
+}
+
+a,
+input,
+button {
     cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer !important;
 }
 
 body {
-    min-width: 920px;
+    overflow-x: hidden;
+    min-width: 600px;
     min-height: 1280px;
     height: auto;
     width: auto;
     border: 5px solid #B8860B;
-    border-radius: 40px;
 }
 
 .header {
@@ -53,6 +71,7 @@ body {
     margin: 0;
     top: 0;
     position: sticky;
+    z-index: 1;
     background: #FFFFFF;
     border-radius: 40px 40px 0 0;
 }
@@ -60,7 +79,7 @@ body {
 .main {
     margin: 0;
     min-height: 1000px;
-    height: 90%;
+    height: fit-content;
 }
 
 .footer {
@@ -75,30 +94,38 @@ body {
 
 .site-name {
     margin: auto;
+    text-align: center;
+    min-width: 18rem;
+    display: inline-block;
 }
 
-.site-name__icon {
-    border-width: 15px;
-    border-style: none none double none;
-    border-color: #B8860B;
-    margin-left: 20%;
-    margin-right: 20%;
-    border-radius: 30%;
-    align-items: center;
-}
-
-.name__icon {
+.logo__icon>img {
+    pointer-events: none;
     height: auto;
-    max-width: 28%;
-    min-width: 10%;
+    max-width: 3rem;
+    min-width: 3rem;
     object-fit: cover;
     vertical-align: middle;
     display: inline;
 }
-.site-name__icon > a {
+
+.site-name>a {
+    border-radius: 15px;
+    font-family: 'abaddon';
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+}
+
+.site-name::before {
+    background: url('../img/img_main.jpg');
+}
+
+.site-name__icon>a {
     color: #000000;
     min-width: 5%;
-    font-size: 2.2vw;
+    font-size: 2rem;
     font-family: abaddon;
     font-weight: bold;
     text-decoration: none;
@@ -108,9 +135,16 @@ body {
     display: inline;
 }
 
+
+.ask-button {
+    margin: auto;
+    padding: 0.5rem 0 0.5rem 0;
+    text-align: center;
+    display: inline-block;
+}
+
 .btn-field__ask {
     color: #FFFFFF;
-    margin-left: 10%;
     width: 80px;
     height: auto;
     background-color: #800000;
@@ -133,40 +167,43 @@ body {
     transform: scale(0.90);
 }
 
-.search-field {
+.site-search {
     margin: auto;
-    padding: 0.5rem 0 0.5rem 0;
+    display: inline-block;
 }
 
-.search-field__icon {
-    position: relative;
-
-}
-
-.search-field__icon::before {
-    content: '';
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 0;
-    bottom: 0;
-    left: 12px;
-    top: 0;
-    width: 1.5rem;
-    background-image: url("../svg/search.svg");
-    background-repeat: no-repeat;
-    background-position: left;
-}
-
-.search-field__input {
-    font-size: 22px;
-    padding-top: 2px;
-    padding-right: 2px;
-    padding-bottom: 2px;
-    padding-left: 38px;
-    background-color: #FFFFFF;
+.search-field {
     border: 3px solid #000000;
     border-radius: 16px;
+    overflow: hidden;
+}
+
+.search__button {
+    height: 50px;
+    width: 50px;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    padding: 0;
+    background-color: #FFFFFF;
+    display: flex;
+}
+
+.search__button:active {
+    transform: scale(0.90);
+}
+
+
+.search-field__input {
+    height: 50px;
+    width: calc(100% - 50px);
+    font-size: 24px;
+    font-family: Rubik;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 0;
+    background-color: #FFFFFF;
+    outline: none;
 }
 
 .search_hints {
@@ -174,7 +211,7 @@ body {
     margin-top: 3.5rem;
 }
 
-.search_hints > li {
+.search_hints>li {
     margin-top: 0rem;
     font-size: 24px;
     background-color: #FFE4B5;
@@ -183,16 +220,14 @@ body {
 }
 
 .main-avatar {
-    height: 7vw;
-    min-height: 80px;
-    width: auto;
+    height: 100px;
+    width: 100px;
     padding: 0;
     margin: 0.5rem 0 0 0;
     overflow: hidden;
 }
 
-
-.avatar-image{
+.avatar-image {
     height: 100%;
     width: 100%;
     padding: 0;
@@ -201,40 +236,42 @@ body {
     object-fit: cover;
 }
 
-.non-authorized_user-menu{
+.non-authorized_user-menu {
     padding: 0px;
     display: flex;
     font-weight: bold;
 }
 
 .user-menu {
-    padding-top: 10px;
+    padding-top: 5px;
     font-weight: bold;
 }
 
 #username {
     font-weight: bold;
-    font-size: 36px;
+    font-size: 2vw;
+    word-break: break-all;
+    margin: 0;
 }
 
-ul.justify-content-end{
+ul.justify-content-end {
     margin: auto;
     padding: 0;
-    font-size: 1.2vw;
+    font-size: 18px;
 }
 
-ul.justify-content-end > li{
+ul.justify-content-end>li {
     color: #0d6efd;
     text-decoration: underline #0d6efd;
-    display: inline-block;
     padding-right: 20px;
+    display: inline-block;
 }
 
-ul.justify-content-end > li > a {
+ul.justify-content-end>li>a {
     font-family: Oblivion;
 }
 
-.underline{
+.underline {
     padding: 0px;
     margin-top: 1rem;
     margin-bottom: 0;
@@ -248,10 +285,25 @@ ul.justify-content-end > li > a {
     background-image: -o-linear-gradient(left, #fff, #B8860B, #fff);
 }
 
-/*CSS-settings for index.html
-_________________________________*/
+.textcols-item-questions {
+    height: fit-content;
+}
 
-p.index_questions{
+@media only screen and (max-width: 800px) {
+    .site-search {
+        display: none;
+    }
+
+    ul.justify-content-end {
+        font-size: 14px;
+    }
+}
+
+/* _________________________________ */
+/* CSS-settings for index.html */
+/* _________________________________ */
+
+p.index_questions {
     font-size: 36px;
     padding-left: 10%;
     padding-top: 1rem;
@@ -260,7 +312,7 @@ p.index_questions{
     display: inline-block;
 }
 
-a.index_questions{
+a.index_questions {
     padding-left: 1rem;
     font-size: 24px;
     font-family: Oblivion;
@@ -273,16 +325,13 @@ a.index_questions{
     margin-bottom: 2rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 70%;
-    min-height: 11%;
-    max-height: 35%;
-    box-shadow: 5px 5px 5px 5px  #A52A2A;
+    width: 85%;
+    min-height: 10%;
+    box-shadow: 5px 5px 5px 5px #A52A2A;
 }
 
-
-
 .index_question-icon {
-    height: 144px;
+    height: fit-content;
     width: 144px;
     min-width: 80px;
     min-height: 80px;
@@ -291,115 +340,107 @@ a.index_questions{
 }
 
 .index_question-avatar {
-    height: 100%;
-    width: auto;
+    height: 144px;
+    width: 144px;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .index_question-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
 }
 
 a.index_user-question {
     font-size: 24px;
     font-family: Oblivion;
-    padding: 0 0 0.5rem 0;
+    padding: 0 0 0.5rem 0.5rem;
     display: block;
+    text-decoration: none;
+    word-break: break-all;
 }
 
 .index_user-text {
     max-height: 100%;
     height: fit-content;
-    overflow: scroll;
 }
 
-.index_user-text > p {
-    min-height: 8rem;
-    max-height: 14rem;
+.index_user-text>p {
     text-align: justify;
     height: fit-content;
-    padding-right: 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
+    word-break: break-all;
 }
 
 .index_question-tags {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    padding: 0 0 0 0.5rem;
+
 }
 
 .index_answers {
     padding: 0;
 }
 
-.index_answers > a {
+.index_answers>a {
     font-size: 18px;
     font-family: Oblivion;
-}
-@media only screen and (max-width: 1280px) {
-.index_answers > a {
-    font-size: 12px;
-    font-family: Oblivion;
-}
 }
 
 .index_tags {
     padding: 0;
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 1.5rem;
 }
 
-.index_tags > span {
+.index_tags>span {
     font-size: 18px;
     font-family: Oblivion;
-}
-
-@media only screen and (max-width: 1280px) {
-.index_tags > span {
-    font-size: 12px;
-    font-family: Oblivion;
-}
 }
 
 .index_tags-links {
     padding: 0;
+    word-break: break-all;
 }
 
-.index_tags-links > ul {
+.index_tags-links>ul {
     margin: 0;
     list-style-image: url("../svg/caret-right.svg")
 }
 
-@media only screen and (max-width: 1280px) {
-.index_tags-links > ul {
-    margin: 0 0 0 1rem;
-    list-style-image: url("../svg/caret-right.svg")
-}
-}
-
-.index_tags-links > ul > li > a{
+.index_tags-links>ul>li>a {
     font-size: 18px;
     font-family: Oblivion;
     padding-left: 0.5rem;
     display: block;
 }
 
-@media only screen and (max-width: 1280px) {
-.index_tags-links > ul > li > a{
-    font-size: 12px;
-    font-family: Oblivion;
-    padding-left: 0.5rem;
-    display: block;
-}
+.index_tags-links {
+    padding-left: 0;
 }
 
-.index_tags-links {
-    padding-left: 2%;
+.publish_date {
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+    margin-bottom: 0.5rem;
+    height: auto;
+    width: auto;
+    text-align: left;
+}
+
+.user_nickname {
+    font-size: 20px;
+    margin: 8px 0 0 8px;
+    word-break: break-all;
+    font-family: Oblivion;
 }
 
 .likes-counter {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-left: 0;
     width: 7rem;
 }
@@ -427,13 +468,17 @@ a.index_user-question {
     flex-direction: column;
 }
 
-.btn-like-question, .btn-dislike-question, .btn-like-answer, .btn-dislike-answer {
+.btn-like-question,
+.btn-dislike-question,
+.btn-like-answer,
+.btn-dislike-answer {
     width: 20px;
     height: 22px;
     background: #FFFFFF;
 }
 
-.btn-like-question,.btn-like-answer {
+.btn-like-question,
+.btn-like-answer {
     border: 2px solid #000000;
     border-radius: 0 5px 0 0;
     background-image: url('../svg/hand-thumbs-up-fill.svg');
@@ -441,7 +486,8 @@ a.index_user-question {
     background-position: center;
 }
 
-.btn-dislike-question,.btn-dislike-answer {
+.btn-dislike-question,
+.btn-dislike-answer {
     border: 2px solid #000000;
     border-radius: 0 0 5px 0;
     background-image: url('../svg/hand-thumbs-down-fill.svg');
@@ -449,18 +495,81 @@ a.index_user-question {
     background-position: center;
 }
 
-.btn-like-question:hover, .btn-dislike-question:hover, .btn-like-answer:hover, .btn-dislike-answer:hover{
+.btn-like-question:hover,
+.btn-dislike-question:hover,
+.btn-like-answer:hover,
+.btn-dislike-answer:hover {
     background-color: #B0C4DE;
 }
 
-.btn-like-question:active, .btn-dislike-question:active, .btn-like-answer:active, .btn-dislike-answer:active{
+.btn-like-question:active,
+.btn-dislike-question:active,
+.btn-like-answer:active,
+.btn-dislike-answer:active {
     transform: scale(0.90);
 }
 
-/*_________________________________*/
+@media only screen and (max-width: 1080px) {
+    .index_question-icon {
+        width: 96px;
+    }
 
-/*CSS-settings for question.html
-_________________________________*/
+    .index_question-avatar {
+        height: 96px;
+        width: 96px;
+    }
+
+    .user_nickname {
+        font-size: 16px;
+    }
+
+    .likes-counter {
+        width: 5.5rem;
+    }
+
+    a.index_user-question {
+        font-size: 20px;
+    }
+
+    p.index_questions {
+        font-size: 36px;
+        display: block;
+        margin-bottom: 0;
+    }
+
+    a.index_questions {
+        font-size: 24px;
+        padding-left: 10%;
+    }
+}
+
+@media screen and (min-width: 1080px) and (max-width: 1280px) {
+    .user_nickname {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .index_answers>a {
+        font-size: 14px;
+    }
+
+    .index_tags>span {
+        font-size: 14px;
+    }
+
+    .index_tags-links>ul {
+        margin: 0 0 0 1rem;
+    }
+
+    .index_tags-links>ul>li>a {
+        font-size: 14px;
+    }
+}
+
+/* _________________________________ */
+/* CSS-settings for QUESTION.html */
+/* _________________________________ */
 
 .question_question {
     margin-left: 10%;
@@ -468,15 +577,14 @@ _________________________________*/
     margin-bottom: 3rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 80%;
-    min-height: 13.6%;
-    max-height: 36%;
-    box-shadow: 5px 5px 5px 5px  #A52A2A;
+    width: 85%;
+    min-height: 10%;
+    box-shadow: 5px 5px 5px 5px #A52A2A;
 }
 
 
 .question_question-icon {
-    height: 180px;
+    height: fit-content;
     width: 180px;
     min-width: 80px;
     min-height: 80px;
@@ -485,64 +593,69 @@ _________________________________*/
 }
 
 .question_question-avatar {
-    height: 100%;
-    width: auto;
+    height: 180px;
+    width: 180px;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .question_question-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
 }
 
 p.question_user-question {
     font-size: 24px;
     font-family: Oblivion;
-    padding: 0 0 0.5rem 0;
+    padding: 0 0 0.5rem 0.5rem;
     margin: 0;
     display: block;
+    text-decoration: none;
+    word-break: break-all;
 }
 
 .question_user-text {
-    overflow: scroll;
+    max-height: 100%;
+    height: fit-content;
 }
 
-.question_user-text > p{
-    min-height: 10rem;
-    max-height: 14rem;
+.question_user-text>p {
     text-align: justify;
     height: fit-content;
-    padding-right: 0.5rem;
+    padding-right: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
+    word-break: break-all;
 }
 
 .question_question-tags {
-    padding: 0;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    padding: 0 0 0 0.5rem;
 }
 
 .question_tags {
     padding: 0;
 }
 
-.question_tags > span {
+.question_tags>span {
     font-size: 18px;
     font-family: Oblivion;
 }
 
 .question_tags-links {
     padding: 0;
+    word-break: break-all;
 }
 
-.question_tags-links > ul {
-    margin: 0 0 0 1.5rem;
+.question_tags-links>ul {
+    margin: 0 0 0 1rem;
     list-style-image: url("../svg/caret-right.svg")
 }
 
-.question_tags-links > ul > li > a{
+.question_tags-links>ul>li>a {
     font-size: 18px;
     font-family: Oblivion;
     padding-left: 0.5rem;
@@ -555,13 +668,13 @@ p.question_user-question {
     margin-bottom: 2rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 70%;
-    max-height: 35%;
-    box-shadow: 5px 5px 5px 5px  #008000;
+    width: 80%;
+    min-height: 10%;
+    box-shadow: 5px 5px 5px 5px #008000;
 }
 
 .question_answer-icon {
-    height: 144px;
+    height: fit-content;
     width: 144px;
     min-width: 80px;
     min-height: 80px;
@@ -570,30 +683,32 @@ p.question_user-question {
 }
 
 .question_answer-avatar {
-    height: 100%;
-    width: auto;
+    height: 144px;
+    width: 144px;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .question_answer-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    padding-top: 0.75rem;
 }
 
 .question_answer-user-text {
-    max-height: 70%;
+    max-height: 100%;
     height: fit-content;
-    overflow: scroll;
 }
 
-.question_answer-user-text > p{
-    min-height: 9rem;
-    max-height: 12rem;
+.question_answer-user-text>p {
     text-align: justify;
     height: fit-content;
-    padding-right: 2rem;
+    padding-right: 0 0.5rem 0 0.5rem;
     font-size: 24px;
+    margin: 0;
+    word-break: break-all;
 }
 
 .checkbox-correct-answer {
@@ -602,14 +717,25 @@ p.question_user-question {
     vertical-align: middle;
 }
 
+.form-check {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
 .form-check-input {
     height: 1.5rem !important;
     width: 1.5rem;
+    margin: 0;
     cursor: url("../cur/Heroes_V_cursor_pointer.cur") 0 0, pointer;
 }
 
-.checkbox-correct-answer > div > label {
-    padding-left: 1rem;
+.form-check-label {
+    vertical-align: middle;
+}
+
+.checkbox-correct-answer>div>label {
+    padding-left: 0.5rem;
     font-size: 24px;
     font-family: Oblivion;
 }
@@ -621,7 +747,7 @@ p.question_user-question {
     width: 70%;
 }
 
-.question_user-answer > textarea {
+.question_user-answer>textarea {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -630,7 +756,7 @@ p.question_user-question {
     height: 10rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -665,11 +791,56 @@ p.question_user-question {
     transform: scale(0.90);
 }
 
+@media only screen and (max-width: 1080px) {
+    .question_question-icon {
+        width: 128px;
+    }
+
+    .question_question-avatar {
+        height: 128px;
+        width: 128px;
+    }
+
+    .question_answer-icon {
+        width: 96px;
+    }
+
+    .question_answer-avatar {
+        height: 96px;
+        width: 96px;
+    }
+
+    p.question_user-question {
+        font-size: 20px;
+    }
+
+    .question_answer-icon {
+        width: 96px;
+    }
+
+    .form-check-label {
+        font-size: 16px !important;
+    }
+
+}
+
+@media only screen and (max-width: 1280px) {
+    .question_tags>span {
+        font-size: 14px;
+    }
+
+    .question_tags-links>ul {
+        margin: 0 0 0 1rem;
+    }
+
+    .question_tags-links>ul>li>a {
+        font-size: 14px;
+    }
+}
 
 /*_________________________________*/
-
-/*CSS-settings for ask.html
------------------------------------*/
+/* CSS-settings for ask.html */
+/*_________________________________*/
 
 .ask_before-question-header {
     padding-left: 10%;
@@ -679,7 +850,7 @@ p.question_user-question {
     padding-left: 10%;
 }
 
-.ask_mistake-message > p{
+.ask_mistake-message>p {
     color: #DC143C;
     font-size: 32px;
     font-family: Rubik;
@@ -687,7 +858,7 @@ p.question_user-question {
     display: inline-block;
 }
 
-p.ask_questions{
+p.ask_questions {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -695,18 +866,24 @@ p.ask_questions{
     display: inline-block;
 }
 
-.ask_question-title, .ask_question-text, .ask_question-tags {
+.ask_question-title,
+.ask_question-text,
+.ask_question-tags {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.ask_question-title > label, .ask_question-text > label, .ask_question-tags > label {
+.ask_question-title>label,
+.ask_question-text>label,
+.ask_question-tags>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 10rem;
 }
 
-.ask_title-text, .ask_text-text, .ask_tags-text {
+.ask_title-text,
+.ask_text-text,
+.ask_tags-text {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -715,7 +892,7 @@ p.ask_questions{
     height: 3rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -731,12 +908,6 @@ p.ask_questions{
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: calc(10rem + 3px);
-}
-
-@media only screen and (max-width: 1280px) {
-.btn__send {
-    margin-left: calc(8rem + 3px);
-}
 }
 
 .btn-field__send {
@@ -763,16 +934,21 @@ p.ask_questions{
     transform: scale(0.90);
 }
 
-/*_________________________________*/
+@media only screen and (max-width: 1280px) {
+    .btn__send {
+        margin-left: calc(8rem + 3px);
+    }
+}
 
-/*CSS-settings for login.html
------------------------------------*/
+/* _________________________________ */
+/* CSS-settings for login.html */
+/* _________________________________ */
 
 .login_before-question-header {
     padding-left: 10%;
 }
 
-p.login_login-message{
+p.login_login-message {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -784,7 +960,7 @@ p.login_login-message{
     padding-left: 10%;
 }
 
-.login_mistake-message > p{
+.login_mistake-message>p {
     color: #DC143C;
     font-size: 32px;
     font-family: Rubik;
@@ -792,26 +968,22 @@ p.login_login-message{
     display: inline-block;
 }
 
-.login_login-input, .login_password-input, .login_create-new-account {
+.login_login-input,
+.login_password-input,
+.login_create-new-account {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.login_login-input > label, .login_password-input > label {
+.login_login-input>label,
+.login_password-input>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
-
-@media only screen and (max-width: 1280px) {
-.login_login-input > label, .login_password-input > label {
-    font-size: 24px;
-    width: 15rem;
-}
-}
-
-.login_login, .login_password {
+.login_login,
+.login_password {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -820,7 +992,7 @@ p.login_login-message{
     height: 3rem;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -830,12 +1002,6 @@ p.login_login-message{
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: calc(18rem + 3px);
-}
-
-@media only screen and (max-width: 1280px) {
-.btn__login {
-    margin-left: calc(15rem + 3px);
-}
 }
 
 .btn-field__login {
@@ -868,8 +1034,23 @@ p.login_login-message{
     font-size: 24px;
 }
 
-.login_create-new-account > label {
+.login_create-new-account>label {
     width: 10rem;
+}
+
+@media only screen and (max-width: 1280px) {
+
+    .login_login-input>label,
+    .login_password-input>label {
+        font-size: 24px;
+        width: 15rem;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__login {
+        margin-left: calc(15rem + 3px);
+    }
 }
 
 /*_________________________________*/
@@ -885,7 +1066,7 @@ p.login_login-message{
     padding-left: 10%;
 }
 
-.settings_mistake-message > p{
+.settings_mistake-message>p {
     color: #DC143C;
     margin: 0;
     font-size: 24px;
@@ -894,7 +1075,7 @@ p.login_login-message{
     display: inline-block;
 }
 
-p.settings_settings{
+p.settings_settings {
     margin-left: 10%;
     font-size: 36px;
     padding-top: 1rem;
@@ -908,25 +1089,34 @@ p.settings_settings{
     font-weight: bold;
 }
 
-.settings_settings-email, .settings_settings-nickname, .settings_upload-avatar {
+.settings_settings-email,
+.settings_settings-nickname,
+.settings_upload-avatar {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.settings_settings-email > label, .settings_settings-nickname > label, .settings_upload-avatar > label {
+.settings_settings-email>label,
+.settings_settings-nickname>label,
+.settings_upload-avatar>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
 @media only screen and (max-width: 1280px) {
-.settings_settings-email > label, .settings_settings-nickname > label, .settings_upload-avatar > label {
-    font-size: 24px;
-    width: 15rem;
-}
+
+    .settings_settings-email>label,
+    .settings_settings-nickname>label,
+    .settings_upload-avatar>label {
+        font-size: 24px;
+        width: 15rem;
+    }
 }
 
-.settings_email, .settings_nickname, settings_upload-avatar {
+.settings_email,
+.settings_nickname,
+settings_upload-avatar {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -935,7 +1125,7 @@ p.settings_settings{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -966,15 +1156,9 @@ p.settings_settings{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
-}
-
-@media only screen and (max-width: 1280px) {
-#settings_imgInput {
-    margin-left: calc(15rem + 3px);
-}
 }
 
 .btn__save {
@@ -982,12 +1166,6 @@ p.settings_settings{
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: 18rem;
-}
-
-@media only screen and (max-width: 1280px) {
-.btn__save {
-    margin-left: 15rem;
-}
 }
 
 .btn-field__save {
@@ -1015,16 +1193,27 @@ p.settings_settings{
     transform: scale(0.90);
 }
 
-/*_________________________________*/
+@media only screen and (max-width: 1280px) {
+    #settings_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
+}
 
-/*CSS-settings for signup.html
------------------------------------*/
+@media only screen and (max-width: 1280px) {
+    .btn__save {
+        margin-left: 15rem;
+    }
+}
+
+/*_________________________________*/
+/* CSS-settings for signup.html */
+/*_________________________________*/
 
 .signup_before-question-header {
     padding-left: 10%;
 }
 
-p.signup_registration-message{
+p.signup_registration-message {
     font-size: 36px;
     padding-top: 1rem;
     font-family: Oblivion;
@@ -1036,7 +1225,7 @@ p.signup_registration-message{
     padding-left: 10%;
 }
 
-.signup_mistake-message > p{
+.signup_mistake-message>p {
     color: #DC143C;
     margin: 0;
     font-size: 24px;
@@ -1045,28 +1234,46 @@ p.signup_registration-message{
     display: inline-block;
 }
 
-.signup_signup-login, .signup_signup-email, .signup_signup-nickname, .signup_signup-password,
- .signup_signup-repeat-password, .signup_upload-avatar {
+.signup_signup-login,
+.signup_signup-email,
+.signup_signup-nickname,
+.signup_signup-password,
+.signup_signup-repeat-password,
+.signup_upload-avatar {
     padding-top: 3.5rem;
     padding-left: 10%;
 }
 
-.signup_signup-login > label, .signup_signup-email > label, .signup_signup-nickname > label,
-.signup_signup-password > label, .signup_signup-repeat-password > label, .signup_upload-avatar > label {
+.signup_signup-login>label,
+.signup_signup-email>label,
+.signup_signup-nickname>label,
+.signup_signup-password>label,
+.signup_signup-repeat-password>label,
+.signup_upload-avatar>label {
     font-size: 28px;
     font-family: Oblivion;
     width: 18rem;
 }
 
 @media only screen and (max-width: 1280px) {
-.signup_signup-login > label, .signup_signup-email > label, .signup_signup-nickname > label,
-.signup_signup-password > label, .signup_signup-repeat-password > label, .signup_upload-avatar > label {
-    font-size: 24px;
-    width: 15rem;
-}
+
+    .signup_signup-login>label,
+    .signup_signup-email>label,
+    .signup_signup-nickname>label,
+    .signup_signup-password>label,
+    .signup_signup-repeat-password>label,
+    .signup_upload-avatar>label {
+        font-size: 24px;
+        width: 15rem;
+    }
 }
 
-.signup_login, .signup_email, .signup_nickname, .signup_password, .signup_repeat-password, signup_upload-avatar {
+.signup_login,
+.signup_email,
+.signup_nickname,
+.signup_password,
+.signup_repeat-password,
+signup_upload-avatar {
     font-family: Rubik;
     font-size: 24px;
     padding-left: 10px;
@@ -1075,7 +1282,7 @@ p.signup_registration-message{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
@@ -1106,28 +1313,17 @@ p.signup_registration-message{
     width: 45%;
     border: 3px solid #000000;
     border-radius: 10px;
-    resize:none;
+    resize: none;
     float: none;
     overflow: hidden;
 }
 
-@media only screen and (max-width: 1280px) {
-#signup_imgInput {
-    margin-left: calc(15rem + 3px);
-}
-}
 
 .btn__register {
     margin-top: 3rem;
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: 18rem;
-}
-
-@media only screen and (max-width: 1280px) {
-.btn__register {
-    margin-left: 15rem;
-}
 }
 
 .btn-field__register {
@@ -1155,9 +1351,21 @@ p.signup_registration-message{
     transform: scale(0.90);
 }
 
+@media only screen and (max-width: 1280px) {
+    #signup_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__register {
+        margin-left: 15rem;
+    }
+}
+
 /*_________________________________*/
 
-.popular-tags > p {
+.popular-tags>p {
     font-size: 36px;
     padding-top: 5rem;
     font-family: Oblivion;
@@ -1165,19 +1373,20 @@ p.signup_registration-message{
     text-align: left;
 }
 
-.popular-tags > ul > li {
+.popular-tags>ul>li {
     display: inline;
-    padding-right: 5rem;
-    font-size: 32px;
+    padding-right: 3rem;
+    font-size: 28px;
     font-weight: bold;
     color: #0d6efd;
 }
 
-.popular-tags > ul > li > a{
+.popular-tags>ul>li>a {
     font-family: Oblivion;
+    text-decoration: none;
 }
 
-.best-members > p {
+.best-members>p {
     font-size: 36px;
     padding-top: 3rem;
     font-family: Oblivion;
@@ -1185,13 +1394,12 @@ p.signup_registration-message{
     text-align: left;
 }
 
-.best-members > ul {
-    font-size: 32px;
-    text-decoration: 2px underline;
+.best-members>ul {
+    font-size: 28px;
     list-style-type: none;
 }
 
-.best-members > ul > li {
+.best-members>ul>li {
     margin-bottom: 1rem;
     font-family: Oblivion;
 }
@@ -1202,7 +1410,7 @@ p.signup_registration-message{
     margin-bottom: auto;
 }
 
-.pagination-main > ul > li > a{
+.pagination-main>ul>li>a {
     border: 2px solid #B8860B;
     color: #800000 !important;
     font-family: Rubik;
@@ -1210,9 +1418,38 @@ p.signup_registration-message{
     margin-right: 0.5rem;
 }
 
-.pagination-main > ul > li > a:hover, .pagination-main > ul > li > a:active{
+.pagination-main>ul>li>a:hover,
+.pagination-main>ul>li>a:active {
     color: #800000;
     background-color: #FFE4B5;
     border: 2px solid #B8860B;
     box-shadow: upset 5px 5px 5px 5px #FFB6C1;
+}
+
+@media only screen and (max-width: 1080px) {
+    .popular-tags>p {
+        font-size: 24px;
+    }
+
+    .popular-tags>ul>li {
+        font-size: 20px;
+    }
+
+    .best-members>p {
+        font-size: 24px;
+    }
+
+    .best-members>ul {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .textcols-item-questions {
+        width: 100%;
+    }
+
+    .textcols-item-sidebar {
+        display: none;
+    }
 }

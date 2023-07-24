@@ -2,89 +2,91 @@
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block "title" %}{% endblock "title" %}
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/img_main.jpg' %}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/img_main.jpg' %}" />
     <link href="{% static '/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static '/css/askforum_style.css' %}" rel="stylesheet">
 
 </head>
+
 <body>
-<div class="row header">
-    <div class="col-md-3 site-name">
-        <div class="site-name__icon">
-            <img class="col-2 name__icon" src="{% static '/img/img_main.jpg' %}" alt="">
+    <div class="row header">
+        <div class="col-3 site-name">
+            <a class="logo__icon" href="{% url 'home' %}"><img src="{% static '/img/img_logo.jpg' %}" alt=""></a>
             <a href="{% url 'home' %}">AskHeroes</a>
         </div>
-    </div>
-    <div class="col-md search-field">
-        <ul class="search_hints">
-        </ul>
-        <div class="search-field__icon">
-            <input class="search-field__input" type="text" placeholder="Search">
+        <div class="col site-search">
+            <form id="search-form" action="" method="get" role="search"></form>
+            <div class="row search-field">
+                <button class="search__button" type="submit"><img src="{% static '/img/search.png' %}" alt=""></button>
+                <input class="search-field__input" type="text" placeholder="Search">
+                <ul class="search_hints">
+                </ul>
+            </div>
+            </form>
+        </div>
+        <div class="col ask-button">
             <a class="btn-field__ask" type="button" href="{% url 'ask' %}">Ask!</a>
         </div>
-        
+        {% block "index_user" %}{% endblock "index_user" %}
+        {% block "question_user" %}{% endblock "question_user" %}
+        {% block "ask_user" %}{% endblock "ask_user" %}
+        {% block "settings_user" %}{% endblock "settings_user" %}
+        {% block "login_user" %}{% endblock "login_user" %}
+        {% block "signup_user" %}{% endblock "signup_user" %}
+        <div class="row underline"></div>
     </div>
-    {% block "index_user" %}{% endblock "index_user" %}
-    {% block "question_user" %}{% endblock "question_user" %}
-    {% block "ask_user" %}{% endblock "ask_user" %}
-    {% block "settings_user" %}{% endblock "settings_user" %}
-    {% block "login_user" %}{% endblock "login_user" %}
-    {% block "signup_user" %}{% endblock "signup_user" %}
-    <div class="row underline"></div>
-</div>
-<div class="row main">
-    <div class="col md-8 textcols-item-questions">
-        {% block "index_questions-list" %}{% endblock "index_questions-list" %}
-        {% block "question_one-question" %}{% endblock "question_one-question" %}
-        {% block "question_answers-list" %}{% endblock "question_answers-list" %}
-        {% block "question_user_answer" %}{% endblock "question_user_answer" %}
-        {% block "ask_page" %}{% endblock "ask_page" %}
-        {% block "settings_parameters" %}{% endblock "settings_parameters" %}
-        {% block "login_input" %}{% endblock "login_input" %}
-        {% block "signup_registration" %}{% endblock "signup_registration" %}
-    </div>
-    <div class="col-md-4 textcols-item-sidebar">
-        <div class="popular-tags">
-            <p>Popular tags</p>
-            <ul class="tag-links">
-                <li><a type="text" class="tag1" style="color: #A52A2A" href=""></a></li>
-                <li><a type="text" class="tag2" href=""></a></li>
-                <li><a type="text" class="tag3" href=""></a></li>
-                <li><a type="text" class="tag4" href=""></a></li>
-                <li><a type="text" class="tag5" style="color: #008000" href=""></a></li>
-                <li><a type="text" class="tag6" style="color: #A52A2A" href=""></a></li>
-                <li><a type="text" class="tag7" style="color: #DAA520" href=""></a></li>
-            </ul>
+    <div class="row main">
+        <div class="col-8 textcols-item-questions">
+            {% block "index_questions-list" %}{% endblock "index_questions-list" %}
+            {% block "question_one-question" %}{% endblock "question_one-question" %}
+            {% block "question_answers-list" %}{% endblock "question_answers-list" %}
+            {% block "question_user_answer" %}{% endblock "question_user_answer" %}
+            {% block "ask_page" %}{% endblock "ask_page" %}
+            {% block "settings_parameters" %}{% endblock "settings_parameters" %}
+            {% block "login_input" %}{% endblock "login_input" %}
+            {% block "signup_registration" %}{% endblock "signup_registration" %}
         </div>
-        <div class="best-members">
-            <p>Best members</p>
-            <ul>
-                <li class="member1"></li>
-                <li class="member2"></li>
-                <li class="member3"></li>
-                <li class="member4"></li>
-                <li class="member5"></li>
-            </ul>
+        <div class="col-4 textcols-item-sidebar">
+            <div class="popular-tags">
+                <p>Popular tags</p>
+                <ul class="tag-links">
+                    <li><a type="text" class="tag1" style="color: #A52A2A" href=""></a></li>
+                    <li><a type="text" class="tag2" href=""></a></li>
+                    <li><a type="text" class="tag3" href=""></a></li>
+                    <li><a type="text" class="tag4" href=""></a></li>
+                    <li><a type="text" class="tag5" style="color: #008000" href=""></a></li>
+                    <li><a type="text" class="tag6" style="color: #A52A2A" href=""></a></li>
+                    <li><a type="text" class="tag7" style="color: #DAA520" href=""></a></li>
+                </ul>
+            </div>
+            <div class="best-members">
+                <p>Best members</p>
+                <ul>
+                    <li class="member1"></li>
+                    <li class="member2"></li>
+                    <li class="member3"></li>
+                    <li class="member4"></li>
+                    <li class="member5"></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<div class="row footer">
-    {% block "index_questions-pagination" %}{% endblock "index_questions-pagination" %}
-    {% block "question_questions-pagination" %}{% endblock "question_questions-pagination" %}
-    <div class="row underline"></div>
-    <div class="footer-information"></div>
-</div>
+    <div class="row footer">
+        {% block "index_questions-pagination" %}{% endblock "index_questions-pagination" %}
+        {% block "question_questions-pagination" %}{% endblock "question_questions-pagination" %}
+        <div class="row underline"></div>
+        <div class="footer-information"></div>
+    </div>
 </body>
 <script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
-<script src="{% static '/js/centrifuge.min.js' %}"></script>
 {% block "ask_forum.js" %}{% endblock "ask_forum.js" %}
-{% block "signup.js" %}{% endblock "signup.js" %}
-{% block "settings.js" %}{% endblock "settings.js" %}
-<script src="{% static '/js/set_tags_and_users.js' %}"></script>
+<script src="{% static '/js/tags_and_users.js' %}"></script>
+
 </html>

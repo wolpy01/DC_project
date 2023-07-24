@@ -1,7 +1,7 @@
-import re
 import jwt
 import time
 import uuid
+import json
 
 import django.contrib.auth as auth
 from django.shortcuts import render, redirect, get_object_or_404
@@ -14,46 +14,43 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.forms import model_to_dict
 
-from . import models, forms, UserFunctions
+from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
-# client = Client(f'http://{CENTRIFUGO_ADDRESS}/api',
-#                 api_key=CENTRIFUGO_API_KEY, timeout=1)
-
-
+@csrf_protect
 def index(request):
     return render(
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 models.Question.objects.get_new_questions(), request, per_page=5
             ),
             "title": "New questions",
         },
     )
 
-
+@csrf_protect
 def hot(request):
     return render(
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 models.Question.objects.get_hot_questions(), request, per_page=5
             ),
             "title": "Hot questions",
         },
     )
 
-
+@csrf_protect
 def tag(request, tag_name):
     return render(
         request,
         "index.html",
         {
-            "questions": UserFunctions.paginate(
+            "questions": helpFunctions.paginate(
                 get_object_or_404(
                     models.Tag.objects, tag_name=tag_name
                 ).get_related_questions(),
@@ -69,6 +66,10 @@ def tag(request, tag_name):
 @csrf_protect
 @require_http_methods(["GET", "POST"])
 def question(request, question_id):
+    client = Client(
+        f"http://{CENTRIFUGO_ADDRESS}/api", api_key=CENTRIFUGO_API_KEY, timeout=1
+    )
+
     question = get_object_or_404(models.Question.objects, id=question_id)
     answers = question.answers.get_new_answers()
     channel_id = f"question_{question_id}"
@@ -82,11 +83,16 @@ def question(request, question_id):
         answer = answer_form.create_answer(
             models.Profile.objects.get(user=request.user), question
         )
-
         if answer:
-            # client.publish(channel_id, {'answer': model_to_dict(answer, exclude=['publish_date', 'author']),
-            #                             'answer_url': answer.author.avatar_path.url})
-            return redirect(reverse("question", args=[question.id]))
+            client.publish(
+                channel_id,
+                {   "author_nickname": answer.author.nickname,
+                    "publish_date":  answer.publish_date.strftime('%d %B %Y, %H:%M'),
+                    "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
+                    "answer_url": answer.author.avatar_path.url,
+                },
+            )
+            return redirect(reverse("question", args=[question.id]) + "?page=1")
 
     return render(
         request,
@@ -94,7 +100,7 @@ def question(request, question_id):
         {
             "form": answer_form,
             "question": question,
-            "answers": UserFunctions.paginate(answers, request, per_page=5),
+            "answers": helpFunctions.paginate(answers, request, per_page=5),
             "title": f"Question №{question_id}",
             "server_address": CENTRIFUGO_ADDRESS,
             "cent_channel": channel_id,
@@ -147,7 +153,7 @@ def settings(request):
         request, "settings.html", {"form": settings_form, "title": "User settings"}
     )
 
-
+@csrf_protect
 @login_required
 def logout(request):
     if not request.user.is_authenticated:
@@ -188,9 +194,7 @@ def signup(request):
             request.POST, files=request.FILES, initial={"avatar": "img_main.jpg"}
         )
         if user_form.is_valid():
-            if not user_form.compare_passwords():
-                user_form.add_error("password", "Passwords do not match.")
-            else:
+            if user_form.compare_passwords():
                 profile = user_form.save()
                 if profile:
                     auth.login(request, profile.user)
@@ -198,7 +202,7 @@ def signup(request):
 
     return render(request, "signup.html", {"form": user_form, "title": "Sign up page"})
 
-
+@csrf_protect
 @require_POST
 def popular_tags_and_top_users(request):
     return JsonResponse(
@@ -270,12 +274,12 @@ def vote_up(request):
     question_id = request.POST.get("question_id", None)
     answer_id = request.POST.get("answer_id", None)
     if question_id is not None:
-        new_rating, question_vote = UserFunctions.get_new_question_rating(
+        new_rating, question_vote = helpFunctions.get_new_question_rating(
             question_id, request, vote=1
         )
         return JsonResponse({"new_rating": new_rating, "vote": question_vote})
     elif answer_id is not None:
-        new_rating, answer_vote = UserFunctions.get_new_answer_rating(
+        new_rating, answer_vote = helpFunctions.get_new_answer_rating(
             answer_id, request, vote=1
         )
         return JsonResponse({"new_rating": new_rating, "vote": answer_vote})
@@ -288,12 +292,12 @@ def vote_down(request):
     question_id = request.POST.get("question_id", None)
     answer_id = request.POST.get("answer_id", None)
     if question_id is not None:
-        new_rating, question_vote = UserFunctions.get_new_question_rating(
+        new_rating, question_vote = helpFunctions.get_new_question_rating(
             question_id, request, vote=-1
         )
         return JsonResponse({"new_rating": new_rating, "vote": question_vote})
     elif answer_id is not None:
-        new_rating, answer_vote = UserFunctions.get_new_answer_rating(
+        new_rating, answer_vote = helpFunctions.get_new_answer_rating(
             answer_id, request, vote=-1
         )
         return JsonResponse({"new_rating": new_rating, "vote": answer_vote})

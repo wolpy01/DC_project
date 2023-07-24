@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-q^-0u@b^p*wz_yut*&mtg82obk2tlf%phtv!c*@6cwbi++hrs4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,20 +73,20 @@ ALLOWED_HOSTS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "AskHeroes",
-#         "USER": "vfomenko",
-#         "PASSWORD": "password",
-#         "HOST": "localhost",
-#         "PORT": "3306",
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'askeroes',
+#         'USER': 'askheroes_admin',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -140,9 +140,9 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CENTRIFUGO_API_KEY = "api_key"
+CENTRIFUGO_API_KEY = "e2ca4f3d-ad03-4382-89c0-89aeb57d8075"
 
-CENTRIFUGO_SECRET_KEY = "token_hmac_secret_key"
+CENTRIFUGO_SECRET_KEY = "d3decd59-16dd-45fa-98b3-641a9e2d228b"
 
 CENTRIFUGO_ADDRESS = "localhost:8001"
 

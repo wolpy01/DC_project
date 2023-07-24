@@ -1,25 +1,29 @@
 <div class="row question_answer">
-  <div class="col-md-2 question_answer-icon">
-    <div class="row question_answer-avatar">
-      <img class="avatar-image" src="{{ answer.author.avatar_path.url }}" alt="" />
+    <div class="col-2 question_answer-icon">
+        <div class="row question_answer-avatar">
+            <img class="avatar-image" src="{{ answer.author.avatar_path.url }}" alt="" />
+        </div>
+        <div class="row user_nickname">{{ answer.author.nickname }}</div>
+        <div class="row likes-counter">
+            <div class="col likes">{{ answer.rating }}</div>
+            <div class="col-1 counter">
+                <input class="btn-like-answer" type="button" data-type="like" style="background-color: #FFFFFF"
+                    data-id="{{ answer.id }}" aria-label="Like!" />
+                <input class="btn-dislike-answer" type="button" data-type="dislike" style="background-color: #FFFFFF"
+                    data-id="{{ answer.id }}" aria-label="Dislike!" />
+            </div>
+        </div>
     </div>
-    <div class="row likes-counter">
-      <div class="col-md likes">{{ answer.rating }}</div>
-      <div class="col-md-1 counter">
-        <input class="btn-like-answer" type="button" data-type="like" style="background-color: #FFFFFF" data-id="{{ answer.id }}" aria-label="Like!" />
-        <input class="btn-dislike-answer" type="button" data-type="dislike" style="background-color: #FFFFFF" data-id="{{ answer.id }}" aria-label="Dislike!" />
-      </div>
+    <div class="col question_answer-text">
+        <div class="row question_answer-user-text">
+            <p>{{ answer.content }}</p>
+        </div>
+        <div class="row checkbox-correct-answer">
+            <div class="col form-check">
+                <input class="form-check-input" type="checkbox" data-id="{{ answer.id }}" id="flexCheckIndeterminate" />
+                <label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>
+            </div>
+        </div>
+        <div class="row publish_date">{{answer.publish_date|date:"d M Y, G:i"}} UTC</div>
     </div>
-  </div>
-  <div class="col-md question_answer-text">
-    <div class="row question_answer-user-text">
-      <p>{{ answer.content }}</p>
-    </div>
-    <div class="checkbox-correct-answer">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" data-id="{{ answer.id }}" id="flexCheckIndeterminate" />
-        <label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>
-      </div>
-    </div>
-  </div>
 </div>
