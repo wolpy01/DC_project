@@ -1,22 +1,24 @@
 <div class="row index_question">
     <div class="col-2 index_question-icon">
         <div class="row index_question-avatar">
-            <img class="avatar-image" src="{{ question.author.avatar_path.url }}" alt=""/>
+            <img class="avatar-image" src="{{ question.author.avatar_path.url }}" alt="" />
         </div>
         <div class="row user_nickname">{{ question.author.nickname }}</div>
         <div class="row likes-counter">
             <div class="col likes">{{ question.rating }}</div>
             <div class="col-1 counter">
                 <input class="btn-like-question" type="button" data-type="like" style="background-color: #FFFFFF"
-                       data-id="{{ question.id }}" aria-label="Like!">
+                    data-id="{{ question.id }}" aria-label="Like!">
                 <input class="btn-dislike-question" type="button" data-type="dislike" style="background-color: #FFFFFF"
-                       data-id="{{ question.id }}" aria-label="Dislike!">
+                    data-id="{{ question.id }}" aria-label="Dislike!">
             </div>
         </div>
     </div>
     <div class="col index_question-text">
         <div class="row">
-            <a class="index_user-question" type="text" href="{% url 'question' question.id %}?page=1">{{ question.title }}</a>
+            <a class="index_user-question" type="text" href="{% url 'question' question.id %}?page=1">
+                {{ question.title | truncatechars:50 }}
+            </a>
         </div>
         <div class="row index_user-text">
             <p>{{ question.content | truncatechars:255 }}</p>
@@ -36,6 +38,6 @@
                 </ul>
             </div>
         </div>
-        <div class="row publish_date">{{question.publish_date}} UTC+0</div>
+        <div class="row publish_date">{{question.publish_date|date:"d M Y, G:i"}} UTC</div>
     </div>
 </div>

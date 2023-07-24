@@ -359,6 +359,7 @@ a.index_user-question {
     padding: 0 0 0.5rem 0.5rem;
     display: block;
     text-decoration: none;
+    word-break: break-all;
 }
 
 .index_user-text {
@@ -611,6 +612,7 @@ p.question_user-question {
     margin: 0;
     display: block;
     text-decoration: none;
+    word-break: break-all;
 }
 
 .question_user-text {

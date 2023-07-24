@@ -31,8 +31,8 @@ function add_answer(data) {
             '<input class="form-check-input" type="checkbox" data-id="' + answer['id'] + '" id="flexCheckIndeterminate" />' +
             '<label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>' +
             '</div>' +
-            '<div class="col-3 publish_date">' + publish_date + ' UTC+0' + '</div>' +
             '</div>' +
+            '<div class="row publish_date">' + publish_date + '</div>' +
             '</div>' +
             '</div>');
 

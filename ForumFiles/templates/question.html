@@ -45,6 +45,7 @@
 <script src="{% static '/js/user_rating.js' %}"></script>
 <script src="{% static '/js/centrifuge.min.js' %}"></script>
 <script src="{% static '/js/add_answer.js' %}"></script>
+<script src="{% static '/js/set_locale_time.js' %}"></script>
 <script>
     const centrifuge = new Centrifuge('ws://{{ server_address }}/connection/websocket');
 
@@ -53,6 +54,7 @@
     centrifuge.subscribe('{{ cent_channel }}', function (message) {
         add_answer(message);
         calculateRating();
+        setLocaleTime(1, 3);
     });
 
     centrifuge.connect();

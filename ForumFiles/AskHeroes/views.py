@@ -87,7 +87,7 @@ def question(request, question_id):
             client.publish(
                 channel_id,
                 {   "author_nickname": answer.author.nickname,
-                    "publish_date":  answer.publish_date.strftime('%B %d, %Y, %I:%M %p').replace("PM", "p.m."),
+                    "publish_date":  answer.publish_date.strftime('%d %B %Y, %H:%M'),
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
