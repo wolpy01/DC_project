@@ -11,7 +11,7 @@
 
 {% block "settings_parameters" %}
 <div class="row settings_before-question-header">
-    <p class="settings_settings">Settings:<span class="settings_username">{{ request.user.profile.nickname }}</span></p>
+    <p class="settings_settings">User settings:<span class="settings_username">{{ request.user.username }}</span></p>
 </div>
 <div class="row settings_mistake-message">
     <p>{{ form.email.errors.0 }}</p>

@@ -56,7 +56,7 @@ function voteRequest() {
             data: determineAnswerOrQuestion(this) + "_id=" + $(this).data('id'),
             dataType: 'json',
             success: function (response) {
-                $(this).closest('.counter').prev('.likes').text(response.new_rating);
+                $(this).closest('.counter').prev().text(response.new_rating);
                 voteLikeOrDislike(response, this, $(this).data('type'), determineAnswerOrQuestion(this));
             }.bind(this),
             error: function (xhr, status, error) {
@@ -139,8 +139,7 @@ function likesAndDislikesVotes() {
 }
 
 function determineAnswerOrQuestion(element) {
-    if ($(element).closest('.likes-counter').prev().hasClass('question_question-avatar') == true ||
-        $(element).closest('.likes-counter').prev().hasClass('index_question-avatar') == true)
+    if ($(element).hasClass('btn-like-question') == true || $(element).hasClass('btn-dislike-question') == true)
         return 'question';
     else
         return 'answer';
@@ -198,6 +197,7 @@ function activateLikeOrDislike(ids, object_of_likes) {
     for (id in ids) {
         var btnLike = document.querySelector('.btn-like-' + object_of_likes + '[data-id="' + id + '"]');
         var btnDislike = document.querySelector('.btn-dislike-' + object_of_likes + '[data-id="' + id + '"]');
+        console.log()
 
         if (ids[id] == 1) {
             btnLike.setAttribute('style', 'background-color: #F08080');

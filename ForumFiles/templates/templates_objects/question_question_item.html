@@ -3,6 +3,7 @@
         <div class="row question_question-avatar">
             <img class="avatar-image" src="{{ question.author.avatar_path.url }}" alt=""/>
         </div>
+        <div class="row user_nickname">{{ question.author.nickname }}</div>
         <div class="row likes-counter">
             <div class="col likes">{{ question.rating }}</div>
             <div class="col-1 counter">

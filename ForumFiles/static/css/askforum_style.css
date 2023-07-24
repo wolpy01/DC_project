@@ -37,7 +37,7 @@
 
 ::-webkit-scrollbar {
     width: 5px;
-    overflow-x: hidden;
+    height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,6 +72,7 @@ body {
     margin: 0;
     top: 0;
     position: sticky;
+    z-index: 1;
     background: #FFFFFF;
     border-radius: 40px 40px 0 0;
 }
@@ -79,7 +80,7 @@ body {
 .main {
     margin: 0;
     min-height: 1000px;
-    height: 90%;
+    height: fit-content;
 }
 
 .footer {
@@ -249,7 +250,9 @@ body {
 
 #username {
     font-weight: bold;
-    font-size: 36px;
+    font-size: 2vw;
+    word-break: break-all;
+    margin: 0;
 }
 
 ul.justify-content-end {
@@ -281,6 +284,10 @@ ul.justify-content-end>li>a {
     background-image: -moz-linear-gradient(left, #fff, #B8860B, #fff);
     background-image: -ms-linear-gradient(left, #fff, #B8860B, #fff);
     background-image: -o-linear-gradient(left, #fff, #B8860B, #fff);
+}
+
+.textcols-item-questions {
+    height: fit-content;
 }
 
 @media only screen and (max-width: 800px) {
@@ -320,13 +327,12 @@ a.index_questions {
     border: 3px solid #000000;
     border-radius: 20px;
     width: 85%;
-    min-height: 11%;
-    max-height: 35%;
+    min-height: 10%;
     box-shadow: 5px 5px 5px 5px #A52A2A;
 }
 
 .index_question-icon {
-    height: 144px;
+    height: fit-content;
     width: 144px;
     min-width: 80px;
     min-height: 80px;
@@ -343,7 +349,9 @@ a.index_questions {
 }
 
 .index_question-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 a.index_user-question {
@@ -351,6 +359,7 @@ a.index_user-question {
     font-family: Oblivion;
     padding: 0 0 0.5rem 0.5rem;
     display: block;
+    text-decoration: none;
 }
 
 .index_user-text {
@@ -359,8 +368,6 @@ a.index_user-question {
 }
 
 .index_user-text>p {
-    min-height: 8rem;
-    max-height: 20rem;
     text-align: justify;
     height: fit-content;
     padding: 0 0.5rem 0 0.5rem;
@@ -372,6 +379,7 @@ a.index_user-question {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     padding: 0 0 0 0.5rem;
+
 }
 
 .index_answers {
@@ -410,11 +418,18 @@ a.index_user-question {
 }
 
 .index_tags-links {
-    padding-left: 2%;
+    padding-left: 0;
+}
+
+.user_nickname {
+    font-size: 20px;
+    margin: 8px 0 0 8px;
+    word-break: break-all;
+    font-family: Oblivion;
 }
 
 .likes-counter {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-left: 0;
     width: 7rem;
 }
@@ -485,65 +500,44 @@ a.index_user-question {
 
 @media only screen and (max-width: 1080px) {
     .index_question-icon {
-        height: 96px;
         width: 96px;
-        padding: 0;
-        margin: 8px;
     }
 
     .likes-counter {
-        margin-top: 1rem;
-        margin-left: 0;
         width: 5.5rem;
     }
 
     a.index_user-question {
         font-size: 20px;
-        font-family: Oblivion;
-        padding: 0 0 0.5rem 0.5rem;
-        display: block;
     }
 
     p.index_questions {
         font-size: 36px;
-        padding-left: 10%;
-        margin-bottom: 0;
-        padding-top: 1rem;
-        font-family: Oblivion;
-        font-weight: bold;
         display: block;
+        margin-bottom: 0;
     }
 
     a.index_questions {
-        padding-left: 10%;
         font-size: 24px;
-        font-family: Oblivion;
-        font-weight: bold;
+        padding-left: 10%;
     }
 }
 
 @media only screen and (max-width: 1280px) {
     .index_answers>a {
         font-size: 14px;
-        font-family: Oblivion;
     }
 
     .index_tags>span {
         font-size: 14px;
-        font-family: Oblivion;
     }
-
 
     .index_tags-links>ul {
         margin: 0 0 0 1rem;
-        list-style-image: url("../svg/caret-right.svg")
     }
 
     .index_tags-links>ul>li>a {
         font-size: 14px;
-        font-family: Oblivion;
-        padding-left: 0.5rem;
-        display: block;
     }
 }
 
@@ -557,15 +551,14 @@ a.index_user-question {
     margin-bottom: 3rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 80%;
-    min-height: 13.6%;
-    max-height: 36%;
+    width: 85%;
+    min-height: 10%;
     box-shadow: 5px 5px 5px 5px #A52A2A;
 }
 
 
 .question_question-icon {
-    height: 180px;
+    height: fit-content;
     width: 180px;
     min-width: 80px;
     min-height: 80px;
@@ -575,42 +568,44 @@ a.index_user-question {
 
 .question_question-avatar {
     height: 100%;
-    width: auto;
+    width: 100%;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .question_question-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 p.question_user-question {
     font-size: 24px;
     font-family: Oblivion;
-    padding: 0 0 0.5rem 0;
+    padding: 0 0 0.5rem 0.5rem;
     margin: 0;
     display: block;
+    text-decoration: none;
 }
 
 .question_user-text {
-    overflow: scroll;
+    max-height: 100%;
+    height: fit-content;
 }
 
 .question_user-text>p {
-    min-height: 10rem;
-    max-height: 14rem;
     text-align: justify;
     height: fit-content;
-    padding-right: 0.5rem;
+    padding-right: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
 }
 
 .question_question-tags {
-    padding: 0;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    padding: 0 0 0 0.5rem;
 }
 
 .question_tags {
@@ -627,7 +622,7 @@ p.question_user-question {
 }
 
 .question_tags-links>ul {
-    margin: 0 0 0 1.5rem;
+    margin: 0 0 0 1rem;
     list-style-image: url("../svg/caret-right.svg")
 }
 
@@ -644,13 +639,13 @@ p.question_user-question {
     margin-bottom: 2rem;
     border: 3px solid #000000;
     border-radius: 20px;
-    width: 70%;
-    max-height: 35%;
+    width: 75%;
+    min-height: 10%;
     box-shadow: 5px 5px 5px 5px #008000;
 }
 
 .question_answer-icon {
-    height: 144px;
+    height: fit-content;
     width: 144px;
     min-width: 80px;
     min-height: 80px;
@@ -660,29 +655,30 @@ p.question_user-question {
 
 .question_answer-avatar {
     height: 100%;
-    width: auto;
+    width: 100%;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .question_answer-text {
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding-top: 0.75rem;
 }
 
 .question_answer-user-text {
-    max-height: 70%;
+    max-height: 100%;
     height: fit-content;
-    overflow: scroll;
 }
 
 .question_answer-user-text>p {
-    min-height: 9rem;
-    max-height: 12rem;
     text-align: justify;
     height: fit-content;
     padding-right: 2rem;
     font-size: 24px;
+    margin: 0;
 }
 
 .checkbox-correct-answer {
@@ -752,6 +748,35 @@ p.question_user-question {
 .btn-field__answer:active {
     background-color: #B8860B;
     transform: scale(0.90);
+}
+
+@media only screen and (max-width: 1080px) {
+    .question_question-icon {
+        width: 128px;
+    }
+
+    p.question_user-question {
+        font-size: 20px;
+    }
+
+    .question_answer-icon {
+        width: 96px;
+    }
+
+}
+
+@media only screen and (max-width: 1280px) {
+    .question_tags>span {
+        font-size: 14px;
+    }
+
+    .question_tags-links>ul {
+        margin: 0 0 0 1rem;
+    }
+
+    .question_tags-links>ul>li>a {
+        font-size: 14px;
+    }
 }
 
 /*_________________________________*/
@@ -826,12 +851,6 @@ p.ask_questions {
     margin-left: calc(10rem + 3px);
 }
 
-@media only screen and (max-width: 1280px) {
-    .btn__send {
-        margin-left: calc(8rem + 3px);
-    }
-}
-
 .btn-field__send {
     color: #FFFFFF;
     width: 80px;
@@ -854,6 +873,12 @@ p.ask_questions {
 .btn-field__send:active {
     background-color: #B8860B;
     transform: scale(0.90);
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__send {
+        margin-left: calc(8rem + 3px);
+    }
 }
 
 /* _________________________________ */
@@ -898,15 +923,6 @@ p.login_login-message {
     width: 18rem;
 }
 
-@media only screen and (max-width: 1280px) {
-
-    .login_login-input>label,
-    .login_password-input>label {
-        font-size: 24px;
-        width: 15rem;
-    }
-}
-
 .login_login,
 .login_password {
     font-family: Rubik;
@@ -927,12 +943,6 @@ p.login_login-message {
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: calc(18rem + 3px);
-}
-
-@media only screen and (max-width: 1280px) {
-    .btn__login {
-        margin-left: calc(15rem + 3px);
-    }
 }
 
 .btn-field__login {
@@ -967,6 +977,21 @@ p.login_login-message {
 
 .login_create-new-account>label {
     width: 10rem;
+}
+
+@media only screen and (max-width: 1280px) {
+
+    .login_login-input>label,
+    .login_password-input>label {
+        font-size: 24px;
+        width: 15rem;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__login {
+        margin-left: calc(15rem + 3px);
+    }
 }
 
 /*_________________________________*/
@@ -1077,23 +1102,11 @@ settings_upload-avatar {
     overflow: hidden;
 }
 
-@media only screen and (max-width: 1280px) {
-    #settings_imgInput {
-        margin-left: calc(15rem + 3px);
-    }
-}
-
 .btn__save {
     margin-top: 2rem;
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: 18rem;
-}
-
-@media only screen and (max-width: 1280px) {
-    .btn__save {
-        margin-left: 15rem;
-    }
 }
 
 .btn-field__save {
@@ -1119,6 +1132,18 @@ settings_upload-avatar {
 .btn-field__save:active {
     background-color: #B8860B;
     transform: scale(0.90);
+}
+
+@media only screen and (max-width: 1280px) {
+    #settings_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__save {
+        margin-left: 15rem;
+    }
 }
 
 /*_________________________________*/
@@ -1234,23 +1259,12 @@ signup_upload-avatar {
     overflow: hidden;
 }
 
-@media only screen and (max-width: 1280px) {
-    #signup_imgInput {
-        margin-left: calc(15rem + 3px);
-    }
-}
 
 .btn__register {
     margin-top: 3rem;
     margin-right: 0;
     margin-bottom: 1rem;
     margin-left: 18rem;
-}
-
-@media only screen and (max-width: 1280px) {
-    .btn__register {
-        margin-left: 15rem;
-    }
 }
 
 .btn-field__register {
@@ -1278,6 +1292,18 @@ signup_upload-avatar {
     transform: scale(0.90);
 }
 
+@media only screen and (max-width: 1280px) {
+    #signup_imgInput {
+        margin-left: calc(15rem + 3px);
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn__register {
+        margin-left: 15rem;
+    }
+}
+
 /*_________________________________*/
 
 .popular-tags>p {
@@ -1298,6 +1324,7 @@ signup_upload-avatar {
 
 .popular-tags>ul>li>a {
     font-family: Oblivion;
+    text-decoration: none;
 }
 
 .best-members>p {
@@ -1310,7 +1337,6 @@ signup_upload-avatar {
 
 .best-members>ul {
     font-size: 28px;
-    text-decoration: 2px;
     list-style-type: none;
 }
 
@@ -1344,41 +1370,18 @@ signup_upload-avatar {
 @media only screen and (max-width: 1080px) {
     .popular-tags>p {
         font-size: 24px;
-        padding-top: 5rem;
-        font-family: Oblivion;
-        font-weight: bold;
-        text-align: left;
     }
 
     .popular-tags>ul>li {
-        display: inline;
-        padding-right: 5rem;
         font-size: 20px;
-        font-weight: bold;
-        color: #0d6efd;
-    }
-
-    .popular-tags>ul>li>a {
-        font-family: Oblivion;
     }
 
     .best-members>p {
         font-size: 24px;
-        padding-top: 3rem;
-        font-family: Oblivion;
-        font-weight: bold;
-        text-align: left;
     }
 
     .best-members>ul {
         font-size: 20px;
-        text-decoration: 2px;
-        list-style-type: none;
-    }
-
-    .best-members>ul>li {
-        margin-bottom: 1rem;
-        font-family: Oblivion;
     }
 }
 
