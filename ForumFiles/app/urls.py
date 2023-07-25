@@ -50,6 +50,8 @@ urlpatterns = [
         views.popular_tags_and_top_users,
         name="popular_tags_and_top_users",
     ),
+    path("search/", views.search, name="search"),
+    path("search_results/", views.search_results, name="search_results"),
 ]
 
 if settings.DEBUG:

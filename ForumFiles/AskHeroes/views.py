@@ -6,7 +6,7 @@ import json
 import django.contrib.auth as auth
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.decorators.csrf import csrf_protect
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -18,12 +18,16 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
+
 @csrf_protect
+@require_GET
 def index(request):
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_new_questions(), request, per_page=5
             ),
@@ -31,12 +35,16 @@ def index(request):
         },
     )
 
+
 @csrf_protect
+@require_GET
 def hot(request):
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_hot_questions(), request, per_page=5
             ),
@@ -44,12 +52,16 @@ def hot(request):
         },
     )
 
+
 @csrf_protect
+@require_GET
 def tag(request, tag_name):
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 get_object_or_404(
                     models.Tag.objects, tag_name=tag_name
@@ -59,6 +71,39 @@ def tag(request, tag_name):
             ),
             "tag": tag_name,
             "title": f"Tag: {tag_name}",
+        },
+    )
+
+
+@csrf_protect
+@require_http_methods(["GET", "POST"])
+def search_results(request):
+    if request.method == "GET":
+        search_form = forms.SearchForm()
+        query = request.session.get("query", "")
+        if query == "":
+            return redirect(reverse("home"))
+    elif request.method == "POST":
+        search_form = forms.SearchForm(request.POST)
+        if not search_form.is_valid():
+            return redirect(reverse("home"))
+        else:
+            query = search_form.cleaned_data["search"]
+    request.session["query"] = query
+    request.session.modified = True
+
+    return render(
+        request,
+        "index.html",
+        {
+            "search_form": search_form,
+            "questions": helpFunctions.paginate(
+                models.Question.objects.filter(search_vector=query),
+                request,
+                per_page=5,
+            ),
+            "query": query,
+            "title": "Search results",
         },
     )
 
@@ -75,6 +120,7 @@ def question(request, question_id):
     channel_id = f"question_{question_id}"
     if request.method == "GET":
         answer_form = forms.AnswerForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         if not request.user.is_authenticated:
             return redirect("/login/?next=" + request.path)
@@ -86,8 +132,9 @@ def question(request, question_id):
         if answer:
             client.publish(
                 channel_id,
-                {   "author_nickname": answer.author.nickname,
-                    "publish_date":  answer.publish_date.strftime('%d %B %Y, %H:%M'),
+                {
+                    "author_nickname": answer.author.nickname,
+                    "publish_date": answer.publish_date.strftime("%d %B %Y, %H:%M"),
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
@@ -99,6 +146,7 @@ def question(request, question_id):
         "question.html",
         {
             "form": answer_form,
+            "search_form": search_form,
             "question": question,
             "answers": helpFunctions.paginate(answers, request, per_page=5),
             "title": f"Question №{question_id}",
@@ -120,6 +168,7 @@ def ask(request):
     profile = models.Profile.objects.get(user=request.user)
     if request.method == "GET":
         ask_form = forms.AskForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         ask_form = forms.AskForm(request.POST)
         if ask_form.is_valid():
@@ -129,7 +178,12 @@ def ask(request):
     return render(
         request,
         "ask.html",
-        {"form": ask_form, "user_nickname": profile.nickname, "title": "Ask question"},
+        {
+            "form": ask_form,
+            "search_form": search_form,
+            "user_nickname": profile.nickname,
+            "title": "Ask question",
+        },
     )
 
 
@@ -142,16 +196,21 @@ def settings(request):
         settings_form = forms.SettingsForm(
             initial={"email": user.email, "nickname": user.profile.nickname}
         )
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         settings_form = forms.SettingsForm(
             request.POST, files=request.FILES, instance=request.user
         )
+        search_form = forms.SearchForm()
         if settings_form.is_valid():
             settings_form.save()
             return redirect("settings")
     return render(
-        request, "settings.html", {"form": settings_form, "title": "User settings"}
+        request,
+        "settings.html",
+        {"form": settings_form, "search_form": search_form, "title": "User settings"},
     )
+
 
 @csrf_protect
 @login_required
@@ -169,19 +228,25 @@ def login(request):
         return redirect("home")
     if request.method == "GET":
         login_form = forms.LoginForm()
+        search_form = forms.SearchForm()
         request.session["next_url"] = request.GET.get("next", "/")
+        request.session.modified = True
     elif request.method == "POST":
         login_form = forms.LoginForm(request.POST)
+        search_form = forms.SearchForm(request.POST)
         if login_form.is_valid():
             user = auth.authenticate(request=request, **login_form.cleaned_data)
             if user:
                 auth.login(request, user)
                 next_url = request.session.get("next_url", "/")
-                del request.session["next_url"]
                 return redirect(next_url)
             login_form.add_error(None, "Invalid username or password.")
 
-    return render(request, "login.html", {"form": login_form, "title": "Log in page"})
+    return render(
+        request,
+        "login.html",
+        {"form": login_form, "search_form": search_form, "title": "Log in page"},
+    )
 
 
 @csrf_protect
@@ -189,6 +254,7 @@ def login(request):
 def signup(request):
     if request.method == "GET":
         user_form = forms.UserForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         user_form = forms.UserForm(
             request.POST, files=request.FILES, initial={"avatar": "img_main.jpg"}
@@ -200,7 +266,12 @@ def signup(request):
                     auth.login(request, profile.user)
                 return redirect(reverse("home"))
 
-    return render(request, "signup.html", {"form": user_form, "title": "Sign up page"})
+    return render(
+        request,
+        "signup.html",
+        {"form": user_form, "search_form": search_form, "title": "Sign up page"},
+    )
+
 
 @csrf_protect
 @require_POST
@@ -337,3 +408,29 @@ def choose_answer(request):
         choose_answer.correct_answer = True
     choose_answer.save()
     return JsonResponse({"new_choice": choose_answer.correct_answer})
+
+
+@csrf_protect
+@require_POST
+def search(request):
+    question_results = models.Question.objects.filter(
+        search_vector=request.POST["query"]
+    )[:5]
+    return JsonResponse(
+        {
+            "question_results": [
+                model_to_dict(
+                    question,
+                    exclude=[
+                        "publish_date",
+                        "author",
+                        "search_vector",
+                        "question_ratings",
+                        "rating",
+                    ],
+                )
+                for question in question_results
+            ],
+            "query": request.POST["query"],
+        }
+    )

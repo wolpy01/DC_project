@@ -27,6 +27,7 @@
 {% endblock "index_questions-pagination" %}
 
 {% block "ask_forum.js" %}
+{% csrf_token %}
 <script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
 <script src="{% static '/js/user_rating.js' %}"></script>
 <script src="{% static '/js/set_locale_time.js' %}"></script>
