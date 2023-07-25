@@ -348,5 +348,24 @@ def choose_answer(request):
 @csrf_protect
 @require_POST
 def search(request):
-
-    return JsonResponse({"message": ['message1', 'message2', 'message3']})
+    question_results = models.Question.objects.filter(
+        search_vector=request.POST["query"]
+    )[:5]
+    return JsonResponse(
+        {
+            "question_results": [
+                model_to_dict(
+                    question,
+                    exclude=[
+                        "publish_date",
+                        "author",
+                        "search_vector",
+                        "question_ratings",
+                        "rating",
+                    ],
+                )
+                for question in question_results
+            ],
+            "query": request.POST["query"],
+        }
+    )

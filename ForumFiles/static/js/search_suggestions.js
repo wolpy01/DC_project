@@ -1,28 +1,59 @@
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+window.addEventListener('resize', function () {
+    const maxWidth = $('.search-field').width();
 
-const csrftoken = getCookie('csrftoken');
+    const hints = $('.hint');
 
-function addSuggestions(message) {
+    hints.map(function () {
+        $(this).css('max-width', maxWidth);
+    });
+});
+
+function addSuggestions(data) {
     const maxWidth = $('.search-field').width();
     const searchHints = $('.search_hints');
 
     $('.hint').remove();
 
-    const hints = message.map(function (text) {
-        return $('<li class="hint"><a href="/question/104/?page=1">' + text + '</a></li>').css('max-width', maxWidth);
+    const query = data.query;
+
+    const hints = data.question_results.map(function (question) {
+
+        if (question['title'].includes(query)) {
+            console.log(question['title']);
+            var index = question['title'].indexOf(query);
+            if (index > 5) {
+                if (question['title'].length - index <= 5)
+                    index -= 10;
+                index -= 5;
+            }
+            else
+                index = 0;
+
+            const hint = question['title'].slice(index, question['title'].length);
+
+            return $('<li class="hint"><a href="/question/' +
+                question['id'] + '/?page=1">' +
+                hint +
+                '</a></li>').css('max-width', maxWidth);
+        }
+        if (question['content'].includes(query)) {
+            console.log(question['content']);
+            var index = question['content'].indexOf(query);
+            if (index > 5) {
+                if (question['content'].length - index <= 5)
+                    index -= 5;
+                index -= 10;
+            }
+            else
+                index = 0;
+
+            const hint = question['content'].slice(index, question['content'].length);
+
+            return $('<li class="hint"><a href="/question/' +
+                question['id'] + '/?page=1">' +
+                hint +
+                '</a></li>').css('max-width', maxWidth);
+        }
     });
 
     searchHints.html(hints);
@@ -31,7 +62,7 @@ function addSuggestions(message) {
 $(document).ready(function () {
     $('.search-field__input').on('input', function () {
         var inputText = $(this).val();
-        if (inputText.length != 0 && inputText.length % 3 == 0)
+        if (inputText.length != 0)
             $.ajax({
                 url: '/search/',
                 type: 'POST',
@@ -39,16 +70,16 @@ $(document).ready(function () {
                     'X-CSRFToken': csrftoken,
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                 },
-                data: '',
+                data: 'query=' + $('.search-field__input').val(),
                 dataType: 'json',
                 success: function (response) {
-                    addSuggestions(response.message)
+                    addSuggestions(response)
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
                 }
             });
-        if (inputText.length == 0)
+        else
             $('.hint').remove();
     });
 });

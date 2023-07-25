@@ -3,6 +3,10 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count
 from django.contrib.auth.models import User
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField, SearchVector
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class QuestionManager(models.Manager):
@@ -61,6 +65,8 @@ class Question(models.Model):
 
     objects = QuestionManager()
 
+    search_vector = SearchVectorField(null=True)
+
     def get_answers(self):
         return self.answer_set.get_new_questions()
 
@@ -69,6 +75,24 @@ class Question(models.Model):
         for ratings in self.questionrating_set.all():
             self.rating += ratings.vote
         self.save()
+
+    def update_search_vector(self):
+        qs = Question.objects.filter(pk=self.pk)
+        qs.update(search_vector=SearchVector("title", "content"))
+
+    class Meta:
+        indexes = [
+            GinIndex(
+                fields=[
+                    "search_vector",
+                ]
+            ),
+        ]
+
+
+@receiver(post_save, sender=Question)
+def post_save_artcile(sender, instance, created, update_fields, **kwargs):
+    instance.update_search_vector()
 
 
 class AnswerRating(models.Model):

@@ -217,18 +217,21 @@ body {
 .search_hints>li {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     width: fit-content;
     margin-top: 2px;
     font-size: 24px;
-    background-color: rgb(253,193,142);
+    background-color: #fdc18e;
     border-radius: 5px;
     border: 2px solid #000000;
     padding: 3px;
 }
 
 .search_hints>li>a{
+    font-size: 22px;
     text-decoration: none;
-    color: #000000
+    color: #000000;
+    font-family: Rubik;
 }
 
 .main-avatar {
