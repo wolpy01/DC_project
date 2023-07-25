@@ -26,6 +26,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'gismondaCYR';
+    src: url('../ttf/gismondaCYR.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -376,7 +383,7 @@ a.index_questions {
 
 a.index_user-question {
     font-size: 24px;
-    font-family: Oblivion;
+    font-family: gismondaCYR;
     padding: 0 0 0.5rem 0.5rem;
     display: block;
     text-decoration: none;
@@ -629,7 +636,7 @@ a.index_user-question {
 
 p.question_user-question {
     font-size: 24px;
-    font-family: Oblivion;
+    font-family: gismondaCYR;
     padding: 0 0 0.5rem 0.5rem;
     margin: 0;
     display: block;
