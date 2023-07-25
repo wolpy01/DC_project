@@ -22,8 +22,7 @@ from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_A
 @csrf_protect
 @require_GET
 def index(request):
-    if request.method == "GET":
-        search_form = forms.SearchForm()
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
@@ -40,8 +39,7 @@ def index(request):
 @csrf_protect
 @require_GET
 def hot(request):
-    if request.method == "GET":
-        search_form = forms.SearchForm()
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
@@ -58,8 +56,7 @@ def hot(request):
 @csrf_protect
 @require_GET
 def tag(request, tag_name):
-    if request.method == "GET":
-        search_form = forms.SearchForm()
+    search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
