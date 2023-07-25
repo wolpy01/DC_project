@@ -442,7 +442,7 @@ a.index_user-question {
 
 .index_tags-links>ul>li>a {
     font-size: 18px;
-    font-family: Oblivion;
+    font-family: gismondaCYR;
     padding-left: 0.5rem;
     display: block;
 }
@@ -461,10 +461,11 @@ a.index_user-question {
 }
 
 .user_nickname {
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bolder;
     margin: 8px 0 0 8px;
     overflow-wrap: anywhere;
-    font-family: Oblivion;
+
 }
 
 .likes-counter {
@@ -685,7 +686,7 @@ p.question_user-question {
 
 .question_tags-links>ul>li>a {
     font-size: 18px;
-    font-family: Oblivion;
+    font-family: gismondaCYR;
     padding-left: 0.5rem;
     display: block;
 }
@@ -1410,7 +1411,7 @@ signup_upload-avatar {
 }
 
 .popular-tags>ul>li>a {
-    font-family: Oblivion;
+    font-family: gismondaCYR;
     text-decoration: none;
 }
 
@@ -1429,7 +1430,7 @@ signup_upload-avatar {
 
 .best-members>ul>li {
     margin-bottom: 1rem;
-    font-family: Oblivion;
+    font-family: Rubik;
 }
 
 .pagination-main {
