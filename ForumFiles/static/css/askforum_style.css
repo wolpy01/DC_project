@@ -209,14 +209,26 @@ body {
 .search_hints {
     position: absolute;
     margin-top: 3.5rem;
+    max-width: 100%;
+    list-style-type: none;
+    padding: 0;
 }
 
 .search_hints>li {
-    margin-top: 0rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: fit-content;
+    margin-top: 2px;
     font-size: 24px;
-    background-color: #FFE4B5;
+    background-color: rgb(253,193,142);
     border-radius: 5px;
+    border: 2px solid #000000;
     padding: 3px;
+}
+
+.search_hints>li>a{
+    text-decoration: none;
+    color: #000000
 }
 
 .main-avatar {
@@ -250,7 +262,7 @@ body {
 #username {
     font-weight: bold;
     font-size: 2vw;
-    word-break: break-all;
+    overflow-wrap: break-word;
     margin: 0;
 }
 
@@ -359,7 +371,7 @@ a.index_user-question {
     padding: 0 0 0.5rem 0.5rem;
     display: block;
     text-decoration: none;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .index_user-text {
@@ -373,7 +385,7 @@ a.index_user-question {
     padding: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .index_question-tags {
@@ -404,7 +416,7 @@ a.index_user-question {
 
 .index_tags-links {
     padding: 0;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .index_tags-links>ul {
@@ -435,7 +447,7 @@ a.index_user-question {
 .user_nickname {
     font-size: 20px;
     margin: 8px 0 0 8px;
-    word-break: break-all;
+    overflow-wrap: anywhere;
     font-family: Oblivion;
 }
 
@@ -613,7 +625,7 @@ p.question_user-question {
     margin: 0;
     display: block;
     text-decoration: none;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .question_user-text {
@@ -627,7 +639,7 @@ p.question_user-question {
     padding-right: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .question_question-tags {
@@ -647,7 +659,7 @@ p.question_user-question {
 
 .question_tags-links {
     padding: 0;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .question_tags-links>ul {
@@ -708,7 +720,7 @@ p.question_user-question {
     padding-right: 0 0.5rem 0 0.5rem;
     font-size: 24px;
     margin: 0;
-    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .checkbox-correct-answer {

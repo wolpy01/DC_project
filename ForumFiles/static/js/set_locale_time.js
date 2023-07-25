@@ -4,13 +4,10 @@ function setLocaleTime(from, to) {
 
     const dateHtmlObjects = $('.publish_date');
 
-    if (to == 'All'){
-        console.log('test');
+    if (to == 'All')
         to = dateHtmlObjects.length;
-    }
     
     for (i = from; i < to; ++i) {
-        console.log(i);
         const date = new Date($(dateHtmlObjects[i]).text());
         $(dateHtmlObjects[i]).text(date.toLocaleString('en-GB', options));
     }

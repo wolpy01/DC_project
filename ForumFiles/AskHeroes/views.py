@@ -18,6 +18,7 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
+
 @csrf_protect
 def index(request):
     return render(
@@ -31,6 +32,7 @@ def index(request):
         },
     )
 
+
 @csrf_protect
 def hot(request):
     return render(
@@ -43,6 +45,7 @@ def hot(request):
             "title": "Hot questions",
         },
     )
+
 
 @csrf_protect
 def tag(request, tag_name):
@@ -86,8 +89,9 @@ def question(request, question_id):
         if answer:
             client.publish(
                 channel_id,
-                {   "author_nickname": answer.author.nickname,
-                    "publish_date":  answer.publish_date.strftime('%d %B %Y, %H:%M'),
+                {
+                    "author_nickname": answer.author.nickname,
+                    "publish_date": answer.publish_date.strftime("%d %B %Y, %H:%M"),
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
@@ -153,6 +157,7 @@ def settings(request):
         request, "settings.html", {"form": settings_form, "title": "User settings"}
     )
 
+
 @csrf_protect
 @login_required
 def logout(request):
@@ -201,6 +206,7 @@ def signup(request):
                 return redirect(reverse("home"))
 
     return render(request, "signup.html", {"form": user_form, "title": "Sign up page"})
+
 
 @csrf_protect
 @require_POST
@@ -337,3 +343,10 @@ def choose_answer(request):
         choose_answer.correct_answer = True
     choose_answer.save()
     return JsonResponse({"new_choice": choose_answer.correct_answer})
+
+
+@csrf_protect
+@require_POST
+def search(request):
+
+    return JsonResponse({"message": ['message1', 'message2', 'message3']})
