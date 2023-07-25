@@ -6,7 +6,7 @@ import json
 import django.contrib.auth as auth
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.decorators.csrf import csrf_protect
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -20,11 +20,15 @@ from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_A
 
 
 @csrf_protect
+@require_GET
 def index(request):
+    if request.method == "GET":
+        search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_new_questions(), request, per_page=5
             ),
@@ -34,11 +38,15 @@ def index(request):
 
 
 @csrf_protect
+@require_GET
 def hot(request):
+    if request.method == "GET":
+        search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_hot_questions(), request, per_page=5
             ),
@@ -48,11 +56,15 @@ def hot(request):
 
 
 @csrf_protect
+@require_GET
 def tag(request, tag_name):
+    if request.method == "GET":
+        search_form = forms.SearchForm()
     return render(
         request,
         "index.html",
         {
+            "search_form": search_form,
             "questions": helpFunctions.paginate(
                 get_object_or_404(
                     models.Tag.objects, tag_name=tag_name
@@ -62,6 +74,31 @@ def tag(request, tag_name):
             ),
             "tag": tag_name,
             "title": f"Tag: {tag_name}",
+        },
+    )
+
+
+@csrf_protect
+@require_POST
+def search_results(request):
+    search_form = forms.SearchForm(request.POST)
+    if not search_form.is_valid():
+        return redirect(reverse('home'))
+    query = search_form.cleaned_data['search']
+    print(query)
+
+    return render(
+        request,
+        "index.html",
+        {
+            "search_form": search_form,
+            "questions": helpFunctions.paginate(
+                models.Question.objects.filter(search_vector=query),
+                request,
+                per_page=5,
+            ),
+            "query": query,
+            "title": "Search results",
         },
     )
 
@@ -78,6 +115,7 @@ def question(request, question_id):
     channel_id = f"question_{question_id}"
     if request.method == "GET":
         answer_form = forms.AnswerForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         if not request.user.is_authenticated:
             return redirect("/login/?next=" + request.path)
@@ -103,6 +141,7 @@ def question(request, question_id):
         "question.html",
         {
             "form": answer_form,
+            "search_form": search_form,
             "question": question,
             "answers": helpFunctions.paginate(answers, request, per_page=5),
             "title": f"Question №{question_id}",
@@ -124,6 +163,7 @@ def ask(request):
     profile = models.Profile.objects.get(user=request.user)
     if request.method == "GET":
         ask_form = forms.AskForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         ask_form = forms.AskForm(request.POST)
         if ask_form.is_valid():
@@ -133,7 +173,12 @@ def ask(request):
     return render(
         request,
         "ask.html",
-        {"form": ask_form, "user_nickname": profile.nickname, "title": "Ask question"},
+        {
+            "form": ask_form,
+            "search_form": search_form,
+            "user_nickname": profile.nickname,
+            "title": "Ask question",
+        },
     )
 
 
@@ -146,15 +191,19 @@ def settings(request):
         settings_form = forms.SettingsForm(
             initial={"email": user.email, "nickname": user.profile.nickname}
         )
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         settings_form = forms.SettingsForm(
             request.POST, files=request.FILES, instance=request.user
         )
+        search_form = forms.SearchForm()
         if settings_form.is_valid():
             settings_form.save()
             return redirect("settings")
     return render(
-        request, "settings.html", {"form": settings_form, "title": "User settings"}
+        request,
+        "settings.html",
+        {"form": settings_form, "search_form": search_form, "title": "User settings"},
     )
 
 
@@ -174,6 +223,7 @@ def login(request):
         return redirect("home")
     if request.method == "GET":
         login_form = forms.LoginForm()
+        search_form = forms.SearchForm()
         request.session["next_url"] = request.GET.get("next", "/")
     elif request.method == "POST":
         login_form = forms.LoginForm(request.POST)
@@ -186,7 +236,11 @@ def login(request):
                 return redirect(next_url)
             login_form.add_error(None, "Invalid username or password.")
 
-    return render(request, "login.html", {"form": login_form, "title": "Log in page"})
+    return render(
+        request,
+        "login.html",
+        {"form": login_form, "search_form": search_form, "title": "Log in page"},
+    )
 
 
 @csrf_protect
@@ -194,6 +248,7 @@ def login(request):
 def signup(request):
     if request.method == "GET":
         user_form = forms.UserForm()
+        search_form = forms.SearchForm()
     elif request.method == "POST":
         user_form = forms.UserForm(
             request.POST, files=request.FILES, initial={"avatar": "img_main.jpg"}
@@ -205,7 +260,11 @@ def signup(request):
                     auth.login(request, profile.user)
                 return redirect(reverse("home"))
 
-    return render(request, "signup.html", {"form": user_form, "title": "Sign up page"})
+    return render(
+        request,
+        "signup.html",
+        {"form": user_form, "search_form": search_form, "title": "Sign up page"},
+    )
 
 
 @csrf_protect

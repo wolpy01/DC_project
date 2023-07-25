@@ -223,3 +223,11 @@ class SettingsForm(forms.ModelForm):
         profile.save()
 
         return profile
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search", "class": "search-field__input"}
+        ),
+    )
