@@ -90,7 +90,7 @@ def search_results(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.filter(search_vector=query),
+                models.Question.objects.get_hot_questions().filter(search_vector=query),
                 request,
                 per_page=5,
             ),
