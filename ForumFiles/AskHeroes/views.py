@@ -76,13 +76,21 @@ def tag(request, tag_name):
 
 
 @csrf_protect
-@require_POST
+@require_http_methods(["GET", "POST"])
 def search_results(request):
-    search_form = forms.SearchForm(request.POST)
-    if not search_form.is_valid():
-        return redirect(reverse('home'))
-    query = search_form.cleaned_data['search']
-    print(query)
+    if request.method == "GET":
+        search_form = forms.SearchForm()
+        query = request.session.get("query", "")
+        if query == "":
+            return redirect(reverse("home"))
+    elif request.method == "POST":
+        search_form = forms.SearchForm(request.POST)
+        if not search_form.is_valid():
+            return redirect(reverse("home"))
+        else:
+            query = search_form.cleaned_data["search"]
+    request.session["query"] = query
+    request.session.modified = True
 
     return render(
         request,
@@ -90,7 +98,7 @@ def search_results(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_hot_questions().filter(search_vector=query),
+                models.Question.objects.filter(search_vector=query),
                 request,
                 per_page=5,
             ),
@@ -222,14 +230,15 @@ def login(request):
         login_form = forms.LoginForm()
         search_form = forms.SearchForm()
         request.session["next_url"] = request.GET.get("next", "/")
+        request.session.modified = True
     elif request.method == "POST":
         login_form = forms.LoginForm(request.POST)
+        search_form = forms.SearchForm(request.POST)
         if login_form.is_valid():
             user = auth.authenticate(request=request, **login_form.cleaned_data)
             if user:
                 auth.login(request, user)
                 next_url = request.session.get("next_url", "/")
-                del request.session["next_url"]
                 return redirect(next_url)
             login_form.add_error(None, "Invalid username or password.")
 

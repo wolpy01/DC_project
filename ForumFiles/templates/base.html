@@ -22,7 +22,7 @@
             <a href="{% url 'home' %}">AskHeroes</a>
         </div>
         <div class="col site-search">
-            <form id="search_form" action="/search_results/" method="post" role="search">
+            <form id="search_form" action="/search_results/?page=1" method="post" role="search">
                 {% csrf_token %}
                 <div class="row search-field">
                     <button class="search__button" type="submit" form="search_form"><img
