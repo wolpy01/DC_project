@@ -15,43 +15,44 @@ function addSuggestions(data) {
     $('.hint').remove();
 
     const query = data.query;
+    const boldQuery = '<b>' + query + '</b>';
 
     const hints = data.question_results.map(function (question) {
+        const title = question['title'];
+        const content = question['content'];
 
-        if (question['title'].includes(query)) {
-            console.log(question['title']);
-            var index = question['title'].indexOf(query);
+        if (title.includes(query)) {
+            var index = title.indexOf(query);
             if (index > 5) {
-                if (question['title'].length - index <= 5)
+                if (title.length - index <= 5)
                     index -= 10;
                 index -= 5;
             }
             else
                 index = 0;
 
-            const hint = question['title'].slice(index, question['title'].length);
+            const hint = title.slice(index, title.length);
 
             return $('<li class="hint"><a href="/question/' +
                 question['id'] + '/?page=1">' +
-                hint +
+                hint.replaceAll(query, boldQuery) +
                 '</a></li>').css('max-width', maxWidth);
         }
-        if (question['content'].includes(query)) {
-            console.log(question['content']);
-            var index = question['content'].indexOf(query);
+        if (content.includes(query)) {
+            var index = content.indexOf(query);
             if (index > 5) {
-                if (question['content'].length - index <= 5)
+                if (content.length - index <= 5)
                     index -= 5;
                 index -= 10;
             }
             else
                 index = 0;
 
-            const hint = question['content'].slice(index, question['content'].length);
+            const hint = content.slice(index, content.length);
 
             return $('<li class="hint"><a href="/question/' +
                 question['id'] + '/?page=1">' +
-                hint +
+                hint.replaceAll(query, boldQuery) +
                 '</a></li>').css('max-width', maxWidth);
         }
     });

@@ -227,10 +227,16 @@ body {
     padding: 3px;
 }
 
-.search_hints>li>a{
+.search_hints>li>a {
     font-size: 22px;
     text-decoration: none;
     color: #000000;
+    font-family: Rubik;
+    font-weight: 500;
+}
+
+.search_hints>li>a>b {
+    font-weight: bold;
     font-family: Rubik;
 }
 
