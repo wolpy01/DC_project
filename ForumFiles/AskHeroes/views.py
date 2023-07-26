@@ -282,11 +282,11 @@ def popular_tags_and_top_users(request):
             "popular_tags": cache.get("popular_tags")
             if cache.get("popular_tags") is not None
             else [
-                profile.nickname for profile in Profile.objects.get_top_users(count=5)
+                profile.nickname for profile in models.Profile.objects.get_top_users(count=5)
             ],
             "top_users": cache.get("top_users")
             if cache.get("top_users") is not None
-            else [tag.tag_name for tag in Tag.objects.get_top_tags(count=7)],
+            else [tag.tag_name for tag in models.Tag.objects.get_top_tags(count=7)],
         }
     )
 
