@@ -18,6 +18,7 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
+post_per_page = 7
 
 @csrf_protect
 @require_GET
@@ -29,7 +30,7 @@ def index(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_new_questions(), request, per_page=5
+                models.Question.objects.get_new_questions(), request, per_page=post_per_page
             ),
             "title": "New questions",
         },
@@ -46,7 +47,7 @@ def hot(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_hot_questions(), request, per_page=5
+                models.Question.objects.get_hot_questions(), request, per_page=post_per_page
             ),
             "title": "Hot questions",
         },
@@ -67,7 +68,7 @@ def tag(request, tag_name):
                     models.Tag.objects, tag_name=tag_name
                 ).get_related_questions(),
                 request,
-                per_page=5,
+                per_page=post_per_page,
             ),
             "tag": tag_name,
             "title": f"Tag: {tag_name}",
@@ -100,7 +101,7 @@ def search_results(request):
             "questions": helpFunctions.paginate(
                 models.Question.objects.filter(search_vector=query),
                 request,
-                per_page=5,
+                per_page=post_per_page,
             ),
             "query": query,
             "title": "Search results",
@@ -148,7 +149,7 @@ def question(request, question_id):
             "form": answer_form,
             "search_form": search_form,
             "question": question,
-            "answers": helpFunctions.paginate(answers, request, per_page=5),
+            "answers": helpFunctions.paginate(answers, request, per_page=post_per_page),
             "title": f"Question №{question_id}",
             "server_address": CENTRIFUGO_ADDRESS,
             "cent_channel": channel_id,
