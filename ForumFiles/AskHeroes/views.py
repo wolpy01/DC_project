@@ -20,6 +20,7 @@ from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_A
 
 post_per_page = 7
 
+
 @csrf_protect
 @require_GET
 def index(request):
@@ -30,7 +31,9 @@ def index(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_new_questions(), request, per_page=post_per_page
+                models.Question.objects.get_new_questions(),
+                request,
+                per_page=post_per_page,
             ),
             "title": "New questions",
         },
@@ -47,7 +50,9 @@ def hot(request):
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_hot_questions(), request, per_page=post_per_page
+                models.Question.objects.get_hot_questions(),
+                request,
+                per_page=post_per_page,
             ),
             "title": "Hot questions",
         },
@@ -281,12 +286,13 @@ def popular_tags_and_top_users(request):
         {
             "popular_tags": cache.get("popular_tags")
             if cache.get("popular_tags") is not None
-            else [
-                profile.nickname for profile in models.Profile.objects.get_top_users(count=5)
-            ],
+            else [tag.tag_name for tag in models.Tag.objects.get_top_tags(count=7)],
             "top_users": cache.get("top_users")
             if cache.get("top_users") is not None
-            else [tag.tag_name for tag in models.Tag.objects.get_top_tags(count=7)],
+            else [
+                profile.nickname
+                for profile in models.Profile.objects.get_top_users(count=5)
+            ],
         }
     )
 
@@ -414,7 +420,7 @@ def choose_answer(request):
 @csrf_protect
 @require_POST
 def search(request):
-    question_results = models.Question.objects.filter(
+    question_results = models.Question.objects.get_hot_questions().filter(
         search_vector=request.POST["query"]
     )[:5]
     return JsonResponse(

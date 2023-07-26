@@ -39,7 +39,7 @@ function voteRequest() {
             data: determineAnswerOrQuestion(this) + "_id=" + $(this).data('id'),
             dataType: 'json',
             success: function (response) {
-                $(this).closest('.counter').prev().text(response.new_rating);
+                $(this).closest('.likes-counter').find('.likes').text(response.new_rating);
                 voteLikeOrDislike(response, this, $(this).data('type'), determineAnswerOrQuestion(this));
             }.bind(this),
             error: function (xhr, status, error) {

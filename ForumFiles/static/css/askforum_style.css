@@ -1403,7 +1403,7 @@ signup_upload-avatar {
 }
 
 .popular-tags>ul>li {
-    display: inline;
+    display: inline-block;
     padding-right: 3rem;
     font-size: 28px;
     font-weight: bold;
