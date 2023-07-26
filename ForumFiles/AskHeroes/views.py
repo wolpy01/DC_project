@@ -132,6 +132,7 @@ def question(request, question_id):
             return redirect("/login/?next=" + request.path)
 
         answer_form = forms.AnswerForm(request.POST)
+        search_form = forms.SearchForm(request.POST)
         answer = answer_form.create_answer(
             models.Profile.objects.get(user=request.user), question
         )
@@ -177,6 +178,7 @@ def ask(request):
         search_form = forms.SearchForm()
     elif request.method == "POST":
         ask_form = forms.AskForm(request.POST)
+        search_form = forms.SearchForm(request.POST)
         if ask_form.is_valid():
             question = ask_form.create_question(profile)
             if question:
@@ -207,10 +209,12 @@ def settings(request):
         settings_form = forms.SettingsForm(
             request.POST, files=request.FILES, instance=request.user
         )
-        search_form = forms.SearchForm()
+        search_form = forms.SearchForm(request.POST)
         if settings_form.is_valid():
-            settings_form.save()
-            return redirect("settings")
+            if not helpFunctions.check_nickname(settings_form.cleaned_data["nickname"], request.user.username):
+                settings_form.save()
+            else:
+                settings_form.add_error("nickname", "This nickname already exist.")
     return render(
         request,
         "settings.html",

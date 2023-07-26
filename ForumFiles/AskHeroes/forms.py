@@ -223,6 +223,8 @@ class SettingsForm(forms.ModelForm):
         profile.save()
 
         return profile
+    
+
 
 
 class SearchForm(forms.Form):

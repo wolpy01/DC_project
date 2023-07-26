@@ -44,3 +44,8 @@ def get_question_vote(question, user):
             question=question, user=user.profile
         ).vote
     return 0
+
+
+def check_nickname(nickname, username):
+    profile = models.Profile.objects.filter(nickname=nickname)
+    return profile.exists() and username != profile[0].user.username

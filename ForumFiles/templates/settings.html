@@ -11,12 +11,10 @@
 
 {% block "settings_parameters" %}
 <div class="row settings_before-question-header">
-    <p class="settings_settings">User settings:<span class="settings_username">{{ request.user.username }}</span></p>
+    <p class="settings_settings">Username:<span class="settings_username">{{ request.user.username }}</span></p>
 </div>
 <div class="row settings_mistake-message">
-    <p>{{ form.email.errors.0 }}</p>
     <p>{{ form.nickname.errors.0 }}</p>
-
 </div>
 <form enctype="multipart/form-data" id="settings_form" action="/profile/edit/" method="post">
     {% csrf_token %}
