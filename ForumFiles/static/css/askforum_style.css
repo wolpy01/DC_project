@@ -460,6 +460,10 @@ a.index_user-question {
     text-align: left;
 }
 
+.publish_date>span {
+    padding: 0;
+}
+
 .user_nickname {
     font-size: 24px;
     font-weight: bolder;

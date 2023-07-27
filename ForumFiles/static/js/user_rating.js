@@ -198,15 +198,13 @@ function activateLikeOrDislike(ids, object_of_likes) {
 }
 
 function unsetLikesAndDislikes(response_json) {
-    if (response_json.answer_votes.length != 0)
-        deactivateLikeOrDislike(response_json.answer_votes, 'answer');
-    deactivateLikeOrDislike(response_json.question_votes, 'question');
+    for (key in response_json)
+        deactivateLikeOrDislike(response_json[key], key.slice(0, key.length - 4));
 }
 
 function setLikesAndDislikes(response_json) {
-    if (response_json.answer_votes.length != 0)
-        activateLikeOrDislike(response_json.answer_votes, 'answer');
-    activateLikeOrDislike(response_json.question_votes, 'question');
+    for (key in response_json)
+        activateLikeOrDislike(response_json[key], key.slice(0, key.length - 4));
 }
 
 function voteLikeOrDislike(response_json, object) {

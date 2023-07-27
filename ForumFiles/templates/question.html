@@ -54,7 +54,7 @@
     centrifuge.subscribe('{{ cent_channel }}', function (message) {
         add_answer(message);
         calculateRating();
-        setLocaleTime(1, 2);
+        setDates(1, 2);
     });
 
     centrifuge.connect();

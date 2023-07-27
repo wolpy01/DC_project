@@ -211,7 +211,9 @@ def settings(request):
         )
         search_form = forms.SearchForm(request.POST)
         if settings_form.is_valid():
-            if not helpFunctions.check_nickname(settings_form.cleaned_data["nickname"], request.user.username):
+            if not helpFunctions.check_nickname(
+                settings_form.cleaned_data["nickname"], request.user.username
+            ):
                 settings_form.save()
             else:
                 settings_form.add_error("nickname", "This nickname already exist.")
@@ -274,6 +276,7 @@ def signup(request):
                 profile = user_form.save()
                 if profile:
                     auth.login(request, profile.user)
+
                 return redirect(reverse("home"))
 
     return render(
@@ -310,43 +313,40 @@ def is_authenticated(request):
 @login_required
 @require_POST
 def likes_and_dislikes_votes(request):
-    answers_id = request.POST.getlist("answers_id")
-    questions_id = request.POST.getlist("questions_id")
-    if len(answers_id) == 0:
-        return JsonResponse(
-            {
-                "question_votes": {
-                    question_id: models.QuestionRating.objects.get_or_create(
-                        question=get_object_or_404(
-                            models.Question.objects, id=int(question_id)
-                        ),
-                        user=request.user.profile,
-                    )[0].vote
-                    for question_id in questions_id
-                },
-                "answer_votes": {},
-            }
-        )
+    dict_of_models = {"questions_id": models.Question, "answers_id": models.Answer}
+    dict_of_models_rating = {
+        "questions_id": models.QuestionRating,
+        "answers_id": models.AnswerRating,
+    }
+
     return JsonResponse(
         {
-            "question_votes": {
-                question_id: models.QuestionRating.objects.get_or_create(
-                    question=get_object_or_404(
-                        models.Question.objects, id=int(question_id)
-                    ),
-                    user=request.user.profile,
-                )[0].vote
-                for question_id in questions_id
-            },
-            "answer_votes": {
-                answer_id: models.AnswerRating.objects.get_or_create(
-                    answer=get_object_or_404(models.Answer.objects, id=int(answer_id)),
-                    user=request.user.profile,
-                )[0].vote
-                for answer_id in answers_id
-            },
+            object: helpFunctions.json_for_likes_and_dislikes(
+                request=request,
+                model=dict_of_models[object],
+                rating_model=dict_of_models_rating[object],
+                objects_id=request.POST.getlist(object, []),
+                object=object[:-4],
+            )
+            for object in request.POST.keys()
         }
     )
+
+
+@csrf_protect
+@require_POST
+def set_dates(request):
+    dict_of_correspondences = {"question[]": models.Question, "answer[]": models.Answer}
+    dates = []
+
+    for object in request.POST:
+        dates.extend(
+            helpFunctions.get_publish_dates(
+                dict_of_correspondences[object], request.POST.getlist(object, [])
+            )
+        )
+
+    return JsonResponse({"dates": dates})
 
 
 @csrf_protect
