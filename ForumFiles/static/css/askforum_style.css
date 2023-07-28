@@ -455,6 +455,7 @@ a.index_user-question {
     font-family: gismondaCYR;
     padding-left: 0.5rem;
     display: block;
+    text-decoration: none;
 }
 
 .index_tags-links {
@@ -703,6 +704,7 @@ p.question_user-question {
     font-family: gismondaCYR;
     padding-left: 0.5rem;
     display: block;
+    text-decoration: none;
 }
 
 .question_answer {
