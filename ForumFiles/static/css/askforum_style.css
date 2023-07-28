@@ -277,7 +277,7 @@ body {
 
 #username {
     font-weight: bold;
-    font-size: 2vw;
+    font-size: 2.3vw;
     overflow-wrap: break-word;
     margin: 0;
 }
@@ -285,7 +285,7 @@ body {
 ul.justify-content-end {
     margin: auto;
     padding: 0;
-    font-size: 18px;
+    font-size: 20px
 }
 
 ul.justify-content-end>li {
@@ -317,13 +317,23 @@ ul.justify-content-end>li>a {
     height: fit-content;
 }
 
+@media only screen and (min-width: 800px) and (max-width: 1080px) {
+    ul.justify-content-end {
+        font-size: 16px;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .site-search {
         display: none;
     }
 
+    #username {
+        font-size: 18px;
+    }
+
     ul.justify-content-end {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 

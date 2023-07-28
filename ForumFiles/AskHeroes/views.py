@@ -87,17 +87,21 @@ def search_results(request):
     if request.method == "GET":
         search_form = forms.SearchForm()
         query = request.session.get("query", "")
+        search_form.fields['search'].initial = query
         if query == "":
             return redirect(reverse("home"))
+        search_form.fields['search'].help_text = query
     elif request.method == "POST":
         search_form = forms.SearchForm(request.POST)
         if not search_form.is_valid():
             return redirect(reverse("home"))
         else:
             query = search_form.cleaned_data["search"]
+            
     request.session["query"] = query
     request.session.modified = True
-
+    
+    
     return render(
         request,
         "index.html",
