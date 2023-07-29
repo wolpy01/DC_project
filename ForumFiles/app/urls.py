@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from AskHeroes import views
+from django.urls import re_path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -52,7 +53,8 @@ urlpatterns = [
         name="popular_tags_and_top_users",
     ),
     path("search/", views.search, name="search"),
-    path("search_results/", views.search_results, name="search_results"),
+    path("search=<str:search_query>/", views.search_results, name="search_results"),
+    path("search=/", views.search_results_error, name="search_results_error"),
 ]
 
 if settings.DEBUG:

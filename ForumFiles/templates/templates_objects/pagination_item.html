@@ -2,7 +2,8 @@
     <ul class="pagination">
         {% if page.has_previous %}
         <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}" aria-label="Предыдущая">
-                <span aria-hidden="true"> << </span></a>
+                <span aria-hidden="true">
+                    << </span></a>
         </li>
         {% endif %}
         {% if page.number != 1 and page.number != 2 %}

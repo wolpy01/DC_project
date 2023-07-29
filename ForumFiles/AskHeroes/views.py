@@ -83,37 +83,50 @@ def tag(request, tag_name):
 
 @csrf_protect
 @require_http_methods(["GET", "POST"])
-def search_results(request):
+def search_results(request, search_query):
+    if search_query == "":
+        redirect(reverse("home"))
     if request.method == "GET":
         search_form = forms.SearchForm()
-        query = request.session.get("query", "")
-        search_form.fields['search'].initial = query
-        if query == "":
+        search_form.fields["search"].initial = search_query
+        if search_query == "":
             return redirect(reverse("home"))
-        search_form.fields['search'].help_text = query
     elif request.method == "POST":
         search_form = forms.SearchForm(request.POST)
         if not search_form.is_valid():
             return redirect(reverse("home"))
-        else:
-            query = search_form.cleaned_data["search"]
-            
-    request.session["query"] = query
-    request.session.modified = True
-    
-    
+
     return render(
         request,
         "index.html",
         {
             "search_form": search_form,
             "questions": helpFunctions.paginate(
-                models.Question.objects.filter(search_vector=query),
+                models.Question.objects.filter(search_vector=search_query),
                 request,
                 per_page=post_per_page,
             ),
-            "query": query,
+            "query": search_query,
             "title": "Search results",
+        },
+    )
+
+
+@csrf_protect
+@require_GET
+def search_results_error(request):
+    search_form = forms.SearchForm()
+    return render(
+        request,
+        "index.html",
+        {
+            "search_form": search_form,
+            "questions": helpFunctions.paginate([],
+                request,
+                per_page=post_per_page,
+            ),
+            "query": "Your search request is empty!",
+            "title": "Search results error",
         },
     )
 
