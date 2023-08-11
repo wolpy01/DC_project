@@ -1,9 +1,8 @@
 import jwt
 import time
 import uuid
-import json
-
 import django.contrib.auth as auth
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
@@ -18,7 +17,7 @@ from . import helpFunctions, models, forms
 from cent import Client
 from app.settings import CENTRIFUGO_API_KEY, CENTRIFUGO_SECRET_KEY, CENTRIFUGO_ADDRESS
 
-post_per_page = 7
+POST_PER_PAGE = 7
 
 
 @csrf_protect
@@ -33,7 +32,7 @@ def index(request):
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_new_questions(),
                 request,
-                per_page=post_per_page,
+                per_page=POST_PER_PAGE,
             ),
             "title": "New questions",
         },
@@ -52,7 +51,7 @@ def hot(request):
             "questions": helpFunctions.paginate(
                 models.Question.objects.get_hot_questions(),
                 request,
-                per_page=post_per_page,
+                per_page=POST_PER_PAGE,
             ),
             "title": "Hot questions",
         },
@@ -73,12 +72,19 @@ def tag(request, tag_name):
                     models.Tag.objects, tag_name=tag_name
                 ).get_related_questions(),
                 request,
-                per_page=post_per_page,
+                per_page=POST_PER_PAGE,
             ),
             "tag": tag_name,
             "title": f"Tag: {tag_name}",
         },
     )
+
+
+@csrf_protect
+@require_POST
+def search_results_new(request):
+        search_form = forms.SearchForm()
+        return redirect('search_results', search_query=search_form.cleaned_data[''])
 
 
 @csrf_protect
@@ -104,7 +110,7 @@ def search_results(request, search_query):
             "questions": helpFunctions.paginate(
                 models.Question.objects.filter(search_vector=search_query),
                 request,
-                per_page=post_per_page,
+                per_page=POST_PER_PAGE,
             ),
             "query": search_query,
             "title": "Search results",
@@ -121,9 +127,10 @@ def search_results_error(request):
         "index.html",
         {
             "search_form": search_form,
-            "questions": helpFunctions.paginate([],
+            "questions": helpFunctions.paginate(
+                [],
                 request,
-                per_page=post_per_page,
+                per_page=POST_PER_PAGE,
             ),
             "query": "Your search request is empty!",
             "title": "Search results error",
@@ -172,7 +179,7 @@ def question(request, question_id):
             "form": answer_form,
             "search_form": search_form,
             "question": question,
-            "answers": helpFunctions.paginate(answers, request, per_page=post_per_page),
+            "answers": helpFunctions.paginate(answers, request, per_page=POST_PER_PAGE),
             "title": f"Question №{question_id}",
             "server_address": CENTRIFUGO_ADDRESS,
             "cent_channel": channel_id,
