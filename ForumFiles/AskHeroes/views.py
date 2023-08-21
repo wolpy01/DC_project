@@ -129,7 +129,7 @@ def search(request):
         {
             "search_form": forms.SearchForm(),
             "questions": helpFunctions.paginate(
-                models.Question.objects.get_answers_count().filter(search_vector=search_query),
+                models.Question.objects.get_search_query(search_query=search_query),
                 request,
                 per_page=POST_PER_PAGE,
             ),

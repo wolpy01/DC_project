@@ -16,8 +16,8 @@ class QuestionManager(models.Manager):
     def get_hot_questions(self):
         return self.annotate(answers_count=Count("answers")).order_by("-rating")
     
-    def get_answers_count(self):
-        return self.annotate(answers_count=Count("answers"))
+    def get_search_query(self, search_query):
+        return self.filter(search_vector=search_query).annotate(answers_count=Count("answers"))
 
 
 class AnswerManager(models.Manager):
