@@ -48,11 +48,9 @@ function addSuggestions(data) {
 $(document).ready(function () {
     const inputForm = $('#search_form');
     $('.search-field__input').on('input', function () {
-        var inputText = $(this).val();
-        $(inputForm).attr('action', "/search=" + inputText + "/?page=1");
         if (inputText.length != 0)
             $.ajax({
-                url: '/search/',
+                url: '/instant_search/',
                 type: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,

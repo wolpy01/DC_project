@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.decorators.csrf import csrf_protect
 from django.http.response import JsonResponse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.cache import cache
 from django.urls import reverse
 from django.forms import model_to_dict
@@ -81,59 +81,61 @@ def tag(request, tag_name):
 
 
 @csrf_protect
-@require_POST
-def search_results_new(request):
-        search_form = forms.SearchForm()
-        return redirect('search_results', search_query=search_form.cleaned_data[''])
-
-
-@csrf_protect
 @require_http_methods(["GET", "POST"])
-def search_results(request, search_query):
-    if search_query == "":
-        redirect(reverse("home"))
-    if request.method == "GET":
-        search_form = forms.SearchForm()
-        search_form.fields["search"].initial = search_query
-        if search_query == "":
-            return redirect(reverse("home"))
-    elif request.method == "POST":
+def search(request):
+    if request.method == "POST":
         search_form = forms.SearchForm(request.POST)
         if not search_form.is_valid():
             return redirect(reverse("home"))
+        else:
+            if request.POST.get("search", "") == "":
+                return render(
+                    request,
+                    "index.html",
+                    {
+                        "search_form": search_form,
+                        "questions": helpFunctions.paginate(
+                            [],
+                            request,
+                            per_page=POST_PER_PAGE,
+                        ),
+                        "query": "Your search request is empty!",
+                        "title": "Search results error",
+                    },
+                )
 
+            search_query = request.POST.get("search", "")
+            return redirect(f"{request.path}?text={search_query}&page=1")
+
+    search_query = request.GET.get("text", "")
+    if search_query == "":
+        return render(
+            request,
+            "index.html",
+            {
+                "search_form": forms.SearchForm(),
+                "questions": helpFunctions.paginate(
+                    [],
+                    request,
+                    per_page=POST_PER_PAGE,
+                ),
+                "query": "Your search request is empty!",
+                "title": "Search results error",
+            },
+        )
     return render(
         request,
         "index.html",
         {
-            "search_form": search_form,
+            "search_form": forms.SearchForm(),
             "questions": helpFunctions.paginate(
-                models.Question.objects.filter(search_vector=search_query),
+                models.Question.objects.get_answers_count().filter(search_vector=search_query),
                 request,
                 per_page=POST_PER_PAGE,
             ),
             "query": search_query,
+            "search_query": search_query,
             "title": "Search results",
-        },
-    )
-
-
-@csrf_protect
-@require_GET
-def search_results_error(request):
-    search_form = forms.SearchForm()
-    return render(
-        request,
-        "index.html",
-        {
-            "search_form": search_form,
-            "questions": helpFunctions.paginate(
-                [],
-                request,
-                per_page=POST_PER_PAGE,
-            ),
-            "query": "Your search request is empty!",
-            "title": "Search results error",
         },
     )
 
@@ -151,7 +153,7 @@ def question(request, question_id):
     if request.method == "GET":
         answer_form = forms.AnswerForm()
         search_form = forms.SearchForm()
-    elif request.method == "POST":
+    else:
         if not request.user.is_authenticated:
             return redirect("/login/?next=" + request.path)
 
@@ -200,7 +202,7 @@ def ask(request):
     if request.method == "GET":
         ask_form = forms.AskForm()
         search_form = forms.SearchForm()
-    elif request.method == "POST":
+    else:
         ask_form = forms.AskForm(request.POST)
         search_form = forms.SearchForm(request.POST)
         if ask_form.is_valid():
@@ -229,7 +231,7 @@ def settings(request):
             initial={"email": user.email, "nickname": user.profile.nickname}
         )
         search_form = forms.SearchForm()
-    elif request.method == "POST":
+    else:
         settings_form = forms.SettingsForm(
             request.POST, files=request.FILES, instance=request.user
         )
@@ -267,7 +269,7 @@ def login(request):
         search_form = forms.SearchForm()
         request.session["next_url"] = request.GET.get("next", "/")
         request.session.modified = True
-    elif request.method == "POST":
+    else:
         login_form = forms.LoginForm(request.POST)
         search_form = forms.SearchForm(request.POST)
         if login_form.is_valid():
@@ -291,7 +293,7 @@ def signup(request):
     if request.method == "GET":
         user_form = forms.UserForm()
         search_form = forms.SearchForm()
-    elif request.method == "POST":
+    else:
         user_form = forms.UserForm(
             request.POST, files=request.FILES, initial={"avatar": "img_main.jpg"}
         )
@@ -447,7 +449,7 @@ def choose_answer(request):
 
 @csrf_protect
 @require_POST
-def search(request):
+def instant_search(request):
     question_results = models.Question.objects.get_hot_questions().filter(
         search_vector=request.POST["query"]
     )[:5]

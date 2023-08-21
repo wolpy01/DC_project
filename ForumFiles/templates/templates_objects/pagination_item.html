@@ -1,48 +1,97 @@
-<div class="row pagination-main">
-    <ul class="pagination">
-        {% if page.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}" aria-label="Предыдущая">
-                <span aria-hidden="true">
-                    << </span></a>
-        </li>
-        {% endif %}
-        {% if page.number != 1 and page.number != 2 %}
-        <li class="page-item"><a class="page-link" href="?page=1">
-                1</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="">
-                ...</a>
-        </li>
-        {% endif %}
-        {% if page.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">
-                {{ page.previous_page_number }}</a>
-        </li>
-        {% endif %}
-        {% if page.number %}
-        {% if page.has_previous or page.has_next %}
-        <li class="page-item"><a class="page-link" style="background-color: #FFDAB9" href="?page={{ page.number }}">
-                {{ page.number }}</a>
-        </li>
-        {% endif %}
-        {% endif %}
-        {% if page.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">
-                {{ page.next_page_number }}</a>
-        </li>
-        {% endif %}
-        {% if page.number != page.paginator.num_pages|add:"-1" and page.number != page.paginator.num_pages %}
-        <li class="page-item"><a class="page-link" href="">
-                ...</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">
-                {{ page.paginator.num_pages }}</a>
-        </li>
-        {% endif %}
-        {% if page.has_next %}
-        <li class="page-item"> <a class="page-link" href="?page={{ page.next_page_number }}" aria-label="Следующая">
-                <span aria-hidden="true"> >> </span></a>
-        </li>
-        {% endif %}
-    </ul>
-</div>
+{% if request.GET|length <= 1 %} 
+    <div class="row pagination-main">
+        <ul class="pagination">
+            {% if page.has_previous %}
+            <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page.previous_page_number }}" aria-label="Предыдущая">
+                    <span aria-hidden="true"> << </span></a>
+            </li>
+            {% endif %}
+            {% if page.number != 1 and page.number != 2 %}
+            <li class="page-item"><a class="page-link" href="{{ request.path }}?page=1">
+                    1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="">
+                    ...</a>
+            </li>
+            {% endif %}
+            {% if page.has_previous %}
+            <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page.previous_page_number }}">
+                    {{ page.previous_page_number }}</a>
+            </li>
+            {% endif %}
+            {% if page.number %}
+            {% if page.has_previous or page.has_next %}
+            <li class="page-item"><a class="page-link" style="background-color: #FFDAB9" href="{{ request.path }}?page={{ page.number }}">
+                    {{ page.number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% if page.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page.next_page_number }}">
+                    {{ page.next_page_number }}</a>
+            </li>
+            {% endif %}
+            {% if page.number != page.paginator.num_pages|add:'-1' and page.number != page.paginator.num_pages %}
+            <li class="page-item"><a class="page-link" href="">
+                    ...</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page.paginator.num_pages }}">
+                    {{ page.paginator.num_pages }}</a>
+            </li>
+            {% endif %}
+            {% if page.has_next %}
+            <li class="page-item"> <a class="page-link" href="{{ request.path }}?page={{ page.next_page_number }}" aria-label="Следующая">
+                    <span aria-hidden="true"> >> </span></a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="row pagination-main">
+        <ul class="pagination">
+            {% if page.has_previous %}
+            <li class="page-item"><a class="page-link" href="{{ request.get_full_path|slice:"-1"}}{{ page.previous_page_number }}" aria-label="Предыдущая">
+                    <span aria-hidden="true"> << </span></a>
+            </li>
+            {% endif %}
+            {% if page.number != 1 and page.number != 2 %}
+            <li class="page-item"><a class="page-link" href="{{ request.get_full_path|slice:"-1"}}1">
+                    1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="">
+                    ...</a>
+            </li>
+            {% endif %}
+            {% if page.has_previous %}
+            <li class="page-item"><a class="page-link" href="{{ request.get_full_path|slice:"-1"}}{{ page.previous_page_number }}">
+                    {{ page.previous_page_number }}</a>
+            </li>
+            {% endif %}
+            {% if page.number %}
+            {% if page.has_previous or page.has_next %}
+            <li class="page-item"><a class="page-link" style="background-color: #FFDAB9" href="{{ request.get_full_path|slice:"-1"}}{{ page.number }}">
+                    {{ page.number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% if page.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ request.get_full_path|slice:"-1"}}{{ page.next_page_number }}">
+                    {{ page.next_page_number }}</a>
+            </li>
+            {% endif %}
+            {% if page.number != page.paginator.num_pages|add:'-1' and page.number != page.paginator.num_pages %}
+            <li class="page-item"><a class="page-link" href="">
+                    ...</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="{{ request.get_full_path|slice:"-1"}}{{ page.paginator.num_pages }}">
+                    {{ page.paginator.num_pages }}</a>
+            </li>
+            {% endif %}
+            {% if page.has_next %}
+            <li class="page-item"> <a class="page-link" href="{{ request.get_full_path|slice:"-1"}}{{ page.next_page_number }}" aria-label="Следующая">
+                    <span aria-hidden="true"> >> </span></a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
