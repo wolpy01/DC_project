@@ -167,7 +167,7 @@ def question(request, question_id):
                 channel_id,
                 {
                     "author_nickname": answer.author.nickname,
-                    "publish_date": answer.publish_date.strftime("%d %B %Y, %H:%M"),
+                    "publish_date": answer.publish_date.strftime("%d %B %Y, %H:%M %Z"),
                     "answer": model_to_dict(answer, exclude=["publish_date", "author"]),
                     "answer_url": answer.author.avatar_path.url,
                 },
@@ -357,22 +357,6 @@ def likes_and_dislikes_votes(request):
             for object in request.POST.keys()
         }
     )
-
-
-@csrf_protect
-@require_POST
-def set_dates(request):
-    dict_of_correspondences = {"question[]": models.Question, "answer[]": models.Answer}
-    dates = []
-
-    for object in request.POST:
-        dates.extend(
-            helpFunctions.get_publish_dates(
-                dict_of_correspondences[object], request.POST.getlist(object, [])
-            )
-        )
-
-    return JsonResponse({"dates": dates})
 
 
 @csrf_protect

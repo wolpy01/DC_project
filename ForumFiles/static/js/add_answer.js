@@ -32,7 +32,7 @@ function add_answer(data) {
             '<label class="form-check-label" for="flexCheckIndeterminate">Correct!</label>' +
             '</div>' +
             '</div>' +
-            '<div class="row publish_date"><span class="answer" data-id="' + answer['id'] + '"></div>' +
+            '<div class="row publish_date"><span class="answer" data-id="' + answer['id'] + '">' + publish_date + '</div>' +
             '</div>' +
             '</div>');
 

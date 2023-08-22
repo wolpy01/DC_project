@@ -44,7 +44,6 @@ urlpatterns = [
     ),
     path("vote_up/", views.vote_up, name="vote_up"),
     path("vote_down/", views.vote_down, name="vote_down"),
-    path("set_dates/", views.set_dates, name="set_dates"),
     path("choose_answer/", views.choose_answer, name="choose_answer"),
     path(
         "popular_tags_and_top_users/",
