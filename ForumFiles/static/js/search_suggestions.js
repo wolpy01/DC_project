@@ -8,64 +8,49 @@ window.addEventListener('resize', function () {
     });
 });
 
+function addHint(question, data, query, boldQuery, maxWidth) {
+    var index = data.indexOf(query) - 1;
+
+    if (index == -1)
+        index++;
+
+    const spaceIndex = data.slice(0, index).lastIndexOf(' ');
+    const searchHint = data.slice(spaceIndex + 1, data.length);
+
+    return $('<li class="hint"><a href="/question/' +
+        question['id'] + '/?page=1">' +
+        searchHint.replaceAll(query, boldQuery) +
+        '</a></li>').css('max-width', maxWidth);
+}
+
 function addSuggestions(data) {
     const maxWidth = $('.search-field').width();
-    const searchHints = $('.search_hints');
+    const query = data.query.toLowerCase();
+    const boldQuery = '<b>' + query + '</b>';
 
     $('.hint').remove();
 
-    const query = data.query;
-    const boldQuery = '<b>' + query + '</b>';
-
     const hints = data.question_results.map(function (question) {
-        const title = question['title'];
-        const content = question['content'];
+        const title = question['title'].toLowerCase();
+        const content = question['content'].toLowerCase();
 
-        if (title.includes(query)) {
-            var index = title.indexOf(query);
-            if (index > 5) {
-                if (title.length - index <= 5)
-                    index -= 10;
-                index -= 5;
-            }
-            else
-                index = 0;
-
-            const hint = title.slice(index, title.length);
-
-            return $('<li class="hint"><a href="/question/' +
-                question['id'] + '/?page=1">' +
-                hint.replaceAll(query, boldQuery) +
-                '</a></li>').css('max-width', maxWidth);
+        if (title.indexOf(query) != -1) {
+            return addHint(question, title, query, boldQuery, maxWidth);
         }
-        if (content.includes(query)) {
-            var index = content.indexOf(query);
-            if (index > 5) {
-                if (content.length - index <= 5)
-                    index -= 5;
-                index -= 10;
-            }
-            else
-                index = 0;
-
-            const hint = content.slice(index, content.length);
-
-            return $('<li class="hint"><a href="/question/' +
-                question['id'] + '/?page=1">' +
-                hint.replaceAll(query, boldQuery) +
-                '</a></li>').css('max-width', maxWidth);
+        else {
+            return addHint(question, content, query, boldQuery, maxWidth);
         }
     });
 
-    searchHints.html(hints);
+    $('.search_hints').html(hints);
 }
 
 $(document).ready(function () {
+    const inputForm = $('#search_form');
     $('.search-field__input').on('input', function () {
-        var inputText = $(this).val();
         if (inputText.length != 0)
             $.ajax({
-                url: '/search/',
+                url: '/instant_search/',
                 type: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,
@@ -74,7 +59,7 @@ $(document).ready(function () {
                 data: 'query=' + $('.search-field__input').val(),
                 dataType: 'json',
                 success: function (response) {
-                    addSuggestions(response)
+                    addSuggestions(response);
                 },
                 error: function (xhr, status, error) {
                     console.log(error);

@@ -38,6 +38,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row publish_date">{{question.publish_date|date:"d M Y, G:i"}} UTC</div>
+        <div class="row publish_date"><span class="question" data-id="{{ question.id }}" style="visibility: hidden">{{ question.publish_date|date:"d M Y, G:i e" }}</span>
+        </div>
     </div>
 </div>

@@ -1,23 +1,29 @@
 function setTags(popular_tags) {
-    var i = 1;
-    for (tag in popular_tags) {
-        var current_tag = document.querySelector('.tag' + i);
-        current_tag.href = "/tag/" + popular_tags[tag] + "/?page=1";
-        current_tag.textContent = popular_tags[tag];
-        i++;
+    var colors = ['#A52A2A', '#A52A2A', '#008000', '#B8860B', '#fdc18e'];
+    var popularTagsList = [];
+
+    for (tag in popular_tags.reverse()) {
+        var currentTagLink = $('<a type="text" href=""></a>');
+        var randomColor = Math.floor(Math.random() * colors.length);
+
+        currentTagLink.attr('href', '/tag/' + popular_tags[tag] + '/?page=1');
+        currentTagLink.attr('style', 'color: ' + colors[randomColor] + ';');
+        currentTagLink.text(popular_tags[tag]);
+        popularTagsList.push($('<li></li>').wrapInner(currentTagLink));
+
+        delete colors[randomColor];
     }
-    for (; i < 8; i++)
-        document.querySelector('.tag' + i).remove();
+
+    $('.tag-links').html(popularTagsList);
 }
 
 function setUsers(top_users) {
-    var i = 1;
-    for (user in top_users) {
-        document.querySelector('.member' + i).textContent = top_users[user];
-        i++;
-    }
-    for (; i < 6; i++)
-        document.querySelector('.member' + i).remove();
+    var topUsersList = [];
+
+    for (user in top_users.reverse())
+        topUsersList.push($('<li>' + top_users[user] + '</li>'));
+
+    $('.best-members-list').html(topUsersList);
 }
 
 $(document).ready(function () {

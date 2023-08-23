@@ -5,8 +5,11 @@
 {% elif title == "Hot questions" %}
 <p class="index_questions">Hot questions</p>
 
-{% elif title == "Search results" %}
-<p class="index_questions">Search results: {{ query }}</p>
+{% elif title == "Search results"%}
+<p class="index_questions">Search results:<span style="font-family: Rubik;"> {{ query }}</span></p>
+
+{% elif title == "Search results error" %}
+<p class="index_questions" style="color:#DC143C;">{{ query }}</p>
 
 {% else %}
 <p class="index_questions">Tag: {{ tag }}</p>

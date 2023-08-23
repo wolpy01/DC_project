@@ -39,7 +39,7 @@ function voteRequest() {
             data: determineAnswerOrQuestion(this) + "_id=" + $(this).data('id'),
             dataType: 'json',
             success: function (response) {
-                $(this).closest('.counter').prev().text(response.new_rating);
+                $(this).closest('.likes-counter').find('.likes').text(response.new_rating);
                 voteLikeOrDislike(response, this, $(this).data('type'), determineAnswerOrQuestion(this));
             }.bind(this),
             error: function (xhr, status, error) {
@@ -154,20 +154,21 @@ function deactivateCheckboxes() {
 }
 
 function deactivateLikesAndDislikes() {
-    var idButtonsQuestions = $('input[class="btn-like-question"]');
-    var idButtonsAnswers = $('input[class="btn-like-answer"]');
+    const idButtonsQuestions = $('input[class="btn-like-question"]');
+    const idButtonsAnswers = $('input[class="btn-like-answer"]');
+
 
     var response_json = {
-        question_votes: idButtonsQuestions.toArray().map(item => $(item).attr('data-id')),
-        answer_votes: idButtonsAnswers.toArray().map(item => $(item).attr('data-id'))
+        questions_id: idButtonsQuestions.toArray().map(item => $(item).attr('data-id')),
+        answers_id: idButtonsAnswers.toArray().map(item => $(item).attr('data-id'))
     }
     unsetLikesAndDislikes(response_json);
 }
 
 function deactivateLikeOrDislike(ids, object_of_likes) {
-    for (id in ids) {
-        var btnLike = document.querySelector('.btn-like-' + object_of_likes + '[data-id="' + ids[id] + '"]');
-        var btnDislike = document.querySelector('.btn-dislike-' + object_of_likes + '[data-id="' + ids[id] + '"]');
+    for (i = 0; i < ids.length; i++)  {
+        var btnLike = document.querySelector('.btn-like-' + object_of_likes + '[data-id="' + ids[i] + '"]');
+        var btnDislike = document.querySelector('.btn-dislike-' + object_of_likes + '[data-id="' + ids[i] + '"]');
 
         btnLike.setAttribute('style', 'background-color: #D3D3D3; transform: scale(1)');
         btnLike.disabled = true;
@@ -177,16 +178,16 @@ function deactivateLikeOrDislike(ids, object_of_likes) {
 }
 
 function activateLikeOrDislike(ids, object_of_likes) {
-    for (id in ids) {
-        var btnLike = document.querySelector('.btn-like-' + object_of_likes + '[data-id="' + id + '"]');
-        var btnDislike = document.querySelector('.btn-dislike-' + object_of_likes + '[data-id="' + id + '"]');
-        console.log()
 
-        if (ids[id] == 1) {
+    for (i = 0; i < ids.length; i++) {
+        var btnLike = document.querySelector('.btn-like-' + object_of_likes + '[data-id="' + ids[i] + '"]');
+        var btnDislike = document.querySelector('.btn-dislike-' + object_of_likes + '[data-id="' + ids[i] + '"]');
+
+        if (ids[i] == 1) {
             btnLike.setAttribute('style', 'background-color: #F08080');
             btnDislike.setAttribute('style', 'background-color: #FFFFFF');
         }
-        else if (ids[id] == -1) {
+        else if (ids[i] == -1) {
             btnLike.setAttribute('style', 'background-color: #FFFFFF');
             btnDislike.setAttribute('style', 'background-color: #F08080');
         }
@@ -198,15 +199,14 @@ function activateLikeOrDislike(ids, object_of_likes) {
 }
 
 function unsetLikesAndDislikes(response_json) {
-    if (response_json.answer_votes.length != 0)
-        deactivateLikeOrDislike(response_json.answer_votes, 'answer');
-    deactivateLikeOrDislike(response_json.question_votes, 'question');
+    for (key in response_json)
+        deactivateLikeOrDislike(response_json[key], key.slice(0, key.length - 4));
+
 }
 
 function setLikesAndDislikes(response_json) {
-    if (response_json.answer_votes.length != 0)
-        activateLikeOrDislike(response_json.answer_votes, 'answer');
-    activateLikeOrDislike(response_json.question_votes, 'question');
+    for (key in response_json)
+        activateLikeOrDislike(response_json[key], key.slice(0, key.length - 4));
 }
 
 function voteLikeOrDislike(response_json, object) {

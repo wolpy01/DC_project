@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 from . import models
 
 
@@ -44,3 +45,34 @@ def get_question_vote(question, user):
             question=question, user=user.profile
         ).vote
     return 0
+
+
+def check_nickname(nickname, username):
+    profile = models.Profile.objects.filter(nickname=nickname)
+    return profile.exists() and username != profile[0].user.username
+
+
+def get_publish_dates(model, objects_id):
+    return [
+        object.publish_date.strftime("%d %B %Y, %H:%M") + " UTC"
+        for object in model.objects.in_bulk(map(int, objects_id)).values()
+    ]
+
+
+def json_for_likes_and_dislikes(request, model, rating_model, objects_id, object):
+    if object == "question":
+        return {
+            object_id: rating_model.objects.get_or_create(
+                user=request.user.profile,
+                question=get_object_or_404(model.objects, id=int(object_id)),
+            )[0].vote
+            for object_id in objects_id
+        }
+    elif object == "answer":
+        return {
+            object_id: rating_model.objects.get_or_create(
+                user=request.user.profile,
+                answer=get_object_or_404(model.objects, id=int(object_id)),
+            )[0].vote
+            for object_id in objects_id
+        }

@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from AskHeroes import views
 
 urlpatterns = [
@@ -50,8 +50,8 @@ urlpatterns = [
         views.popular_tags_and_top_users,
         name="popular_tags_and_top_users",
     ),
+    path("instant_search/", views.instant_search, name="instant_search"),
     path("search/", views.search, name="search"),
-    path("search_results/", views.search_results, name="search_results"),
 ]
 
 if settings.DEBUG:

@@ -22,7 +22,7 @@
             <a href="{% url 'home' %}">AskHeroes</a>
         </div>
         <div class="col site-search">
-            <form id="search_form" action="/search_results/?page=1" method="post" role="search">
+            <form id="search_form" action="/search/" method="post" role="search">
                 {% csrf_token %}
                 <div class="row search-field">
                     <button class="search__button" type="submit" form="search_form"><img
@@ -59,23 +59,11 @@
             <div class="popular-tags">
                 <p>Popular tags</p>
                 <ul class="tag-links">
-                    <li><a type="text" class="tag1" style="color: #A52A2A" href=""></a></li>
-                    <li><a type="text" class="tag2" href=""></a></li>
-                    <li><a type="text" class="tag3" href=""></a></li>
-                    <li><a type="text" class="tag4" href=""></a></li>
-                    <li><a type="text" class="tag5" style="color: #008000" href=""></a></li>
-                    <li><a type="text" class="tag6" style="color: #A52A2A" href=""></a></li>
-                    <li><a type="text" class="tag7" style="color: #DAA520" href=""></a></li>
                 </ul>
             </div>
             <div class="best-members">
                 <p>Best members</p>
-                <ul>
-                    <li class="member1"></li>
-                    <li class="member2"></li>
-                    <li class="member3"></li>
-                    <li class="member4"></li>
-                    <li class="member5"></li>
+                <ul class="best-members-list">
                 </ul>
             </div>
         </div>

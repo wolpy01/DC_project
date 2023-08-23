@@ -227,6 +227,7 @@ class SettingsForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search = forms.CharField(
+        initial="",
         widget=forms.TextInput(
             attrs={"placeholder": "Search", "class": "search-field__input"}
         ),

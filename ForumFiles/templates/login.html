@@ -14,7 +14,7 @@
     <p class="login_login-message">Log In</p>
 </div>
 <div class="login_mistake-message">
-    <p>{{ form.non_field_errors.0 }} </p>
+    <p>{{ form.non_field_errors.0 }}</p>
 </div>
 <form id="login_form" action="/login/" method="post">
     {% csrf_token %}
